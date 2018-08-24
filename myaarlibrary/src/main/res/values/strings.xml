@@ -1,0 +1,146 @@
+<resources>
+    <string name="app_name">MyAarLibrary</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="ok">OK</string>
+    <string name="confirm_ok">Xác nhận</string>
+    <string name="confirm_cancel">Hủy bỏ</string>
+    <string name="lb_title_confirm_payment">Xác nhận thanh toán</string>
+    <string name="close">Đóng</string>
+    <string name="dummy_text">---</string>
+    <string name="dongy">Đồng ý</string>
+    <string name="updateSuccess">Cập nhật thành công.</string>
+    <string name="done">Hoàn thành</string>
+    <string name="huybo">Huỷ bỏ</string>
+    <string name="try_againt">Thử lại</string>
+    <string name="other">Khác</string>
+    <string name="product_category">Nhóm sản phẩm</string>
+    <string name="loading">Đang tải...</string>
+    <string name="error_required">Thiếu dữ liệu</string>
+    <string name="error_connect_internet">Không thể kết nối mạng.</string>
+    <string name="error_connect_timeout">Lỗi thời gian kết nối quá lâu.</string>
+    <string name="error_other">Có lỗi xảy ra. Xin liên hệ với nhân viên hệ thống để được giúp đỡ.</string>
+
+    <string name="dialog_logout_title">Đăng xuất</string>
+    <string name="dialog_logout_message">Bạn có muốn đăng xuất kết thúc phiên làm việc?</string>
+
+    <string name="type_money_vnd"> vnđ</string>
+
+
+    <string name="signing">Đang đăng nhập...</string>
+    <string name="signin_successfully">Đăng nhập thành công.</string>
+    <string name="error_account_not_active">Tài khoản đang bị khóa.</string>
+    <string name="error_account_wrong">Tài khoản hoặc mật khẩu không chính xác.</string>
+    <string name="registing">Đang đăng ký...</string>
+    <string name="updating">Đang cập nhật...</string>
+    <string name="user_not_exists">Người dùng không tồn tại.</string>
+    <string name="update_failed">Cập nhật thông tin không thành công.</string>
+    <string name="update_success">Cập nhật thông tin thành công.</string>
+    <string name="account_already_exists">Tài khoản đã tồn tại.</string>
+    <string name="error">Xảy ra lỗi trong quá trình đăng ký, xin hãy thử lại.</string>
+    <string name="register_successfully">Đăng ký tài khoản thành công.</string>
+    <string name="logout_successfully">Đăng xuất tài khoản thành công.</string>
+
+    <!-- cash message-->
+    <string name="crash_notif_ticker_text">Unexpected error, please send a report...</string>
+    <string name="crash_notif_title">BaseProject has crashed...</string>
+    <string name="crash_notif_text">Please click here to help fix the issue.</string>
+
+    <string name="crash_dialog_title">BaseProject has crashed</string>
+    <string name="crash_dialog_text">An unexpected error occurred forcing the
+        application to stop. Please help us fix this by sending us error data,
+        all you have to do is click \'OK\'.</string>
+    <string name="crash_dialog_ok_toast">Thank you !</string>
+    <!-- end cash message-->
+
+    <string name="gender_labe">Chọn</string>
+    <string name="birthday_day">Ngày sinh</string>
+    <string name="birthday_month">Tháng sinh</string>
+    <string name="birthday_year">Năm sinh</string>
+
+    <string name="error_internet_connection">Không thể kết nối mạng.</string>
+
+    <string-array name="arr_gender">
+        <item>Nam</item>
+        <item>Nữ</item>
+    </string-array>
+
+    <string-array name="opacity">
+        <item>100% — FF</item>
+        <item>95% — F2</item>
+        <item>90% — E6</item>
+        <item>85% — D9</item>
+        <item>80% — CC</item>
+        <item>75% — BF</item>
+        <item>70% — B3</item>
+        <item>65% — A6</item>
+        <item>60% — 99</item>
+        <item>55% — 8C</item>
+        <item>50% — 80</item>
+        <item>45% — 73</item>
+        <item>40% — 66</item>
+        <item>35% — 59</item>
+        <item>30% — 4D</item>
+        <item>25% — 40</item>
+        <item>20% — 33</item>
+        <item>15% — 26</item>
+        <item>10% — 1A</item>
+        <item>5% — 0D</item>
+        <item>0% — 00</item>
+    </string-array>
+
+    <!-- custom birthday input-->
+    <string name="ldp_day">D</string>
+    <string name="ldp_month">M</string>
+    <string name="ldp_year">Y</string>
+
+    <!--social-->
+    <!--facebook id-->
+    <string name="facebook_app_id">1790478051262216</string>
+
+    <string name="font_family_light">sans-serif-light</string>
+    <string name="font_family_medium">sans-serif-medium</string>
+    <string name="font_family_regular">sans-serif</string>
+    <string name="font_family_condensed">sans-serif-condensed</string>
+    <string name="font_family_black">sans-serif-black</string>
+    <string name="font_family_thin">sans-serif-thin</string>
+
+
+    <string name="share">Share</string>
+    <string name="upload">Upload</string>
+    <string name="copy">Copy</string>
+    <string name="preview">Preview</string>
+    <string name="get_link">Get link</string>
+    <string name="make_copy">Make a copy</string>
+    <string name="gmail">Gmail</string>
+    <string name="hangout">Hangout</string>
+    <string name="google_plus">Google+</string>
+    <string name="mail">Mail</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="title_activity_base_fragment">BaseFragmentActivity</string>
+
+
+    <!--cptr string https://github.com/Chanven/CommonPullToRefresh -->
+    <string name="cube_ptr_pull_down">Kéo xuống để tải.</string>
+    <string name="cube_ptr_pull_down_to_refresh">Kéo xuống để làm mới.</string>
+    <string name="cube_ptr_release_to_refresh">Nhấp để làm mới.</string>
+    <string name="cube_ptr_refreshing">Đang tải...</string>
+    <string name="cube_ptr_refresh_complete">Hoàn tất.</string>
+    <string name="cube_ptr_showFail">Không thể tải thêm, nhấp để thử lại.</string>
+    <string name="cube_ptr_nomore">Không thể tải thêm.</string>
+
+    <string name="cube_ptr_last_update">Cập nhật lần cuối:&#160;</string>
+    <string name="cube_ptr_seconds_ago">&#160;Giây trước</string>
+    <string name="cube_ptr_minutes_ago">&#160;Phút trước</string>
+    <string name="cube_ptr_hours_ago">&#160;Giờ trước</string>
+
+    <string name="listView_with_loadmore">ListView with loadmore</string>
+    <string name="recyclerview_with_loadmore">Recyclerview with loadmore</string>
+    <string name="gridview_with_loadmore">GridView With LoadMore</string>
+    <string name="swipe_listview_with_loadmore">SwipeRefreshLayout ListView With LoadMore</string>
+
+    <string name="txt_permission_location">Ứng dụng cần truy cập vị trí của bạn.</string>
+</resources>

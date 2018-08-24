@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- CircularImageView for custom shape_row_fly_search -->
+    <declare-styleable name="CircularImageView">
+
+        <!-- Specifies whether or not to draw a circular border around the image. -->
+        <attr name="border" format="boolean"></attr>
+        <!-- Specifies the color of the border draw around the image. (if enabled) -->
+        <attr name="border_color" format="color"></attr>
+        <!-- Makes the border this pixels wide. (if enabled) -->
+        <attr name="border_width" format="dimension"></attr>
+        <!-- Specifies whether or not to draw a selector on this view upon touch events. -->
+        <attr name="selector" format="boolean"></attr>
+        <!-- Specifies the color of the selector draw on top of the image upon touch events. (if enabled) -->
+        <attr name="selector_color" format="color"></attr>
+        <!-- Specifies the color of the selector stroke drawn around the image upon touch events. Be sure to provide some opacity. (if enabled) -->
+        <attr name="selector_stroke_color" format="color"></attr>
+        <!-- Makes the selector stroke drawn around the image upon touch events this pixels wide. (if enabled) -->
+        <attr name="selector_stroke_width" format="dimension"></attr>
+        <!-- Specifies whether or not to draw a shadow around your circular image. -->
+        <attr name="shadow" format="boolean"></attr>
+        <!-- The radius for the shadow to extend to. (if enabled) -->
+        <attr name="civ_shadowRadius" format="float" />
+        <!-- Horizontal shadow offset. (if enabled) -->
+        <attr name="civ_shadowDx" format="float" />
+        <!-- Vertical shadow offset. (if enabled) -->
+        <attr name="civ_shadowDy" format="float" />
+        <!-- The color of the shadow drawn around your circular image. (if enabled) -->
+        <attr name="civ_shadowColor" format="color" />
+
+    </declare-styleable>
+
+    <declare-styleable name="CustomCircularImageViewTheme">
+        <attr name="circularImageViewStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="GraphViewXML">
+        <attr name="seriesData" format="string" />
+        <attr name="seriesType" format="string" />
+        <attr name="seriesTitle" format="string" />
+        <attr name="android:title" />
+        <attr name="seriesColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomProgressBar">
+        <attr name="foreground_color" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="CalendarView">
+
+        <attr name="titleColor" format="color" />
+        <attr name="titleLayout" format="reference" />
+        <attr name="weekColor" format="color" />
+        <attr name="weekBackground" format="color|reference" />
+        <attr name="monthBackground" format="color|reference" />
+        <attr name="dateDividerColor" format="color" />
+        <attr name="dateDividerSize" format="dimension" />
+        <attr name="imgLastMonth" format="reference" />
+        <attr name="imgNextMonth" format="reference" />
+        <attr name="monthValue" format="string" />
+        <attr name="language">
+            <enum name="china" value="1" />
+            <enum name="english" value="2" />
+            <enum name="vi" value="3" />
+        </attr>
+
+    </declare-styleable>
+
+
+    <!-- style cptr-->
+    <declare-styleable name="PtrFrameLayout">
+        <!-- Optional. If you put header and content in xml, you can you these to specify them. -->
+        <attr name="ptr_header" format="reference" />
+        <attr name="ptr_content" format="reference" />
+
+        <!-- the resistance when you are moving the frame -->
+        <attr name="ptr_resistance" format="float" />
+
+        <!-- the ration of the height of the header to trigger refresh -->
+        <attr name="ptr_ratio_of_header_height_to_refresh" format="float" />
+
+        <attr name="ptr_duration_to_close" format="integer" />
+        <attr name="ptr_duration_to_close_header" format="integer" />
+
+        <!-- pull to refresh, otherwise release to refresh, default is release to refresh -->
+        <attr name="ptr_pull_to_fresh" format="boolean" />
+
+        <!-- keep header when refreshing-->
+        <attr name="ptr_keep_header_when_refresh" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PtrClassicHeader">
+        <attr name="ptr_rotate_ani_time" format="integer" />
+    </declare-styleable>
+
+    <!--ViewPagerIndicator-->
+    <declare-styleable name="ViewPagerIndicator">
+        <attr name="itemSize" format="dimension" />
+        <attr name="itemScale" format="float" />
+        <attr name="itemSelectedTint" format="color" />
+        <attr name="itemTint" format="color" />
+        <attr name="delimiterSize" format="dimension" />
+        <attr name="itemIcon" format="reference" />
+    </declare-styleable>
+
+    <!-- custom birthday input styleable-->
+    <declare-styleable name="BirthdayInput">
+        <attr name="ldp_text_color" format="color" />
+        <attr name="ldp_hint_color" format="color" />
+        <attr name="ldp_date_format">
+            <flag name="mm-dd-yyyy" value="1" />
+            <flag name="dd-mm-yyyy" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>

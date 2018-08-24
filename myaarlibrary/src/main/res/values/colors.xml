@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#009464</color>
+    <color name="colorPrimaryDark">#009464</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="black">#333333</color>
+    <color name="red">#e31b23</color>
+    <color name="red_press">#b61619</color>
+
+    <color name="white">#ffffff</color>
+    <color name="white_opacity">#DCffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="medium_gray">#959595</color>
+    <color name="light_gray_border">#d9d9d9</color>
+    <color name="light_gray">#d9d9d9</color>
+    <color name="blue">#0099CC</color>
+    <color name="bright_blue">#33B5E5</color>
+    <color name="blue_background_card">#3b73af</color>
+
+    <color name="blue_background_login_fb">#3b5998</color>
+    <color name="blue_background_login_fb_press">#303F9F</color>
+
+    <color name="loginBackground">#7266ba</color>
+
+    <color name="login_button">#5d54ba</color>
+    <color name="login_button_press">#5452c1</color>
+    <color name="button_hd_banhang">#edf1f2</color>
+    <color name="button_press">#4c7c7c7c</color>
+
+    <color name="mb_gray">#66dedede</color>
+
+    <color name="bg_edit_text_booking_form">#888888</color>
+    <color name="color_text_booking_form_light">#959595</color>
+    <color name="color_text_booking_form">#555555</color>
+
+    <color name="colorInversePrimaryText">#FFFFFF</color>
+    <color name="colorPrimaryButton">#2196F3</color>
+    <color name="colorSuccessButton">#0F9D58</color>
+    <color name="colorDangerButton">#FF5252</color>
+
+
+    <color name="gray">#a6a6a6</color>
+    <color name="txt_default">#808080</color>
+    <color name="gray_very_light">#DDDDDD</color>
+    <color name="gray_light_opacity">#DCBBBBBB</color>
+
+    <color name="color_primary">#7266ba</color>
+    <color name="color_primary_active">#6254b2</color>
+    <color name="color_info">#23b7e5</color>
+    <color name="color_info_active">#19a9d5</color>
+    <color name="color_danger">#f05050</color>
+    <color name="color_danger_active">#ee3939</color>
+    <color name="color_default">#fcfdfd</color>
+    <color name="color_default_active">#edf1f2</color>
+    <color name="color_success">#27c24c</color>
+    <color name="color_success_active">#23ad44</color>
+
+    <color name="color_background_default">#f2f2f2</color>
+
+    <color name="color_text_default">#808080</color>
+
+    <color name="bg_item_normal_state">#ffffff</color>
+    <color name="bg_item_swiping_state">#ffddddff</color>
+    <color name="bg_item_swiping_active_state">#ff9999ff</color>
+    <color name="bg_swipe_item_delete">#f05050</color>
+
+
+    <color name="contentTextColor">#4d4d4d</color>
+    <color name="contentTextHintColor">#b8b8b8</color>
+    <color name="contentTextHintColorDarker">#999999</color>
+    <color name="gray_light">#d2d4d6</color>
+    <color name="black_alpha_0p">#00000000</color>
+    <color name="black_alpha_50p">#74000000</color>
+    <color name="black_alpha_70p">#b2000000</color>
+    <color name="blue_light">#73c3fe</color>
+
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="titleTextColor">#FFFFFF</color>
+    <color name="titleTabColor">#000000</color>
+    <color name="titleSelectedTabColor">#3F51B5</color>
+</resources>
