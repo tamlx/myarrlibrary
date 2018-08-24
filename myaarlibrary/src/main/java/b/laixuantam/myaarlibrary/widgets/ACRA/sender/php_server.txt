@@ -1,0 +1,14 @@
+$entityBody = file_get_contents('php://input');
+if(isset($entityBody))
+{
+	$entityBody2 = mysqli_real_escape_string($conn,$entityBody);
+    $sql="INSERT INTO `tbl_menu_conten`(`name_menu_Conten`) VALUES ('".$entityBody2."')";
+    $result = mysqli_query($conn,$sql);
+	echo json_encode(
+            array('success' => 'true', 'message' => 'Đăng Nhập Thành Công !!!')
+        );
+}else{
+	echo json_encode(
+            array('success' => 'false', 'message' => 'Missing User Name or password parameter !!!')
+			);
+}

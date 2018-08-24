@@ -16,8 +16,30 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/fillColorNavigation</item>
+    </style>
+
+    <declare-styleable name="ImageCropView">
+        <attr name="gridInnerStroke" format="dimension" />
+        <attr name="gridInnerColor" format="color" />
+        <attr name="setInnerGridMode" format="integer">
+            <enum name="off" value="0"/>
+            <enum name="on" value="1"/>
+        </attr>
+
+        <attr name="gridOuterStroke" format="dimension" />
+        <attr name="gridOuterColor" format="color" />
+        <attr name="setOuterGridMode" format="integer">
+            <enum name="off" value="0"/>
+            <enum name="on" value="1"/>
+        </attr>
+        <attr name="gridLeftRightMargin" format="dimension" />
+        <attr name="gridTopBottomMargin" format="dimension" />
+    </declare-styleable>
 </resources>

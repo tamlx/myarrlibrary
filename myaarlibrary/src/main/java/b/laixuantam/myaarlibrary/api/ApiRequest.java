@@ -31,8 +31,8 @@ public abstract class ApiRequest<S, T, P> {
     private static Gson mGson = new GsonBuilder().setLenient().create();
 
 
-    protected ApiRequest(Class<S> service, RequestOrigin requestOrigin, String hostAPI, String mode, boolean isEnableLog, boolean isTrustCertificate) {
-        this.service = getStaticAdapter(hostAPI, mode, isEnableLog, isTrustCertificate).create(service);
+    protected ApiRequest(Class<S> service, RequestOrigin requestOrigin, String hostAPI, String mode, boolean isTrustCertificate) {
+        this.service = getStaticAdapter(hostAPI, mode, isTrustCertificate).create(service);
         this.origin = requestOrigin;
     }
 
@@ -41,21 +41,21 @@ public abstract class ApiRequest<S, T, P> {
         this.origin = requestOrigin;
     }
 
-    public static Retrofit getStaticAdapter(String hostAPI, String mode, boolean isEnableLog, boolean isTrustCertificate) {
+    public static Retrofit getStaticAdapter(String hostAPI, String mode, boolean isTrustCertificate) {
 
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(hostAPI);
         builder.addConverterFactory(GsonConverterFactory.create());
-        builder.client(HttpClientFactory.get(hostAPI, mode, isEnableLog, isTrustCertificate));
+        builder.client(HttpClientFactory.get(hostAPI, mode, isTrustCertificate));
 
         return builder.build();
     }
 
-    public static Retrofit getCustomAdapter(String host, String mode, boolean isEnableLog, boolean isTrustCertificate) {
+    public static Retrofit getCustomAdapter(String host, String mode, boolean isTrustCertificate) {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(host);
         builder.addConverterFactory(GsonConverterFactory.create());
-        builder.client(HttpClientFactory.get(host, mode, isEnableLog, isTrustCertificate));
+        builder.client(HttpClientFactory.get(host, mode, isTrustCertificate));
 
         return builder.build();
     }

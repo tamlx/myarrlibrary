@@ -25,10 +25,7 @@ public class ImageHelper {
     @SuppressLint("ResourceType")
     public void displayImage(String imageLink, final ImageView imageView, final View loadingView, @DrawableRes int image_error_loading) {
         if (!TextUtils.isEmpty(imageLink)) {
-            if (loadingView != null) {
-                loadingView.setVisibility(View.VISIBLE);
-            }
-            Glide.with(context).load(imageLink).asBitmap().transform(new CropCircleTransformation(context)).placeholder(R.color.white).error(R.color.white).listener(new RequestListener<String, Bitmap>() {
+            Glide.with(context).load(imageLink).asBitmap().placeholder(image_error_loading).error(image_error_loading).listener(new RequestListener<String, Bitmap>() {
                 @Override
                 public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
                     if (loadingView != null) {

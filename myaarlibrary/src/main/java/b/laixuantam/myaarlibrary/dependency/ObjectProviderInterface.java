@@ -3,6 +3,7 @@ package b.laixuantam.myaarlibrary.dependency;
 
 import b.laixuantam.myaarlibrary.api.ApiManagement;
 import b.laixuantam.myaarlibrary.helper.AppCleanerHelper;
+import b.laixuantam.myaarlibrary.helper.AuthHelper;
 import b.laixuantam.myaarlibrary.helper.ConnectivityHelper;
 import b.laixuantam.myaarlibrary.helper.FileHelper;
 import b.laixuantam.myaarlibrary.helper.ImageHelper;
@@ -25,5 +26,6 @@ public interface ObjectProviderInterface
 
     LanguageHelper getLanguageHelper();
 
+    AuthHelper getAuthHelper();
 }
 

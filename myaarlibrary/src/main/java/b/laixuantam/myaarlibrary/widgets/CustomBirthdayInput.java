@@ -24,31 +24,31 @@ import java.util.Locale;
 import b.laixuantam.myaarlibrary.R;
 
 /**
-  private static final String DATE_FORMAT = "dd/MM/yyyy";
-  // Define min & max date for sample
-  //        Date minDate = LazyDatePicker.stringToDate("01-01-2016", DATE_FORMAT);
-  //        Date maxDate = LazyDatePicker.stringToDate("12-31-2018", DATE_FORMAT);
-  //
-  // Init LazyDatePicker
-  CustomBirthdayInput customBirthdayInput = findViewById(R.id.customBirthdayInput);
-  //        lazyDatePicker.setMinDate(minDate);
-  //        lazyDatePicker.setMaxDate(maxDate);
-  customBirthdayInput.setDateFormat(LazyDatePicker.DateFormat.DD_MM_YYYY);
-  customBirthdayInput.setOnDatePickListener(new CustomBirthdayInput.OnDatePickListener() {
-
-  @Override public void onDatePick(Date dateSelected) {
-      Toast.makeText(MainActivity.this,
-      "Selected date: " + CustomBirthdayInput.dateToString(dateSelected, DATE_FORMAT),
-      Toast.LENGTH_SHORT).show();
-      }
-  });
+ * private static final String DATE_FORMAT = "dd/MM/yyyy";
+ * // Define min & max date for sample
+ * //        Date minDate = LazyDatePicker.stringToDate("01-01-2016", DATE_FORMAT);
+ * //        Date maxDate = LazyDatePicker.stringToDate("12-31-2018", DATE_FORMAT);
+ * //
+ * // Init LazyDatePicker
+ * CustomBirthdayInput customBirthdayInput = findViewById(R.id.customBirthdayInput);
+ * //        lazyDatePicker.setMinDate(minDate);
+ * //        lazyDatePicker.setMaxDate(maxDate);
+ * customBirthdayInput.setDateFormat(LazyDatePicker.DateFormat.DD_MM_YYYY);
+ * customBirthdayInput.setOnDatePickListener(new CustomBirthdayInput.OnDatePickListener() {
  *
- *
-  XML
-    <base.laixuantam.baseproject.widgets.CustomBirthdayInput
-    android:id="@+id/customBirthdayInput"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+ * @Override public void onDatePick(Date dateSelected) {
+ * Toast.makeText(MainActivity.this,
+ * "Selected date: " + CustomBirthdayInput.dateToString(dateSelected, DATE_FORMAT),
+ * Toast.LENGTH_SHORT).show();
+ * }
+ * });
+ * <p>
+ * <p>
+ * XML
+ * <base.laixuantam.baseproject.widgets.CustomBirthdayInput
+ * android:id="@+id/customBirthdayInput"
+ * android:layout_width="wrap_content"
+ * android:layout_height="wrap_content" />
  */
 
 public class CustomBirthdayInput extends RelativeLayout {
@@ -114,7 +114,7 @@ public class CustomBirthdayInput extends RelativeLayout {
         textColor = attributes.getColor(R.styleable.BirthdayInput_ldp_text_color, Color.BLACK);
         hintColor = attributes.getColor(R.styleable.BirthdayInput_ldp_hint_color, Color.GRAY);
 
-        int dateFormatValue = attributes.getInteger(R.styleable.BirthdayInput_ldp_date_format, DateFormat.MM_DD_YYYY.getAttrValue());
+        int dateFormatValue = attributes.getInteger(R.styleable.BirthdayInput_ldp_date_format, DateFormat.DD_MM_YYYY.getAttrValue());
         dateFormat = DateFormat.fromValue(dateFormatValue);
 
         attributes.recycle();

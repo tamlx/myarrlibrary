@@ -22,17 +22,19 @@ public class ConfirmDialog extends AppDialog<ConfirmDialog.ConfirmDialogListener
     }
 
     public static ConfirmDialog newInstance(String message, String title, ConfirmDialogListener listener) {
-        return newInstance(message, title, true, R.string.dongy, listener);
+        return newInstance(message, title, true, R.string.dongy, true, R.string.huybo, listener);
     }
 
-    public static ConfirmDialog newInstance(String message, String title, boolean cancelable, int buttonTextResId, ConfirmDialogListener listener) {
+    public static ConfirmDialog newInstance(String message, String title, boolean cancelable, int buttonTextResId, boolean isShowNegativeButton, int buttonTextNegativeButton, ConfirmDialogListener listener) {
         ConfirmDialog dialog = new ConfirmDialog();
         dialog.setListener(listener);
         Bundle args = new Bundle();
         args.putInt(EXTRA_BUTTON_TEXT, buttonTextResId);
+        args.putInt(EXTRA_BUTTON_TEXT_NEGATIVE, buttonTextNegativeButton);
         args.putString(EXTRA_MESSAGE, message);
         args.putString(EXTRA_TITLE, title);
         args.putBoolean(EXTRA_CANCELABLE, cancelable);
+        args.putBoolean(EXTRA_SHOW_NEGATIVE, isShowNegativeButton);
         dialog.setArguments(args);
         return dialog;
     }
@@ -47,14 +49,17 @@ public class ConfirmDialog extends AppDialog<ConfirmDialog.ConfirmDialogListener
         Bundle bundle = getArguments();
         String message = null, title = null;
         boolean cancelable = false;
+        boolean isShowNegativeButton = true;
         int buttonText = R.string.dongy;
         int buttonNegative = R.string.huybo;
         isOk = false;
         if (bundle != null) {
             buttonText = bundle.getInt(EXTRA_BUTTON_TEXT);
+            buttonNegative = bundle.getInt(EXTRA_BUTTON_TEXT_NEGATIVE);
             message = bundle.getString(EXTRA_MESSAGE);
             title = bundle.getString(EXTRA_TITLE);
             cancelable = bundle.getBoolean(EXTRA_CANCELABLE);
+            isShowNegativeButton = bundle.getBoolean(EXTRA_SHOW_NEGATIVE);
         }
         setCancelable(cancelable);
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(message).setPositiveButton(buttonText, new OnClickListener() {
@@ -65,11 +70,15 @@ public class ConfirmDialog extends AppDialog<ConfirmDialog.ConfirmDialogListener
                     getListener().onOk(ConfirmDialog.this);
                 }
             }
-        }).setNegativeButton(buttonNegative, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        }).setCancelable(cancelable);
+        });
+        if (isShowNegativeButton) {
+            builder.setNegativeButton(buttonNegative, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+        }
+        builder.setCancelable(cancelable);
 
         if (!TextUtils.isEmpty(title)) {
             builder.setTitle(title);

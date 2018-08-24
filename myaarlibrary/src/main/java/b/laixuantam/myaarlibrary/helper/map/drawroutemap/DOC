@@ -1,0 +1,30 @@
+@Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        LatLng origin = new LatLng(-7.788969, 110.338382);
+        LatLng destination = new LatLng(-7.781200, 110.349709);
+
+        DrawRouteMaps.getInstance(this)
+                .draw(origin, destination, mMap);
+
+        DrawMarker.getInstance(this).draw(mMap, origin, R.drawable.marker_a, "Origin Location");
+        DrawMarker.getInstance(this).draw(mMap, destination, R.drawable.marker_b, "Destination Location");
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                DrawRouteMaps.getInstance(MapsActivity.this).clearPolyline();
+            }
+        },5000);
+
+        LatLngBounds bounds = new LatLngBounds.Builder()
+                .include(origin)
+                .include(destination).build();
+        Point displaySize = new Point();
+        getWindowManager().getDefaultDisplay().getSize(displaySize);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, displaySize.x, 250, 30));
+    }
+
+=======================================================================
+ <color name="colorRouteLine">#FF4081</color>

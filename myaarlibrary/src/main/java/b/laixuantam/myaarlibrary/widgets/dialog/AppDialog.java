@@ -5,12 +5,13 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-public class AppDialog<Listener> extends DialogFragment
-{
-	protected static final String EXTRA_BUTTON_TEXT = "button_text";
-	protected static final String EXTRA_MESSAGE = "message";
-	protected static final String EXTRA_TITLE = "title";
-	protected static final String EXTRA_CANCELABLE = "EXTRA_CANCELABLE";
+public class AppDialog<Listener> extends DialogFragment {
+    protected static final String EXTRA_BUTTON_TEXT = "button_text_positive";
+    protected static final String EXTRA_BUTTON_TEXT_NEGATIVE = "button_text_negative";
+    protected static final String EXTRA_MESSAGE = "message";
+    protected static final String EXTRA_TITLE = "title";
+    protected static final String EXTRA_CANCELABLE = "EXTRA_CANCELABLE";
+    protected static final String EXTRA_SHOW_NEGATIVE = "EXTRA_SHOW_NEGATIVE";
     protected Listener listener;
 
     public Listener getListener() {
@@ -18,7 +19,7 @@ public class AppDialog<Listener> extends DialogFragment
     }
 
     public void setListener(Listener listener) {
-        this.listener=listener;
+        this.listener = listener;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class AppDialog<Listener> extends DialogFragment
     // Hack for android issue 17423 in the compatibility library
     @Override
     public void onDestroyView() {
-        if ( getDialog() != null && getRetainInstance() )
+        if (getDialog() != null && getRetainInstance())
             getDialog().setDismissMessage(null);
         super.onDestroyView();
     }

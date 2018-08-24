@@ -41,12 +41,27 @@
 
 
     <color name="gray">#a6a6a6</color>
+    <color name="grey1">#444444</color>
+    <color name="grey2">#929292</color>
+    <color name="grey3">#E0E0E0</color>
+    <color name="grey4">#F2F2F2</color>
+    <color name="grey5">#F6F6F6</color>
+
     <color name="txt_default">#808080</color>
     <color name="gray_very_light">#DDDDDD</color>
     <color name="gray_light_opacity">#DCBBBBBB</color>
 
     <color name="color_primary">#7266ba</color>
     <color name="color_primary_active">#6254b2</color>
+
+    <color name="color_button_tab_bg_normal">#ffffff</color>
+    <color name="color_button_tab_bg_active">#ee3939</color>
+
+    <color name="color_button_tab_text_normal">#929292</color>
+    <color name="color_button_tab_text_active">#ffffff</color>
+
+    <color name="color_button_tab_stroke">#E0E0E0</color>
+
     <color name="color_info">#23b7e5</color>
     <color name="color_info_active">#19a9d5</color>
     <color name="color_danger">#f05050</color>
@@ -79,4 +94,15 @@
     <color name="titleTextColor">#FFFFFF</color>
     <color name="titleTabColor">#000000</color>
     <color name="titleSelectedTabColor">#3F51B5</color>
+
+    <color name="colorRouteLine">#FF4081</color>
+    <color name="fillColorNavigation">#FFFFFF</color>
+
+    <color name="progressColor">#FF5252</color>
+    <color name="progressBackground">#32000000</color>
+    <color name="progressColorTextTitle">#808080</color>
+
+    <color name="kprogresshud_default_color">#b1000000</color>
+    <color name="kprogresshud_grey_color">#449E9E9E</color>
+    <color name="tutorial_bg">#BE000000</color>
 </resources>

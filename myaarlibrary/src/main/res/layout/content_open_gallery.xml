@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.erikagtierrez.multiple_media_picker.OpenGallery"
     tools:showIn="@layout/activity_open_gallery">
 
     <android.support.v7.widget.RecyclerView

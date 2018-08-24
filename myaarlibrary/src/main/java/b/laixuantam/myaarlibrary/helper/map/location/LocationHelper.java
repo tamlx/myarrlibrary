@@ -1,6 +1,7 @@
 package b.laixuantam.myaarlibrary.helper.map.location;
 
 import android.Manifest.permission;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -236,6 +237,59 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback,
         }
 
     }
+
+    public void getExactlyAddressOfUser() {
+        getExactlyLocation();
+
+    }
+
+    public void getExactlyLocation() {
+        try {
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+            // getting GPS status
+            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            // getting network status
+            isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (!isGPSEnabled && !isNetworkEnabled) {
+                // no network provider is enabled
+                return;
+            } else {
+                this.canGetLocation = true;
+                if (isNetworkEnabled) {
+                    if (ActivityCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        mLastLocation = null;
+                        return;
+                    }
+
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, LocationHelper.this);
+                    if (locationManager != null) {
+                        mLastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                        getAddress(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                    }
+                }
+                // if GPS Enabled get lat/long using GPS Services
+                if (isGPSEnabled) {
+                    if (mLastLocation == null) {
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                        if (locationManager != null) {
+                            mLastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            getAddress(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mLastLocation = null;
+        }
+
+    }
+
 
     public String getDistance(LatLng my_latlong, LatLng frnd_latlong) {
         Location l1 = new Location("One");

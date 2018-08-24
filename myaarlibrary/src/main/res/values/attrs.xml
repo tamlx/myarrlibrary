@@ -115,4 +115,28 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="MKLoader">
+        <attr name="mk_color" format="color" />
+        <attr name="mk_type">
+            <enum name="ClassicSpinner" value="0" />
+            <enum name="FishSpinner" value="1" />
+            <enum name="LineSpinner" value="2" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="CustomButton">
+        <attr name="cb_backgroundColor" format="color" />
+        <attr name="cb_radius" format="integer" />
+        <attr name="cb_strokeColor" format="color" />
+        <attr name="cb_strokeWidth" format="integer" />
+        <attr name="cb_strokeDashWidth" format="integer" />
+        <attr name="cb_strokeDashGap" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTabButton">
+        <attr name="full_width" format="boolean" />
+        <attr name="tab_width" format="dimension" />
+    </declare-styleable>
+
 </resources>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="0dp">
+
+        <RelativeLayout
+            android:id="@+id/rLayoutHeaderNotification"
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+
+
+            <RelativeLayout
+                android:id="@+id/rLayoutNotificationHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/imvLogoHeader"
+                    android:layout_width="15dp"
+                    android:layout_height="12dp"
+                    android:layout_centerVertical="true"
+                    tools:src="@drawable/app_icon_default" />
+
+                <TextView
+                    android:id="@+id/tvNotificationHeaderTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_toRightOf="@id/imvLogoHeader"
+                    android:fontFamily="@string/font_family_regular"
+                    android:gravity="center"
+                    android:text="Thông báo"
+                    android:textColor="@color/color_text_default"
+                    android:textSize="11sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rLayoutDividerHeader1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toRightOf="@id/rLayoutNotificationHeaderTitle"
+                android:background="@color/gray_light"></RelativeLayout>
+
+
+            <RelativeLayout
+
+                android:id="@+id/rLayoutNotificationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp">
+
+                <TextView
+                    android:id="@+id/tvNotificationTimeSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@string/font_family_regular"
+                    android:gravity="center"
+                    android:text="-----"
+                    android:textColor="@color/color_text_default"
+                    android:textSize="11sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rLayoutDividerHeader2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toLeftOf="@id/rLayoutNotificationTime"
+                android:background="@color/gray_light"></RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/rLayoutDividerHeader2"
+                android:layout_toRightOf="@id/rLayoutDividerHeader1">
+
+
+                <TextView
+
+                    android:id="@+id/tvNotificationTitleFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@string/font_family_regular"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/color_text_default"
+                    android:textSize="11sp"
+                    tools:text="Tin mới từ HiHiChat" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rLayoutHeaderNotification">
+
+
+            <RelativeLayout
+
+                android:id="@+id/rLayoutLogo"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/imvIcNotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    tools:src="@drawable/app_icon_default" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvNotificationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/rLayoutLogo"
+                android:fontFamily="@string/font_family_regular"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                tools:text="Title" />
+
+            <TextView
+                android:id="@+id/tvNotificationDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvNotificationTitle"
+                android:layout_toLeftOf="@id/rLayoutLogo"
+                android:fontFamily="@string/font_family_regular"
+                android:singleLine="true"
+                android:textColor="@color/txt_default"
+                android:textSize="14sp"
+                tools:text="Ve may bay" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

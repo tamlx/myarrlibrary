@@ -45,10 +45,10 @@
 
     <!-- cash message-->
     <string name="crash_notif_ticker_text">Unexpected error, please send a report...</string>
-    <string name="crash_notif_title">BaseProject has crashed...</string>
+    <string name="crash_notif_title">Application has crashed...</string>
     <string name="crash_notif_text">Please click here to help fix the issue.</string>
 
-    <string name="crash_dialog_title">BaseProject has crashed</string>
+    <string name="crash_dialog_title">Application has crashed</string>
     <string name="crash_dialog_text">An unexpected error occurred forcing the
         application to stop. Please help us fix this by sending us error data,
         all you have to do is click \'OK\'.</string>
@@ -143,4 +143,27 @@
     <string name="swipe_listview_with_loadmore">SwipeRefreshLayout ListView With LoadMore</string>
 
     <string name="txt_permission_location">Ứng dụng cần truy cập vị trí của bạn.</string>
+
+    <!--DateUltils-->
+    <string name="years_lbl">year</string>
+    <string name="days_lbl">day</string>
+    <string name="hours_lbl">hour</string>
+    <string name="minutes_lbl">minute</string>
+    <string name="seconds_lbl">second</string>
+    <string name="day_title_today">today</string>
+    <string name="day_title_yesterday">yesterday</string>
+    <string name="day_title_tomorrow">tomorrow</string>
+    <string name="title_just_now">just now</string>
+    <string name="title_a_minute_ago">a minute ago</string>
+    <string name="title_minutes_ago"> minutes ago</string>
+    <string name="title_an_hour_ago">an hour ago</string>
+    <string name="title_an_hours_ago"> hours ago</string>
+    <string name="title_an_days_ago"> days ago</string>
+
+    <string name="can_not_crop">Can not crop</string>
+    <string name="fail_to_crop">Fail to crop</string>
+
+    <string name="project_image_resource">ImageResource</string>
+    <string name="tutorial_gotit">Đã hiểu</string>
+
 </resources>
