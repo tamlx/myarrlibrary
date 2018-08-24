@@ -66,9 +66,6 @@ dependencies {
     //push broadcast
     compile 'org.greenrobot:eventbus:3.0.0'
 
-    //Pinch-to-zoom
-    compile 'com.bogdwellers:pinchtozoom:0.1'
-
     //bottom-sheet
     implementation 'org.michaelbel:bottomsheet:1.1.2'
 

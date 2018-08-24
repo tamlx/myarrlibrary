@@ -123,5 +123,51 @@ public class MyBottomSheet
                 R.drawable.ic_facebook,
                 R.drawable.ic_twitter
         };
+
+        BottomSheet.Builder builder = new BottomSheet.Builder(context);
+        builder
+           .setTitle(CharSequence title)
+           .setItems(CharSequence[] items, Drawable[] icons, DialogInterface.OnClickListener listener)
+           .setMenu(@MenuRes int menuResId, DialogInterface.OnClickListener listener)
+           .setView(@LayoutRes int layoutResId)
+           .setContentType(@BottomSheet.Type int type)
+           .setDarkTheme(boolean darkTheme)
+           .setFullWidth(boolean fullWidth)
+           .setCellHeight(int cellHeightDp)
+           .setDividers(boolean dividers)
+           .setWindowDimming(@Range(from = 0, to = 255) int windowDimming)
+           .setTitleMultiline(boolean multiline)
+           .setFabBehavior(FloatingActionButton button)
+           .setFabBehavior(FloatingActionButton button, @BottomSheet.FabBehavior int fabBehavior)
+           .setBackgroundColor(@ColorInt int color)
+           .setBackgroundColorRes(@ColorRes int color)
+           .setTitleTextColor(@ColorInt int color)
+           .setTitleTextColorRes(@ColorRes int color)
+           .setItemTextColor(@ColorInt int color)
+           .setItemTextColorRes(@ColorRes int color)
+           .setIconColor(@ColorInt int color)
+           .setIconColorRes(@ColorRes int color)
+           .setItemSelector(int selector);
+           .setOnShowListener(new DialogInterface.OnShowListener() {
+               @Override
+               public void onShow(DialogInterface dialog) {
+               }
+           });
+           .setOnDismissListener(new DialogInterface.OnDismissListener() {
+               @Override
+               public void onDismiss(DialogInterface dialog) {
+               }
+           });
+           .setCallback(new BottomSheetCallback() {
+               @Override
+               public void onShown() {
+               }
+
+               @Override
+               public void onDismissed() {
+               }
+           })
+           .show();
+
      */
 }
