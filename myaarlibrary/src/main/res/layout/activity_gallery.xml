@@ -16,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:titleTextColor="?attr/titleTextColor"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:titleTextColor="?attr/titleTextColor" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
