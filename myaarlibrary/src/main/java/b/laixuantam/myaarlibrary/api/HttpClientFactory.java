@@ -37,7 +37,7 @@ public class HttpClientFactory {
     private static final String CERTIFICATES_PATH = "certificates/";
     private static OkHttpClient defaultClient = null;
     private static String HOST_API, MODE;
-    private static boolean isEnableLog, isTrustCer;
+    private static boolean isTrustCer;
 
     private void setup(OkHttpClient.Builder builder, String certificatesPath, int timeout) {
         X509Certificate[] certificates = getCertificates(certificatesPath);
@@ -177,7 +177,7 @@ public class HttpClientFactory {
         return create((timeout != 0) ? timeout : TIMEOUT);
     }
 
-    public static synchronized OkHttpClient get(String hostAPI, String mode, boolean enableLog, boolean isTrustCertificate) {
+    public static synchronized OkHttpClient get(String hostAPI, String mode, boolean isTrustCertificate) {
         if (defaultClient == null) {
             defaultClient = create(TIMEOUT);
         }
@@ -185,8 +185,6 @@ public class HttpClientFactory {
         HOST_API = hostAPI;
 
         MODE = mode;
-
-        isEnableLog = enableLog;
 
         isTrustCer = isTrustCertificate;
 
@@ -200,15 +198,13 @@ public class HttpClientFactory {
 //        Interceptor interceptor = AppProvider.getAuthHelper();
 //        builder.addInterceptor(interceptor);
 
-        if (isEnableLog) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                public void log(String message) {
-                    MyLog.d("RETROFIT_LOG", message);
-                }
-            });
-            logging.setLevel(Level.BODY);
-            builder.addInterceptor(logging);
-        }
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            public void log(String message) {
+                MyLog.d("RETROFIT_LOG", message);
+            }
+        });
+        logging.setLevel(Level.BODY);
+        builder.addInterceptor(logging);
 
         HttpClientFactory httpClientFactory = new HttpClientFactory();
         httpClientFactory.setup(builder, CERTIFICATES_PATH + MODE, timeout);
