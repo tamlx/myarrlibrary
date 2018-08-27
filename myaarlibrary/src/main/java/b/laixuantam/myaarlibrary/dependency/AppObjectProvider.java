@@ -6,6 +6,7 @@ import java.security.Security;
 
 import b.laixuantam.myaarlibrary.api.ApiManagement;
 import b.laixuantam.myaarlibrary.helper.AppCleanerHelper;
+import b.laixuantam.myaarlibrary.helper.AuthHelper;
 import b.laixuantam.myaarlibrary.helper.ConnectivityHelper;
 import b.laixuantam.myaarlibrary.helper.FileHelper;
 import b.laixuantam.myaarlibrary.helper.ImageHelper;
@@ -24,6 +25,7 @@ public class AppObjectProvider implements ObjectProviderInterface {
     private ConnectivityHelper connectivityHelper;
     private ApiManagement apiManagement;
     private LanguageHelper languageHelper;
+    private AuthHelper authHelper;
 
     public AppObjectProvider(Context context) {
         this.context = context;
@@ -62,4 +64,9 @@ public class AppObjectProvider implements ObjectProviderInterface {
         return (languageHelper == null) ? (languageHelper = new LanguageHelper()) : languageHelper;
     }
 
+    @Override
+    public AuthHelper getAuthHelper()
+    {
+        return (authHelper == null) ? (authHelper = new AuthHelper()) : authHelper;
+    }
 }

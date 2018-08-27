@@ -195,8 +195,8 @@ public class HttpClientFactory {
     public static OkHttpClient create(int timeout) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-//        Interceptor interceptor = AppProvider.getAuthHelper();
-//        builder.addInterceptor(interceptor);
+        Interceptor interceptor = AppProvider.getAuthHelper();
+        builder.addInterceptor(interceptor);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             public void log(String message) {
