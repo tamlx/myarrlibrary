@@ -1,4 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+version = "1.0"
+group = 'b.laixuantam.myarrlibrary'
 
 android {
     compileSdkVersion 28
@@ -70,4 +75,76 @@ dependencies {
     //bottom-sheet
     implementation 'org.michaelbel:bottomsheet:1.1.2'
 
+}
+
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'BaseProject'
+                // Add your description here
+                name 'A Android library.'
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'tamlx'
+                        name 'tamlx'
+                        email 'ndxuantam10@gmail.com'
+                    }
+                }
+
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += configurations.compile
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//javadoc {
+//    options{
+//        encoding "UTF-8"
+//        charSet 'UTF-8'
+//        author true
+//        version true
+//        links "http://docs.oracle.com/javase/7/docs/api"
+//        title "MyLibrary"
+//    }
+//}
+
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = 'tamlx'
+    key = '2d5e7deb434b50b1688d292ef249d202c0b04b8f'
+    configurations = ['archives']
+    pkg {
+        repo = "BaseProject"
+        name = "MyLibrary" //Tên dự án được đăng lên Bintray
+//        websiteUrl = siteUrl
+//        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
 }
