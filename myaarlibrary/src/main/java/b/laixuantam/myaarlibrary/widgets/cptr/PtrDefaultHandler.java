@@ -6,6 +6,12 @@ import android.widget.AbsListView;
 
 public abstract class PtrDefaultHandler implements PtrHandler {
 
+    private boolean isPtrHandlerEnable;
+
+    public PtrDefaultHandler(boolean isPtrHandlerEnable) {
+        this.isPtrHandlerEnable = isPtrHandlerEnable;
+    }
+
     public static boolean canChildScrollUp(View view) {
         if (android.os.Build.VERSION.SDK_INT < 14) {
             if (view instanceof AbsListView) {
@@ -18,7 +24,7 @@ public abstract class PtrDefaultHandler implements PtrHandler {
                 return ViewCompat.canScrollVertically(view, -1) || view.getScrollY() > 0;
             }
         } else {
-          return view.canScrollVertically(-1);
+            return view.canScrollVertically(-1);
         }
     }
 
@@ -36,6 +42,6 @@ public abstract class PtrDefaultHandler implements PtrHandler {
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return checkContentCanBePulledDown(frame, content, header);
+        return isPtrHandlerEnable ? checkContentCanBePulledDown(frame, content, header) : false;
     }
 }
