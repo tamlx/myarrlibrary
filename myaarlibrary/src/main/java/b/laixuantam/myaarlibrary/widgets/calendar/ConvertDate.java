@@ -16,65 +16,60 @@ import b.laixuantam.myaarlibrary.widgets.calendar.annotation.Month;
 /**
  * Created by LaiXuanTam on 3/23/2016.
  */
-public class ConvertDate
-{
+public class ConvertDate {
 
-    public static Date getTimeMoment()
-    {
+    public static Date getTimeMoment() {
         Calendar calendar = Calendar.getInstance();
         return new Date(calendar.getTimeInMillis());
     }
 
-    public static String getDateFromTimestamp(long time)
-    {
-        try
-        {
+    public static String getDateFromTimestamp(long time) {
+        try {
             DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date netDate = (new Date(time));
             return sdf.format(netDate);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return "";
         }
     }
 
-    public static String getDateFromTimestamp(long time, String datetype)
-    {
-        try
-        {
+    public static Date getDateFromString(String dateString, String format) {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = null;
+        try {
+            date = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    public static String getDateFromTimestamp(long time, String datetype) {
+        try {
             DateFormat sdf = new SimpleDateFormat(datetype);
             Date netDate = (new Date(time));
             return sdf.format(netDate);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return "";
         }
     }
 
-    public static long getTimestampFormDate(String dateString)
-    {
+    public static long getTimestampFormDate(String dateString) {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
-        try
-        {
+        try {
             date = formatter.parse(dateString);
-        }
-        catch (ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return date.getTime();
     }
 
-    public static Date getTimeMoment(Date time)
-    {
+    public static Date getTimeMoment(Date time) {
         return new Date(time.getTime());
     }
 
-    public static String getTimeDuration(Date time)
-    {
+    public static String getTimeDuration(Date time) {
         Date timeCurrent = ConvertDate.getTimeMoment();
         // calc duration for second
         double duration = Math.max(timeCurrent.getTime() - time.getTime(), 0) / 60000d;
@@ -83,8 +78,7 @@ public class ConvertDate
         return (h > 0 ? h + "h " : "") + m + "p";
     }
 
-    public static String getTimeDuration(Date timePayment, Date timeOpenTable)
-    {
+    public static String getTimeDuration(Date timePayment, Date timeOpenTable) {
         Date timeCurrent = getTimeMoment(timePayment);
         // calc duration for second
         double duration = Math.max(timeCurrent.getTime() - timeOpenTable.getTime(), 0) / 60000d;
@@ -93,16 +87,14 @@ public class ConvertDate
         return (h > 0 ? h + "h " : "") + m + "p";
     }
 
-    public static double getValueHourTimeRoom(Date timeOpenTable)
-    {
+    public static double getValueHourTimeRoom(Date timeOpenTable) {
         Date timeCurrent = ConvertDate.getTimeMoment();
         long timeDuration = Math.max(timeCurrent.getTime() - timeOpenTable.getTime(), 0);
 
         return NumericFormater.round2(((double) timeDuration) / 3600000);
     }
 
-    public static double getValueHourTimeRoom(Date timePayment, Date timeOpenTable)
-    {
+    public static double getValueHourTimeRoom(Date timePayment, Date timeOpenTable) {
         Date timeCurrent = ConvertDate.getTimeMoment(timePayment);
         long timeDuration = Math.max(timeCurrent.getTime() - timeOpenTable.getTime(), 0);
 
@@ -115,72 +107,58 @@ public class ConvertDate
     public static final String FORMAT_GET_MONTH_YEAR = "yyyy-MM";
     public static final String FORMAT_NICE_DATE = "dd/MM/yyyy";
 
-    public static String getDay(String dateString)
-    {
+    public static String getDay(String dateString) {
         return convertDateInput(dateString, FORMAT_GET_DAY);
     }
 
 
-    public static String convertDateInput(String dateString, String type)
-    {
+    public static String convertDateInput(String dateString, String type) {
         DateFormat dateFormatDefault = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat dateFormat = new SimpleDateFormat(type);
         Date date = null;
         String output = "";
 
-        try
-        {
+        try {
             date = dateFormatDefault.parse(dateString);
             output = dateFormat.format(date);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return output;
     }
 
-    public static String getMonthAndYear(String dateString)
-    {
+    public static String getMonthAndYear(String dateString) {
         return convertDateInput(dateString, FORMAT_GET_MONTH_YEAR);
     }
 
-    public static String getYear(String dateString)
-    {
+    public static String getYear(String dateString) {
 
         return convertDateInput(dateString, FORMAT_GET_YEAR);
     }
 
-    public static String getMonth(String dateString)
-    {
+    public static String getMonth(String dateString) {
 
         return convertDateInput(dateString, FORMAT_GET_MONTH);
     }
 
-    public static String changeToNiceFormatDate(String dateString)
-    {
+    public static String changeToNiceFormatDate(String dateString) {
 
         return convertDateInput(dateString, FORMAT_NICE_DATE);
     }
 
-    public static long getTimestampFormDateAndTime(String dateString)
-    {
+    public static long getTimestampFormDateAndTime(String dateString) {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy'T'HH:mm");
         Date date = null;
-        try
-        {
+        try {
             date = dateFormat.parse(dateString);
-        }
-        catch (ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return date.getTime();
     }
 
 
-    public static String convertDateTime(String time)
-    {
+    public static String convertDateTime(String time) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         DateFormat outputDate = new SimpleDateFormat("dd/MM/yyyy");
@@ -188,50 +166,40 @@ public class ConvertDate
         Date date = null;
         String output = "";
 
-        try
-        {
+        try {
             date = dateFormat.parse(time);
             output = outputDate.format(date);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println(ex);
         }
         return output;
     }
 
-    public static String convertDateTime(Date date)
-    {
+    public static String convertDateTime(Date date) {
         DateFormat outputDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return outputDate.format(date);
     }
 
-    public static String convertTime(Date date)
-    {
+    public static String convertTime(Date date) {
         DateFormat outputDate = new SimpleDateFormat("HH:mm");
         return outputDate.format(date);
     }
 
-    public static String convertDate(Date date)
-    {
+    public static String convertDate(Date date) {
         DateFormat outputDate = new SimpleDateFormat("dd/MM/yyyy");
         return outputDate.format(date);
     }
 
-    public static String convertHourTime(String time)
-    {
+    public static String convertHourTime(String time) {
         long ts = System.currentTimeMillis();
         Date localTime = new Date(ts);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date gmtTime = null;
-        try
-        {
+        try {
             gmtTime = dateFormat.parse(time);
-        }
-        catch (ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -245,22 +213,18 @@ public class ConvertDate
     }
 
 
-    public static String formatDate(int year, @Month int month, int dayOfMonth, String template)
-    {
+    public static String formatDate(int year, @Month int month, int dayOfMonth, String template) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, dayOfMonth);
         SimpleDateFormat format = new SimpleDateFormat(template, Locale.getDefault());
         return format.format(new Date(calendar.getTimeInMillis()));
     }
 
-    public static String getDistanceTime(long time)
-    {
+    public static String getDistanceTime(long time) {
 
-        if (time > 0)
-        {
+        if (time > 0) {
 
-            try
-            {
+            try {
                 Date date = new Date(time);
 
                 Date current = getTimeMoment();
@@ -272,8 +236,8 @@ public class ConvertDate
                 long hoursInMilli = minutesInMilli * 60;
                 long daysInMilli = hoursInMilli * 24;
 
-                long elapsedDays = different / daysInMilli -1 ;
-                different = different % daysInMilli ;
+                long elapsedDays = different / daysInMilli - 1;
+                different = different % daysInMilli;
 
                 long elapsedHours = different / hoursInMilli;
                 different = different % hoursInMilli;
@@ -283,19 +247,14 @@ public class ConvertDate
 
                 long elapsedSeconds = different / secondsInMilli;
 
-                if (elapsedDays > 0)
-                {
+                if (elapsedDays > 0) {
                     return "" + elapsedDays + " ngày trước";
-                }
-                else
-                {
+                } else {
                     return ConvertDate.formatHourTime(time);
                 }
 
 
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -303,8 +262,7 @@ public class ConvertDate
         return "";
     }
 
-    public static void printDifference(Date startDate, Date endDate)
-    {
+    public static void printDifference(Date startDate, Date endDate) {
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
 
@@ -331,26 +289,21 @@ public class ConvertDate
         System.out.printf("%d days, %d hours, %d minutes, %d seconds%n", elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
     }
 
-    public static boolean checkDateIncomming(String dateInput)
-    {
+    public static boolean checkDateIncomming(String dateInput) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-        try
-        {
+        try {
             Date date1 = simpleDateFormat.parse(dateInput);
             Date date2 = ConvertDate.getTimeMoment();
 
             long different = date1.getTime() - date2.getTime();
 
 
-            if (different > 0)
-            {
+            if (different > 0) {
                 return true;
             }
 
-        }
-        catch (ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -358,8 +311,7 @@ public class ConvertDate
     }
 
 
-    public static String formatHourTime(long timeInMillis)
-    {
+    public static String formatHourTime(long timeInMillis) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return dateFormat.format(timeInMillis);
     }

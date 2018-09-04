@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-version = "1.0"
+version = "1.0.1"
 group = 'b.laixuantam.myarrlibrary'
 
 android {
@@ -140,7 +140,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "BaseProject"
-        name = "MyLibrary" //Tên dự án được đăng lên Bintray
+        name = "MyArrLibrary" //Tên dự án được đăng lên Bintray
 //        websiteUrl = siteUrl
 //        vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
