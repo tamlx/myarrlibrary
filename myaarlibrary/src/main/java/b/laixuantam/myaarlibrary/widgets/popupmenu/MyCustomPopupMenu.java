@@ -29,7 +29,7 @@ import b.laixuantam.myaarlibrary.R;
 
         ActionItem menu_remove_ads = new ActionItem(4, getString(R.string.menu_remove_ads), null);
 
-        MyCustomDropDownMenu quickAction = new MyCustomDropDownMenu(getActivity(), QuickAction.VERTICAL);
+        MyCustomPopupMenu quickAction = new MyCustomPopupMenu(getActivity());
 
         quickAction.addActionItem(menu_setting);
         quickAction.addActionItem(menu_rate);
@@ -53,7 +53,7 @@ import b.laixuantam.myaarlibrary.R;
 */
 
 
-public class MyCustomDropDownMenu extends PopupWindows implements OnDismissListener {
+public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener {
     private View mRootView;
     private ImageView mArrowUp;
     private ImageView mArrowDown;
@@ -83,7 +83,7 @@ public class MyCustomDropDownMenu extends PopupWindows implements OnDismissListe
      *
      * @param context Context
      */
-    public MyCustomDropDownMenu(Context context) {
+    public MyCustomPopupMenu(Context context) {
         super(context);
 
         mInflater = (LayoutInflater) context
@@ -187,7 +187,7 @@ public class MyCustomDropDownMenu extends PopupWindows implements OnDismissListe
             @Override
             public void onClick(View v) {
                 if (mItemClickListener != null) {
-                    mItemClickListener.onItemClick(MyCustomDropDownMenu.this, pos,
+                    mItemClickListener.onItemClick(MyCustomPopupMenu.this, pos,
                             actionId);
                 }
 
@@ -384,7 +384,7 @@ public class MyCustomDropDownMenu extends PopupWindows implements OnDismissListe
      * Listener for item click
      */
     public interface OnActionItemClickListener {
-        public abstract void onItemClick(MyCustomDropDownMenu source, int pos,
+        public abstract void onItemClick(MyCustomPopupMenu source, int pos,
                                          int actionId);
     }
 
