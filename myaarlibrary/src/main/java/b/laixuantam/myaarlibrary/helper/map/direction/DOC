@@ -1,0 +1,88 @@
+https://github.com/akexorcist/Android-GoogleDirectionLibrary
+
+- Simple Direction Request:
+GoogleDirection.withServerKey("YOUR_SERVER_API_KEY")
+        .from(new LatLng(37.7681994, -122.444538))
+        .to(new LatLng(37.7749003,-122.4034934))
+        .avoid(AvoidType.FERRIES)
+        .avoid(AvoidType.HIGHWAYS)
+        .execute(new DirectionCallback() {
+            @Override
+            public void onDirectionSuccess(Direction direction, String rawBody) {
+                if (direction.isOK()) {
+                            Route route = direction.getRouteList().get(0);
+                            googleMap.addMarker(new MarkerOptions().position(origin));
+                            googleMap.addMarker(new MarkerOptions().position(destination));
+
+                            ArrayList<LatLng> directionPositionList = route.getLegList().get(0).getDirectionPoint();
+                            googleMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.RED));
+                            setCameraWithCoordinationBounds(route);
+
+                            btnRequestDirection.setVisibility(View.GONE);
+                        } else {
+                            Snackbar.make(btnRequestDirection, direction.getStatus(), Snackbar.LENGTH_SHORT).show();
+                        }
+            }
+
+            @Override
+            public void onDirectionFailure(Throwable t) {
+                // Do something
+            }
+        });
+
+- Multiple Waypoints Direction Request:
+GoogleDirection.withServerKey("YOUR_SERVER_API_KEY")
+        .from(new LatLng(41.8838111, -87.6657851))
+        .and(new LatLng(41.8766061, -87.6556908))
+        .and(new LatLng(41.8909056, -87.6467561))
+        .to(new LatLng(41.9007082, -87.6488802))
+        .transportMode(TransportMode.DRIVING)
+        .execute(new DirectionCallback() {
+            @Override
+            public void onDirectionSuccess(Direction direction, String rawBody) {
+                if(direction.isOK()) {
+                    // Do something
+                } else {
+                    // Do something
+                }
+            }
+
+            @Override
+            public void onDirectionFailure(Throwable t) {
+                // Do something
+            }
+        });
+
+                    Or
+List<LatLng> waypoints = Arrays.asList(
+        new LatLng(41.8766061, -87.6556908),
+        new LatLng(41.8909056, -87.6467561)
+)
+GoogleDirection.withServerKey("YOUR_SERVER_API_KEY")
+        .from(new LatLng(41.8838111, -87.6657851))
+        .and(waypoints)
+        .to(new LatLng(41.9007082, -87.6488802))
+        .transportMode(TransportMode.DRIVING)
+        .execute(new DirectionCallback() {
+            @Override
+            public void onDirectionSuccess(Direction direction, String rawBody) {
+                if(direction.isOK()) {
+                    // Do something
+                } else {
+                    // Do something
+                }
+            }
+
+            @Override
+            public void onDirectionFailure(Throwable t) {
+                // Do something
+            }
+        });
+=================================================================================
+
+ private void setCameraWithCoordinationBounds(Route route) {
+        LatLng southwest = route.getBound().getSouthwestCoordination().getCoordination();
+        LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
+        LatLngBounds bounds = new LatLngBounds(southwest, northeast);
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+    }
