@@ -81,4 +81,5 @@
     <color name="titleSelectedTabColor">#3F51B5</color>
 
     <color name="colorRouteLine">#FF4081</color>
+    <color name="fillColorNavigation">#FFFFFF</color>
 </resources>

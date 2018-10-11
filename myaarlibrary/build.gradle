@@ -2,13 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-version = "1.0.3"
+version = "1.0.5"
 group = 'b.laixuantam.myarrlibrary'
 
 android {
     compileSdkVersion 28
-
-
 
     defaultConfig {
         minSdkVersion 19
@@ -108,28 +106,8 @@ task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
-//task javadoc(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += configurations.compile
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//}
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//javadoc {
-//    options{
-//        encoding "UTF-8"
-//        charSet 'UTF-8'
-//        author true
-//        version true
-//        links "http://docs.oracle.com/javase/7/docs/api"
-//        title "MyLibrary"
-//    }
-//}
 
 artifacts {
-//    archives javadocJar
     archives sourcesJar
 }
 Properties properties = new Properties()
@@ -141,8 +119,6 @@ bintray {
     pkg {
         repo = "BaseProject"
         name = "MyArrLibrary" //Tên dự án được đăng lên Bintray
-//        websiteUrl = siteUrl
-//        vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
         publish = true
     }

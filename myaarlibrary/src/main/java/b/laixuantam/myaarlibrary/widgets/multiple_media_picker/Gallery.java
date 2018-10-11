@@ -1,11 +1,14 @@
 package b.laixuantam.myaarlibrary.widgets.multiple_media_picker;
 
 import android.content.Intent;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +25,7 @@ import b.laixuantam.myaarlibrary.widgets.multiple_media_picker.Fragments.TwoFrag
 public class Gallery extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Toolbar toolbar;
     public static int selectionTitle;
     public static String title;
     public static int maxSelection;
@@ -35,9 +39,10 @@ public class Gallery extends AppCompatActivity {
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_gallery);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_left_white);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.fillColorNavigation), PorterDuff.Mode.MULTIPLY);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,13 +62,19 @@ public class Gallery extends AppCompatActivity {
         maxSelection = getIntent().getExtras().getInt("maxSelection");
         if (maxSelection == 0) maxSelection = Integer.MAX_VALUE;
         mode = getIntent().getExtras().getInt("mode");
-        setTitle(title);
+
+        toolbar.setTitle(title);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.fillColorNavigation));
         selectionTitle = 0;
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        if (mode == 2 || mode == 3) {
+            tabLayout.setVisibility(View.GONE);
+        }
 
         if (OpenGallery.selected != null)
             OpenGallery.selected.clear();
@@ -77,12 +88,14 @@ public class Gallery extends AppCompatActivity {
         super.onPostResume();
         if (selectionTitle > 0) {
             if (typeMedia == 1) {
-                setTitle(String.valueOf(selectionTitle) + " [Hình ảnh] đã chọn");
+
+                toolbar.setTitle(String.valueOf(selectionTitle) + " [Hình ảnh] đã chọn");
             } else {
-                setTitle(String.valueOf(selectionTitle) + " [Video] đã chọn");
+                toolbar.setTitle(String.valueOf(selectionTitle) + " [Video] đã chọn");
+
             }
         } else {
-            setTitle(title);
+            toolbar.setTitle(title);
         }
     }
 
@@ -130,14 +143,6 @@ public class Gallery extends AppCompatActivity {
         Intent returnIntent = new Intent();
         returnIntent.putStringArrayListExtra("result", OpenGallery.imagesSelected);
 
-        if (OpenGallery.imagesSelected.size() > 0) {
-            if (typeMedia == 1) {
-
-                OpenGallery.imagesSelected.add("img");
-            } else {
-                OpenGallery.imagesSelected.add("vd");
-            }
-        }
         setResult(RESULT_OK, returnIntent);
         finish();
     }

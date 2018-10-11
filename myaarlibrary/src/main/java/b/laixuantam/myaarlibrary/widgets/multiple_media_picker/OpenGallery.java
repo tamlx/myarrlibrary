@@ -3,6 +3,7 @@ package b.laixuantam.myaarlibrary.widgets.multiple_media_picker;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import b.laixuantam.myaarlibrary.widgets.multiple_media_picker.Fragments.TwoFrag
 public class OpenGallery extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MediaAdapter mAdapter;
+    private Toolbar toolbar;
     private List<String> mediaList = new ArrayList<>();
     public static List<Boolean> selected = new ArrayList<>();
     public static ArrayList<String> imagesSelected = new ArrayList<>();
@@ -34,7 +37,7 @@ public class OpenGallery extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_open_gallery);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ImageView fab = (ImageView) findViewById(R.id.fab);
@@ -44,8 +47,9 @@ public class OpenGallery extends AppCompatActivity {
                 finish();
             }
         });
-        toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_black_24dp);
-        setTitle(Gallery.title);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_left_white);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.fillColorNavigation), PorterDuff.Mode.MULTIPLY);
+        toolbar.setTitle(Gallery.title);
         if (imagesSelected == null) {
             imagesSelected = new ArrayList<>();
         }
@@ -54,20 +58,20 @@ public class OpenGallery extends AppCompatActivity {
         }
         if (imagesSelected.size() > 0) {
             if (Gallery.typeMedia == 1) {
-                setTitle(String.valueOf(imagesSelected.size()) + " [Hình ảnh] đã chọn");
+                toolbar.setTitle(String.valueOf(imagesSelected.size()) + " [Hình ảnh] đã chọn");
             } else {
-                setTitle(String.valueOf(imagesSelected.size()) + " [Video] đã chọn");
+                toolbar.setTitle(String.valueOf(imagesSelected.size()) + " [Video] đã chọn");
             }
         } else {
-            setTitle(Gallery.title);
+            toolbar.setTitle(Gallery.title);
         }
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         parent = getIntent().getExtras().getString("FROM");
         mediaList.clear();
@@ -82,6 +86,7 @@ public class OpenGallery extends AppCompatActivity {
 
         }
 
+        toolbar.setTitleTextColor(getResources().getColor(R.color.fillColorNavigation));
 
         populateRecyclerView();
     }
@@ -108,10 +113,10 @@ public class OpenGallery extends AppCompatActivity {
                     selected.set(position, !selected.get(position));
                     mAdapter.notifyItemChanged(position);
                     if (parent.equals("Images")) {
-                        setTitle(String.valueOf(imagesSelected.size()) + " [Hình ảnh] đã chọn");
+                        toolbar.setTitle(String.valueOf(imagesSelected.size()) + " [Hình ảnh] đã chọn");
                         Gallery.typeMedia = 1;
                     } else {
-                        setTitle(String.valueOf(imagesSelected.size()) + " [Video] đã chọn");
+                        toolbar.setTitle(String.valueOf(imagesSelected.size()) + " [Video] đã chọn");
                         Gallery.typeMedia = 2;
                     }
                 } else if (selected.get(position).equals(true)) {
@@ -137,11 +142,22 @@ public class OpenGallery extends AppCompatActivity {
 //                        mAdapter.notifyItemChanged(position);
                         mAdapter.notifyDataSetChanged();
                         if (parent.equals("Images")) {
-                            setTitle(String.valueOf(imagesSelected.size()) + " [Hình ảnh] đã chọn");
+                            toolbar.setTitle(String.valueOf(imagesSelected.size()) + " [Hình ảnh] đã chọn");
                             Gallery.typeMedia = 1;
                         } else {
-                            setTitle(String.valueOf(imagesSelected.size()) + " [Video] đã chọn");
+                            toolbar.setTitle(String.valueOf(imagesSelected.size()) + " [Video] đã chọn");
                             Gallery.typeMedia = 2;
+                        }
+
+                    } else {
+
+                        if (parent.equals("Images")) {
+
+                            String messAleart = String.valueOf(imagesSelected.size()) + " [Hình ảnh] đã chọn";
+                            Toast.makeText(getApplicationContext(), messAleart, Toast.LENGTH_SHORT).show();
+                        } else {
+                            String messAleart = String.valueOf(imagesSelected.size()) + " [Video] đã chọn";
+                            Toast.makeText(getApplicationContext(), messAleart, Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -151,7 +167,7 @@ public class OpenGallery extends AppCompatActivity {
                 if (imagesSelected.size() != 0) {
 
                 } else {
-                    setTitle(Gallery.title);
+                    toolbar.setTitle(Gallery.title);
                 }
             }
 
