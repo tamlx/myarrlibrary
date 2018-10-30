@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -260,9 +261,8 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
             mProgressDialog = ProgressDialog.newInstance(message);
         }
         if (!mProgressDialog.isShowing() && !this.isFinishing()) {
-            long time = System.currentTimeMillis();
             if (!mProgressDialog.isAdded())
-                mProgressDialog.show(getSupportFragmentManager(), "ProgressDialog" + time);
+                mProgressDialog.show(getSupportFragmentManager(), "ProgressDialog");
         }
         if (timeout) {
             if (progressRunnable != null) {
@@ -280,10 +280,40 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
         }
     }
 
+    public void clearStack() {
+        //Here we are clearing back stack fragment entries
+        int backStackEntry = getSupportFragmentManager().getBackStackEntryCount();
+        if (backStackEntry > 0) {
+            for (int i = 0; i < backStackEntry; i++) {
+                getSupportFragmentManager().popBackStackImmediate();
+            }
+        }
+
+        //Here we are removing all the fragment that are shown here
+        if (getSupportFragmentManager().getFragments() != null && getSupportFragmentManager().getFragments().size() > 0) {
+            for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
+                Fragment mFragment = getSupportFragmentManager().getFragments().get(i);
+                if (mFragment != null) {
+                    getSupportFragmentManager().beginTransaction().remove(mFragment).commit();
+                }
+            }
+        }
+    }
+
+    private void removeTagFragment(String tag) {
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+        if (fragment != null)
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+    }
+
     public synchronized void dismissProgress() {
         if (mProgressDialog != null && !isFinishing()) {
             mProgressDialog.dismissAllowingStateLoss();
             mProgressDialog = null;
+            removeTagFragment("ProgressDialog");
+
         }
         if (progressRunnable != null) {
             handler.removeCallbacks(progressRunnable);

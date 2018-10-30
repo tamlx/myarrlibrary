@@ -3,6 +3,7 @@ package b.laixuantam.myaarlibrary.widgets.custom_edittext_mask_format;
 import android.os.Build;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
@@ -11,11 +12,15 @@ public class EditTextMaskFormatter implements TextWatcher {
     public enum MARK {
         PHONE,
         BIRTHDAY,
+        CURRENCY,
+        CUSTOM,
         NONE
 
     }
 
     private static final String PHONE_FOMAT = "9999 999 9999";
+
+    private static final String CURRENCY_FOMAT = "999,999,999,999";
 
     private static final String BIRDAY_FORMAT = "99/99/9999";
 
@@ -35,20 +40,52 @@ public class EditTextMaskFormatter implements TextWatcher {
     private boolean isDefaultEditText = false;
 
     public EditTextMaskFormatter(MARK mask, EditText maskedField) {
-        this(mask, maskedField, SPACE);
+        this(mask, maskedField, SPACE, null);
     }
 
-    public EditTextMaskFormatter(MARK mask, EditText maskedField, char maskCharacter) {
+    public EditTextMaskFormatter(MARK mask, EditText maskedField, char maskCharacter, String markFormat) {
 
         switch (mask) {
             case PHONE:
-                this.mask = PHONE_FOMAT;
+                if (!TextUtils.isEmpty(markFormat)) {
+                    this.mask = markFormat;
+                } else {
+                    this.mask = PHONE_FOMAT;
+                }
                 this.isDefaultEditText = false;
                 break;
 
             case BIRTHDAY:
-                this.mask = BIRDAY_FORMAT;
+                if (!TextUtils.isEmpty(markFormat)) {
+                    this.mask = markFormat;
+                } else {
+                    this.mask = BIRDAY_FORMAT;
+                }
+
                 this.isDefaultEditText = false;
+                break;
+
+            case CURRENCY:
+
+                if (!TextUtils.isEmpty(markFormat)) {
+                    this.mask = markFormat;
+                } else {
+                    this.mask = CURRENCY_FOMAT;
+                }
+
+                this.isDefaultEditText = false;
+
+                break;
+
+            case CUSTOM:
+                if (!TextUtils.isEmpty(markFormat)) {
+                    this.mask = markFormat;
+                    this.isDefaultEditText = false;
+                } else {
+                    this.isDefaultEditText = true;
+                }
+
+
                 break;
 
             default:
