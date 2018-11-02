@@ -115,4 +115,13 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="MKLoader">
+        <attr name="mk_color" format="color" />
+        <attr name="mk_type">
+            <enum name="ClassicSpinner" value="0" />
+            <enum name="FishSpinner" value="1" />
+            <enum name="LineSpinner" value="2" />
+        </attr>
+    </declare-styleable>
+
 </resources>

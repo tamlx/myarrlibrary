@@ -82,4 +82,8 @@
 
     <color name="colorRouteLine">#FF4081</color>
     <color name="fillColorNavigation">#FFFFFF</color>
+
+    <color name="progressColor">#FF5252</color>
+    <color name="progressBackground">#32000000</color>
+    <color name="progressColorTextTitle">#808080</color>
 </resources>

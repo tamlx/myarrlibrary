@@ -1,5 +1,6 @@
 package b.laixuantam.myaarlibrary.base;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -28,6 +30,8 @@ import b.laixuantam.myaarlibrary.api.ErrorApiResponse;
 import b.laixuantam.myaarlibrary.dependency.AppProvider;
 import b.laixuantam.myaarlibrary.helper.BusHelper;
 import b.laixuantam.myaarlibrary.widgets.dialog.ProgressDialog;
+import b.laixuantam.myaarlibrary.widgets.progresswindow.ProgressWindow;
+import b.laixuantam.myaarlibrary.widgets.progresswindow.ProgressWindowConfiguration;
 
 
 public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extends BaseActionbarView, P extends BaseParameters> extends AppCompatActivity {
@@ -46,6 +50,9 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
     private boolean isInitBranch = false;
     protected Handler handler = new Handler();
     private Runnable progressRunnable = null;
+
+    private ProgressWindow progressWindow;
+    private ProgressWindowConfiguration progressWindowConfiguration;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +76,61 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
 
         initialize(savedInstanceState);
         BusHelper.register(this);
+        progressConfigurations();
+    }
 
+    /**
+     * Function to set main configuration
+     */
+    private void progressConfigurations() {
+        progressWindow = ProgressWindow.getInstance(this);
+        progressWindowConfiguration = new ProgressWindowConfiguration();
+
+    }
+
+    /**
+     * Function to show progress
+     */
+    public void showProgress2(ProgressWindowConfiguration.TYPE progressType) {
+        if (progressWindow == null){
+            progressConfigurations();
+        }
+        showProgress2("", progressType);
+    }
+
+    public void showProgress2(String title, ProgressWindowConfiguration.TYPE progressType) {
+        if (progressWindow == null) {
+            progressConfigurations();
+        }
+        showProgress2(title, 0, progressType, 0);
+    }
+
+    @SuppressLint("ResourceType")
+    public void showProgress2(String title, @ColorRes int titleColor, ProgressWindowConfiguration.TYPE progressType, @ColorRes int progressColor) {
+        if (progressWindow == null) {
+            progressConfigurations();
+        }
+
+        if (!TextUtils.isEmpty(title)) {
+            progressWindowConfiguration.title = title;
+        }
+        if (titleColor > 0) {
+            progressWindowConfiguration.titleColor = titleColor;
+        }
+        progressWindowConfiguration.type = progressType;
+
+        if (progressColor > 0) {
+            progressWindowConfiguration.progressColor = progressColor;
+        }
+        progressWindow.setConfiguration(progressWindowConfiguration);
+        progressWindow.showProgress();
+    }
+
+    /**
+     * Function to hide progress
+     */
+    public void hideProgress2() {
+        progressWindow.hideProgress();
     }
 
     @Override
