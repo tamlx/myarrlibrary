@@ -38,7 +38,8 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
 
     public enum Animation {
         TRANSLATE_Y,
-        SLIDE_IN_OUT
+        SLIDE_IN_OUT,
+        CUSTOM_FLAG_IN_OUT
     }
 
     protected V view;
@@ -92,7 +93,7 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
      * Function to show progress
      */
     public void showProgress2(ProgressWindowConfiguration.TYPE progressType) {
-        if (progressWindow == null){
+        if (progressWindow == null) {
             progressConfigurations();
         }
         showProgress2("", progressType);
@@ -272,11 +273,13 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            if (anim == Animation.TRANSLATE_Y)
+            if (anim == Animation.TRANSLATE_Y) {
                 transaction.setCustomAnimations(R.anim.translate_y_enter, R.anim.translate_y_exit, R.anim.translate_y_pop_enter, R.anim.translate_y_pop_exit);
-
-            else
+            } else if (anim == Animation.SLIDE_IN_OUT) {
                 transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out, R.anim.slide_right_in, R.anim.slide_right_out);
+            } else if (anim == Animation.CUSTOM_FLAG_IN_OUT) {
+                transaction.setCustomAnimations(R.anim.custom_frag_in, R.anim.custom_frg_out);
+            }
 
             transaction.replace(getFragmentContainerId(), fragment);
 
