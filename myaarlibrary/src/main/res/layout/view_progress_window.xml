@@ -3,53 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_main_layout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/pb_main_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
-        android:id="@+id/mkLoaderClassicSpinner"
+    <LinearLayout
+        android:id="@+id/ll_loading_bound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:mk_color="@color/progressColor"
-        app:mk_type="ClassicSpinner"
-        tools:visibility="visible" />
+        android:background="@drawable/border_shape_white_radius_5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="15dp">
 
-    <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
-        android:id="@+id/mkLoaderLineSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:mk_color="@color/progressColor"
-        app:mk_type="LineSpinner"
-        tools:visibility="visible" />
+        <ProgressBar
+            android:id="@+id/pb_main_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
-        android:id="@+id/mkLoaderFishSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:mk_color="@color/progressColor"
-        app:mk_type="FishSpinner"
-        tools:visibility="visible" />
+        <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
+            android:id="@+id/mkLoaderClassicSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:mk_color="@color/progressColor"
+            app:mk_type="ClassicSpinner"
+            tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tvLoadingTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/progressColorTextTitle"
-        android:textSize="20sp"
-        tools:text="Đang tải..." />
+        <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
+            android:id="@+id/mkLoaderLineSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:mk_color="@color/progressColor"
+            app:mk_type="LineSpinner"
+            tools:visibility="visible" />
 
+        <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
+            android:id="@+id/mkLoaderFishSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:mk_color="@color/progressColor"
+            app:mk_type="FishSpinner"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvLoadingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/progressColorTextTitle"
+            android:textSize="20sp"
+            tools:text="Đang tải..." />
+
+    </LinearLayout>
 </LinearLayout>

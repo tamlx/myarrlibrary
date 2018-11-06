@@ -89,50 +89,6 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
 
     }
 
-    /**
-     * Function to show progress
-     */
-    public void showProgress2(ProgressWindowConfiguration.TYPE progressType) {
-        if (progressWindow == null) {
-            progressConfigurations();
-        }
-        showProgress2("", progressType);
-    }
-
-    public void showProgress2(String title, ProgressWindowConfiguration.TYPE progressType) {
-        if (progressWindow == null) {
-            progressConfigurations();
-        }
-        showProgress2(title, 0, progressType, 0);
-    }
-
-    @SuppressLint("ResourceType")
-    public void showProgress2(String title, @ColorRes int titleColor, ProgressWindowConfiguration.TYPE progressType, @ColorRes int progressColor) {
-        if (progressWindow == null) {
-            progressConfigurations();
-        }
-
-        if (!TextUtils.isEmpty(title)) {
-            progressWindowConfiguration.title = title;
-        }
-        if (titleColor > 0) {
-            progressWindowConfiguration.titleColor = titleColor;
-        }
-        progressWindowConfiguration.type = progressType;
-
-        if (progressColor > 0) {
-            progressWindowConfiguration.progressColor = progressColor;
-        }
-        progressWindow.setConfiguration(progressWindowConfiguration);
-        progressWindow.showProgress();
-    }
-
-    /**
-     * Function to hide progress
-     */
-    public void hideProgress2() {
-        progressWindow.hideProgress();
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -310,6 +266,51 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
             return defaultValue;
         }
     }
+
+    /**
+     * Function to show progress
+     */
+    public void showProgress2(ProgressWindowConfiguration.TYPE progressType) {
+        if (progressWindow == null) {
+            progressConfigurations();
+        }
+        showProgress2("", progressType);
+    }
+
+    public void showProgress2(String title, ProgressWindowConfiguration.TYPE progressType) {
+        if (progressWindow == null) {
+            progressConfigurations();
+        }
+        showProgress2(title, 0, progressType, 0);
+    }
+
+    @SuppressLint("ResourceType")
+    public void showProgress2(String title, @ColorRes int titleColor, ProgressWindowConfiguration.TYPE progressType, @ColorRes int progressColor) {
+        if (progressWindow == null) {
+            progressConfigurations();
+        }
+
+        progressWindowConfiguration.title = title;
+        if (titleColor > 0) {
+            progressWindowConfiguration.titleColor = titleColor;
+        }
+        progressWindowConfiguration.type = progressType;
+
+        if (progressColor > 0) {
+            progressWindowConfiguration.progressColor = progressColor;
+        }
+        progressWindow.setConfiguration(progressWindowConfiguration);
+        progressWindow.showProgress();
+    }
+
+    /**
+     * Function to hide progress
+     */
+    public void hideProgress2() {
+        if (progressWindow != null)
+            progressWindow.hideProgress();
+    }
+
 
     public void showProgress(@StringRes int resId) {
         showProgress(getString(resId));

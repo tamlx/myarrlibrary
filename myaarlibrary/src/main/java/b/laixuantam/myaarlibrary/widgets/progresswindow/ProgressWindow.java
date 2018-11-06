@@ -56,6 +56,7 @@ public class ProgressWindow {
 
     private ProgressBar mainProgress;
     private LinearLayout mainLayout;
+    private LinearLayout ll_loading_bound;
     private MKLoader mkLoaderClassicSpinner;
     private MKLoader mkLoaderLineSpinner;
     private MKLoader mkLoaderFishSpinner;
@@ -97,6 +98,8 @@ public class ProgressWindow {
         tvProgressTitle.setTextColor(ContextCompat.getColor(mContext, R.color.progressColorTextTitle));
 
         mainLayout = progressLayout.findViewById(R.id.ll_main_layout);
+        ll_loading_bound = progressLayout.findViewById(R.id.ll_loading_bound);
+
         mainLayout.setBackgroundColor(Color.TRANSPARENT);
 
         mainProgress.setVisibility(View.VISIBLE);
@@ -135,6 +138,10 @@ public class ProgressWindow {
         }
         if (!TextUtils.isEmpty(progressWindowConfiguration.title)) {
             tvProgressTitle.setText(progressWindowConfiguration.title);
+            ll_loading_bound.setBackgroundResource(R.drawable.border_shape_white_radius_5);
+        } else {
+            tvProgressTitle.setText("");
+            ll_loading_bound.setBackgroundColor(Color.TRANSPARENT);
         }
 
         if (progressWindowConfiguration.titleColor > 0) {

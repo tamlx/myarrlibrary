@@ -101,9 +101,7 @@ public abstract class BaseActivity<V extends BaseViewInterface, A extends BaseAc
             progressConfigurations();
         }
 
-        if (!TextUtils.isEmpty(title)) {
-            progressWindowConfiguration.title = title;
-        }
+        progressWindowConfiguration.title = title;
         if (titleColor > 0) {
             progressWindowConfiguration.titleColor = titleColor;
         }
@@ -120,7 +118,8 @@ public abstract class BaseActivity<V extends BaseViewInterface, A extends BaseAc
      * Function to hide progress
      */
     public void hideProgress2() {
-        progressWindow.hideProgress();
+        if (progressWindow != null)
+            progressWindow.hideProgress();
     }
 
     @Override

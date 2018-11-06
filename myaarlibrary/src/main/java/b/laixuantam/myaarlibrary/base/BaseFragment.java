@@ -101,10 +101,8 @@ public abstract class BaseFragment<V extends BaseViewInterface, P extends BasePa
         if (progressWindow == null) {
             progressConfigurations();
         }
-        
-        if (!TextUtils.isEmpty(title)) {
-            progressWindowConfiguration.title = title;
-        }
+
+        progressWindowConfiguration.title = title;
         if (titleColor > 0) {
             progressWindowConfiguration.titleColor = titleColor;
         }
@@ -121,7 +119,8 @@ public abstract class BaseFragment<V extends BaseViewInterface, P extends BasePa
      * Function to hide progress
      */
     public void hideProgress2() {
-        progressWindow.hideProgress();
+        if (progressWindow != null)
+            progressWindow.hideProgress();
     }
 
     protected abstract void initialize();
