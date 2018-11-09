@@ -20,6 +20,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.text.Html;
+import android.text.TextUtils;
 import android.widget.RemoteViews;
 
 import java.io.IOException;
@@ -164,7 +165,7 @@ public class MyNotification {
     }
 
 
-    public void showCustomNotificationGoToActivity(Context context, int smallIcon, Class destinationClass, BaseNotificationModel model, Bitmap icomAvata) {
+    public void showCustomNotificationGoToActivity(Context context, int smallIcon, Class destinationClass, BaseNotificationModel model, Bitmap largeIconNotify) {
 
         if (model == null) {
             return;
@@ -184,15 +185,16 @@ public class MyNotification {
         // you can do something with loaded bitmap here
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-
         String messageContent = model.getMessage();
 
-        if (model.getTypeMess().equalsIgnoreCase(TypeNotification.TYPE_MESS_IMG)) {
-            messageContent = "Bạn nhận được [Hình ảnh] mới";
-        } else if (model.getTypeMess().equalsIgnoreCase(TypeNotification.TYPE_MESS_VIDEO)) {
-            messageContent = "Bạn nhận được [Video] mới";
-        } else if (model.getTypeMess().equalsIgnoreCase(TypeNotification.TYPE_MESS_FILE)) {
-            messageContent = "Bạn nhận được [File] mới";
+        if (!TextUtils.isEmpty(model.getTypeMess())) {
+            if (model.getTypeMess().equalsIgnoreCase(TypeNotification.TYPE_MESS_IMG)) {
+                messageContent = "Bạn nhận được [Hình ảnh] mới";
+            } else if (model.getTypeMess().equalsIgnoreCase(TypeNotification.TYPE_MESS_VIDEO)) {
+                messageContent = "Bạn nhận được [Video] mới";
+            } else if (model.getTypeMess().equalsIgnoreCase(TypeNotification.TYPE_MESS_FILE)) {
+                messageContent = "Bạn nhận được [File] mới";
+            }
         }
 
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
@@ -203,8 +205,8 @@ public class MyNotification {
         contentView.setTextViewText(R.id.tvNotificationDescription, messageContent);
         contentView.setImageViewResource(R.id.imvLogoHeader, smallIcon);
 
-        if (icomAvata != null) {
-            contentView.setImageViewBitmap(R.id.imvIcNotify, getCircledBitmap(icomAvata));
+        if (largeIconNotify != null) {
+            contentView.setImageViewBitmap(R.id.imvIcNotify, getCircledBitmap(largeIconNotify));
         } else {
             contentView.setImageViewResource(R.id.imvIcNotify, smallIcon);
         }
@@ -270,7 +272,7 @@ public class MyNotification {
 
 
     public void showNotificationWithLoadImageAvata(Context context, Class destinationClass, BaseNotificationModel model, int smallIcon) {
-        new GeneratePictureStyleNotification(context, destinationClass, model,smallIcon).execute();
+        new GeneratePictureStyleNotification(context, destinationClass, model, smallIcon).execute();
     }
 
     public class GeneratePictureStyleNotification extends AsyncTask<String, Void, Bitmap> {
