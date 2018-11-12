@@ -203,6 +203,14 @@ public class ProgressWindow {
     public void hideProgress() {
         if (isAttached) {
             windowManager.removeViewImmediate(progressLayout);
+            windowManager.removeViewImmediate(mainLayout);
+            windowManager.removeViewImmediate(ll_loading_bound);
+            windowManager.removeViewImmediate(tvProgressTitle);
+            windowManager.removeViewImmediate(mainProgress);
+            windowManager.removeViewImmediate(mkLoaderClassicSpinner);
+            windowManager.removeViewImmediate(mkLoaderFishSpinner);
+            windowManager.removeViewImmediate(mkLoaderLineSpinner);
+
         }
     }
 
