@@ -112,14 +112,16 @@ public abstract class BaseActivity<V extends BaseViewInterface, A extends BaseAc
         }
         progressWindow.setConfiguration(progressWindowConfiguration);
         progressWindow.showProgress();
+
     }
 
     /**
      * Function to hide progress
      */
     public void hideProgress2() {
-        if (progressWindow != null)
+        if (progressWindow != null) {
             progressWindow.hideProgress();
+        }
     }
 
     @Override

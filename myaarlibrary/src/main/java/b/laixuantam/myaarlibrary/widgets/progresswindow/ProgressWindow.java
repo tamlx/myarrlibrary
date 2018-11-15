@@ -187,14 +187,31 @@ public class ProgressWindow {
      * Function to show progress
      */
     public void showProgress() {
-        windowManager.addView(progressLayout, layoutParams);
+        if (progressLayout != null && progressLayout.getWindowToken() != null) {
+            windowManager.removeViewImmediate(progressLayout);
+        }
+        try {
+            windowManager.addView(progressLayout, layoutParams);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     public void showProgress(String title) {
 
         tvProgressTitle.setText(title);
 
-        windowManager.addView(progressLayout, layoutParams);
+        if (progressLayout != null && progressLayout.getWindowToken() != null) {
+            windowManager.removeViewImmediate(progressLayout);
+        }
+
+        try {
+            windowManager.addView(progressLayout, layoutParams);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     /**
@@ -203,13 +220,6 @@ public class ProgressWindow {
     public void hideProgress() {
         if (isAttached) {
             windowManager.removeViewImmediate(progressLayout);
-            windowManager.removeViewImmediate(mainLayout);
-            windowManager.removeViewImmediate(ll_loading_bound);
-            windowManager.removeViewImmediate(tvProgressTitle);
-            windowManager.removeViewImmediate(mainProgress);
-            windowManager.removeViewImmediate(mkLoaderClassicSpinner);
-            windowManager.removeViewImmediate(mkLoaderFishSpinner);
-            windowManager.removeViewImmediate(mkLoaderLineSpinner);
 
         }
     }

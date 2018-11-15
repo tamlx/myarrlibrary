@@ -113,14 +113,16 @@ public abstract class BaseFragment<V extends BaseViewInterface, P extends BasePa
         }
         progressWindow.setConfiguration(progressWindowConfiguration);
         progressWindow.showProgress();
+
     }
 
     /**
      * Function to hide progress
      */
     public void hideProgress2() {
-        if (progressWindow != null)
+        if (progressWindow != null) {
             progressWindow.hideProgress();
+        }
     }
 
     protected abstract void initialize();
