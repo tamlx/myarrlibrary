@@ -87,6 +87,7 @@ public class Gallery extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
         if (selectionTitle > 0) {
+
             if (typeMedia == 1) {
 
                 toolbar.setTitle(String.valueOf(selectionTitle) + " [Hình ảnh] đã chọn");
@@ -94,6 +95,10 @@ public class Gallery extends AppCompatActivity {
                 toolbar.setTitle(String.valueOf(selectionTitle) + " [Video] đã chọn");
 
             }
+            if (maxSelection == 1) {
+                returnResult();
+            }
+
         } else {
             toolbar.setTitle(title);
         }
