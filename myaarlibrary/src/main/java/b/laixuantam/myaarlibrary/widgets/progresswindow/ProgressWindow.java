@@ -100,7 +100,7 @@ public class ProgressWindow {
         mainLayout = progressLayout.findViewById(R.id.ll_main_layout);
         ll_loading_bound = progressLayout.findViewById(R.id.ll_loading_bound);
 
-        mainLayout.setBackgroundColor(Color.TRANSPARENT);
+        mainLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.progressBackground));
 
         mainProgress.setVisibility(View.VISIBLE);
         mkLoaderClassicSpinner.setVisibility(View.GONE);

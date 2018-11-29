@@ -20,13 +20,13 @@
         <ProgressBar
             android:id="@+id/pb_main_progress"
             style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
 
         <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
             android:id="@+id/mkLoaderClassicSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:visibility="gone"
             app:mk_color="@color/progressColor"
             app:mk_type="ClassicSpinner"
@@ -34,8 +34,8 @@
 
         <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
             android:id="@+id/mkLoaderLineSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:visibility="gone"
             app:mk_color="@color/progressColor"
             app:mk_type="LineSpinner"
@@ -43,8 +43,8 @@
 
         <b.laixuantam.myaarlibrary.widgets.progresswindow.mkloader.MKLoader
             android:id="@+id/mkLoaderFishSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:visibility="gone"
             app:mk_color="@color/progressColor"
             app:mk_type="FishSpinner"

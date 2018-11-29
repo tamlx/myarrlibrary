@@ -30,20 +30,16 @@ import b.laixuantam.myaarlibrary.helper.BusHelper;
 import b.laixuantam.myaarlibrary.widgets.dialog.ProgressDialog;
 import b.laixuantam.myaarlibrary.widgets.progresswindow.ProgressWindow;
 import b.laixuantam.myaarlibrary.widgets.progresswindow.ProgressWindowConfiguration;
+import b.laixuantam.myaarlibrary.widgets.progresswindow.kprogresshud.KProgressHUD;
 
 
 public abstract class BaseActivity<V extends BaseViewInterface, A extends BaseActionbarView, P extends BaseParameters> extends AppCompatActivity {
     protected V view;
     protected A actionbar;
     protected P parameters;
-    private ProgressDialog mProgressDialog;
     private Toast exitToast;
     private Toast toast;
     protected Handler handler = new Handler();
-    private Runnable progressRunnable = null;
-
-    private ProgressWindow progressWindow;
-    private ProgressWindowConfiguration progressWindowConfiguration;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,62 +62,6 @@ public abstract class BaseActivity<V extends BaseViewInterface, A extends BaseAc
         initialize();
         BusHelper.register(this);
 
-        progressConfigurations();
-    }
-
-    /**
-     * Function to set main configuration
-     */
-    private void progressConfigurations() {
-        progressWindow = ProgressWindow.getInstance(this);
-        progressWindowConfiguration = new ProgressWindowConfiguration();
-
-    }
-
-    /**
-     * Function to show progress
-     */
-    public void showProgress2(ProgressWindowConfiguration.TYPE progressType) {
-        if (progressWindow == null) {
-            progressConfigurations();
-        }
-        showProgress2("", progressType);
-    }
-
-    public void showProgress2(String title, ProgressWindowConfiguration.TYPE progressType) {
-        if (progressWindow == null) {
-            progressConfigurations();
-        }
-        showProgress2(title, 0, progressType, 0);
-    }
-
-    @SuppressLint("ResourceType")
-    public void showProgress2(String title, @ColorRes int titleColor, ProgressWindowConfiguration.TYPE progressType, @ColorRes int progressColor) {
-        if (progressWindow == null) {
-            progressConfigurations();
-        }
-
-        progressWindowConfiguration.title = title;
-        if (titleColor > 0) {
-            progressWindowConfiguration.titleColor = titleColor;
-        }
-        progressWindowConfiguration.type = progressType;
-
-        if (progressColor > 0) {
-            progressWindowConfiguration.progressColor = progressColor;
-        }
-        progressWindow.setConfiguration(progressWindowConfiguration);
-        progressWindow.showProgress();
-
-    }
-
-    /**
-     * Function to hide progress
-     */
-    public void hideProgress2() {
-        if (progressWindow != null) {
-            progressWindow.hideProgress();
-        }
     }
 
     @Override
@@ -266,46 +206,48 @@ public abstract class BaseActivity<V extends BaseViewInterface, A extends BaseAc
         return false;
     }
 
+    private KProgressHUD hud;
+
     public void showProgress() {
         showProgress("");
     }
 
+    public void showProgress(@StringRes int resId) {
+        showProgress(getString(resId));
+    }
+
     public void showProgress(String message) {
-        showProgress(message, false);
+        showProgress(message, true);
     }
 
     public synchronized void showProgress(String message, boolean timeout) {
-        // Show progress dialog if it is null or not showing.
-        if (mProgressDialog == null) {
-            mProgressDialog = ProgressDialog.newInstance(message);
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
+        if (!TextUtils.isEmpty(message)) {
+            hud.setLabel(message);
+            hud.setCancellable(false);
         }
-        if (!mProgressDialog.isShowing() && !this.isFinishing()) {
-            mProgressDialog.show(getSupportFragmentManager(), "ProgressDialog");
-        }
+
+        hud.show();
+
         if (timeout) {
-            if (progressRunnable != null) {
-                handler.removeCallbacks(progressRunnable);
-                progressRunnable = null;
-            }
-            progressRunnable = new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showSnackbar(ApiRequest.RequestError.ERROR_NETWORK_OTHER);
-                    dismissProgress();
+                    hud.dismiss();
                 }
-            };
-            handler.postDelayed(progressRunnable, 10000);
+            }, 10000);
         }
     }
 
     public synchronized void dismissProgress() {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
-        }
-        if (progressRunnable != null) {
-            handler.removeCallbacks(progressRunnable);
-            progressRunnable = null;
-        }
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (hud != null)
+                    hud.dismiss();
+            }
+        });
     }
 
     public void showSnackbar(@StringRes int resId) {
