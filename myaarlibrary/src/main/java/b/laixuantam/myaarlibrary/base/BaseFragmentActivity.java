@@ -268,6 +268,11 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
     }
 
     public synchronized void showProgress(String message, boolean timeout) {
+        if (hud != null && hud.isShowing()) {
+
+            hud.dismiss();
+            hud = null;
+        }
         hud = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
         if (!TextUtils.isEmpty(message)) {
@@ -281,7 +286,11 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    hud.dismiss();
+                    if (hud != null && hud.isShowing()) {
+
+                        hud.dismiss();
+                        hud = null;
+                    }
                 }
             }, 10000);
         }
