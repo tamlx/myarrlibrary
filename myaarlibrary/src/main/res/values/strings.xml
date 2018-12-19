@@ -159,4 +159,9 @@
     <string name="title_an_hour_ago">an hour ago</string>
     <string name="title_an_hours_ago"> hours ago</string>
     <string name="title_an_days_ago"> days ago</string>
+
+
+    <string name="can_not_crop">Can not crop</string>
+    <string name="fail_to_crop">Fail to crop</string>
+
 </resources>
