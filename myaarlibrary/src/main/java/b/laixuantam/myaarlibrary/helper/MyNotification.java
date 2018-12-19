@@ -33,7 +33,7 @@ import java.util.Random;
 import b.laixuantam.myaarlibrary.R;
 import b.laixuantam.myaarlibrary.model.BaseNotificationModel;
 import b.laixuantam.myaarlibrary.model.TypeNotification;
-import b.laixuantam.myaarlibrary.widgets.calendar.ConvertDate;
+import b.laixuantam.myaarlibrary.widgets.ultils.ConvertDate;
 
 /**
  * Created by LaiXuanTam on 4/7/2016.
