@@ -31,7 +31,7 @@
             </FrameLayout>
         </RelativeLayout>
 
-        <com.naver.android.helloyako.imagecrop.view.ImageCropView xmlns:imagecrop="http://schemas.android.com/apk/res-auto"
+        <b.laixuantam.myaarlibrary.widgets.imagecrop.view.ImageCropView xmlns:imagecrop="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

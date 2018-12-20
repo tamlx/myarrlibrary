@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -35,29 +36,28 @@ import b.laixuantam.myaarlibrary.widgets.imagecrop.util.BitmapLoadUtils;
 import b.laixuantam.myaarlibrary.widgets.imagecrop.view.ImageCropView;
 
 /**
- *  private void startCrop(Uri imageUri) {
- *         Intent intent = new Intent(MainActivity.this, ImageCropActivity.class);
- *         intent.setData(imageUri);
- *         if (imageUri != null) {
- *             startActivity(intent);
- *         } else {
- *             startActivityForResult(intent, ACTION_REQUEST_IMAGE_CROP);
- *         }
- *     }
+ * private void startCrop(Uri imageUri) {
+ * Intent intent = new Intent(MainActivity.this, ImageCropActivity.class);
+ * intent.setData(imageUri);
+ * if (imageUri != null) {
+ * startActivity(intent);
+ * } else {
+ * startActivityForResult(intent, ACTION_REQUEST_IMAGE_CROP);
+ * }
+ * }
  *
- *     @Override
- *     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
- *         if (resultCode == RESULT_OK) {
- *             switch (requestCode) {
- *
- *                 case ACTION_REQUEST_IMAGE_CROP:
- *                     String filePath2 = data.getStringExtra("result");
- *                     Uri filePathUri2 = Uri.parse(filePath2);
- *                     loadAsync(filePathUri2);
- *                     break;
- *             }
- *         }
- *     }
+ * @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+ * if (resultCode == RESULT_OK) {
+ * switch (requestCode) {
+ * <p>
+ * case ACTION_REQUEST_IMAGE_CROP:
+ * String filePath2 = data.getStringExtra("result");
+ * Uri filePathUri2 = Uri.parse(filePath2);
+ * loadAsync(filePathUri2);
+ * break;
+ * }
+ * }
+ * }
  */
 
 
@@ -248,7 +248,18 @@ public class ImageCropActivity extends Activity {
         FileOutputStream fileOutputStream = null;
 
         try {
-            File file = new File(Environment.getExternalStoragePublicDirectory("image_crop_sample"), "");
+            File file = null;
+
+            String fileStoreName = getString(R.string.project_image_resource);
+            if (checkExternalStorageAvailable()) {
+                file = new File(Environment.getExternalStoragePublicDirectory(fileStoreName), "");
+            } else {
+                ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                // path to /data/data/yourapp/app_data/imageDir
+                File directory = cw.getDir(fileStoreName, Context.MODE_PRIVATE);
+                // Create imageDir
+                file = new File(directory, "");
+            }
             if (!file.exists()) {
                 file.mkdir();
             }
@@ -267,7 +278,7 @@ public class ImageCropActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(ImageCropActivity.this, "file saved", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(ImageCropActivity.this, "file saved", Toast.LENGTH_LONG).show();
                             returnResult(bitmapFile.getAbsolutePath());
                         }
                     });
@@ -287,6 +298,27 @@ public class ImageCropActivity extends Activity {
         }
 
         return bitmapFile;
+    }
+
+    boolean mExternalStorageAvailable = false;
+    boolean mExternalStorageWriteable = false;
+
+    private boolean checkExternalStorageAvailable() {
+        String state = Environment.getExternalStorageState();
+
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            // We can read and write the media
+            mExternalStorageAvailable = mExternalStorageWriteable = true;
+        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            // We can only read the media
+            mExternalStorageAvailable = true;
+            mExternalStorageWriteable = false;
+        } else {
+            // Something else is wrong. It may be one of many other states, but all we need
+            //  to know is we can neither read nor write
+            mExternalStorageAvailable = mExternalStorageWriteable = false;
+        }
+        return (mExternalStorageAvailable && mExternalStorageWriteable) ? true : false;
     }
 
     public void onClickSaveButton(View v) {
