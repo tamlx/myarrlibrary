@@ -164,5 +164,6 @@
     <string name="fail_to_crop">Fail to crop</string>
 
     <string name="project_image_resource">ImageResource</string>
+    <string name="tutorial_gotit">Đã hiểu</string>
 
 </resources>
