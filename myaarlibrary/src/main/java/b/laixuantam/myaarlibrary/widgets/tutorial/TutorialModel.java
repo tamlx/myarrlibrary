@@ -18,6 +18,7 @@ public class TutorialModel {
     private boolean rlt;
     private boolean arrowBottom;
     private boolean actionBar;
+    private int marginBottom;
 
     public TutorialModel(@IdRes int componentAttached, @StringRes int content, @LayoutRes int fakeView) {
         this.componentAttached = componentAttached;
@@ -65,6 +66,14 @@ public class TutorialModel {
 
     public void setArrowBottom(boolean arrowBottom) {
         this.arrowBottom = arrowBottom;
+    }
+
+    public int getMarginBottom() {
+        return marginBottom;
+    }
+
+    public void setMarginBottom(int marginBottom) {
+        this.marginBottom = marginBottom;
     }
 
     public boolean isActionBar() {

@@ -12,12 +12,22 @@
     <FrameLayout
         android:id="@+id/tutorial_fake_component"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/tutorial_fake_bottom_component"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/tutorial_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/tutorial_fake_bottom_component"
         android:layout_below="@id/tutorial_fake_component"
         android:orientation="vertical">
 

@@ -17,49 +17,36 @@ import b.laixuantam.myaarlibrary.R;
 import b.laixuantam.myaarlibrary.helper.ScreenHelper;
 
 /**
-
- ------------- set up xml ----------------------
- <.widgets.TutorialView
- android:id="@+id/tutorial"
- android:layout_width="match_parent"
- android:layout_height="match_parent"
- android:visibility="gone" />
-
- ------------- set up view ----------------------
- @UiElement(R.id.tutorial)
- public TutorialView tutorialView;
-
- public void showTutorial(TutorialModel tutorial, TutorialListener listener)
- {
- ui.tutorialView.setListener(listener);
- ui.tutorialView.showTutorialDelay(tutorial);
- }
-
--------------- function call --------------------
-
- private void showMainTutorial() {
- TutorialModel model = new TutorialModel(R.id.button_menu, R.string.tutorial_menu, R.layout.view_tutorial_main_menu)
- model.setArrowBottom(false);
- view.showTutorial(model, new TutorialListener() {
-         @Override
-         public void onClose() {
-            showBranchTutorial();
-         }
-
-         @Override
-         public void onAction() {
-         }
-     });
- }
-
-
-
-
-
-
-
-
-
+ * ------------- set up xml ----------------------
+ * <.widgets.TutorialView
+ * android:id="@+id/tutorial"
+ * android:layout_width="match_parent"
+ * android:layout_height="match_parent"
+ * android:visibility="gone" />
+ * <p>
+ * ------------- set up view ----------------------
+ *
+ * @UiElement(R.id.tutorial) public TutorialView tutorialView;
+ * <p>
+ * public void showTutorial(TutorialModel tutorial, TutorialListener listener)
+ * {
+ * ui.tutorialView.setListener(listener);
+ * ui.tutorialView.showTutorialDelay(tutorial);
+ * }
+ * <p>
+ * -------------- function call --------------------
+ * <p>
+ * private void showMainTutorial() {
+ * TutorialModel model = new TutorialModel(R.id.button_menu, R.string.tutorial_menu, R.layout.view_tutorial_main_menu)
+ * model.setArrowBottom(false);
+ * view.showTutorial(model, new TutorialListener() {
+ * @Override public void onClose() {
+ * showBranchTutorial();
+ * }
+ * @Override public void onAction() {
+ * }
+ * });
+ * }
  */
 
 
@@ -67,7 +54,7 @@ public class TutorialView extends FrameLayout {
     private static final int DELAY = 500;
     private View contentView;
     private TextView contentText;
-    private FrameLayout fakeComponent;
+    private FrameLayout fakeComponent, fakeBottomComponent;
     private View arrow, arrowBottom;
     private TutorialListener listener;
     private Handler handler = new Handler();
@@ -93,6 +80,7 @@ public class TutorialView extends FrameLayout {
         contentView = view.findViewById(R.id.tutorial_content);
         contentText = (TextView) view.findViewById(R.id.tutorial_text);
         fakeComponent = (FrameLayout) view.findViewById(R.id.tutorial_fake_component);
+        fakeBottomComponent = (FrameLayout) view.findViewById(R.id.tutorial_fake_bottom_component);
         arrow = view.findViewById(R.id.tutorial_arrow);
         arrowBottom = view.findViewById(R.id.tutorial_arrow_bottom);
 
@@ -152,8 +140,13 @@ public class TutorialView extends FrameLayout {
                 }
             }
         });
-        fakeComponent.removeAllViews();
-        fakeComponent.addView(fake);
+        if (!tutorial.isArrowBottom()) {
+            fakeComponent.removeAllViews();
+            fakeComponent.addView(fake);
+        } else {
+            fakeBottomComponent.removeAllViews();
+            fakeBottomComponent.addView(fake);
+        }
 
         // set text for fake view if fake view and component attached view is TextView
         if (componentAttached instanceof TextView && fake instanceof TextView) {
@@ -177,15 +170,25 @@ public class TutorialView extends FrameLayout {
 
         // set layout params
         RelativeLayout.LayoutParams lp1 = (RelativeLayout.LayoutParams) fakeComponent.getLayoutParams();
+        RelativeLayout.LayoutParams lp_01 = (RelativeLayout.LayoutParams) fakeBottomComponent.getLayoutParams();
         lp1.setMargins(location[0], top, 0, 0);
+        if (tutorial.getMarginBottom() > 0) {
+            lp_01.setMargins(location[0], 0, 0, tutorial.getMarginBottom());
+        } else
+            lp_01.setMargins(location[0], 0, 0, 20);
         fakeComponent.setLayoutParams(lp1);
+        fakeBottomComponent.setLayoutParams(lp_01);
 
         if (tutorial.isArrowBottom()) {
             arrow.setVisibility(View.GONE);
             arrowBottom.setVisibility(View.VISIBLE);
+            fakeBottomComponent.setVisibility(View.VISIBLE);
+            fakeComponent.setVisibility(View.GONE);
         } else {
             arrow.setVisibility(View.VISIBLE);
             arrowBottom.setVisibility(View.GONE);
+            fakeBottomComponent.setVisibility(View.GONE);
+            fakeComponent.setVisibility(View.VISIBLE);
         }
 
         RelativeLayout.LayoutParams lp2 = (RelativeLayout.LayoutParams) contentView.getLayoutParams();
@@ -193,19 +196,23 @@ public class TutorialView extends FrameLayout {
             ScreenHelper.ScreenSize screenSize = ScreenHelper.getScreenSize(getContext());
             int marginRight = screenSize.width - location[0] - componentAttached.getWidth();
             lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
-            lp2.setMargins(0, 0, marginRight + componentAttached.getWidth() / 4, 0);
-            if (!tutorial.isArrowBottom())
+
+            if (!tutorial.isArrowBottom()) {
+                lp2.setMargins(0, 0, marginRight + componentAttached.getWidth() / 4, 0);
                 ((LinearLayout.LayoutParams) arrow.getLayoutParams()).gravity = Gravity.RIGHT;
-            else {
+            } else {
+                lp2.setMargins(0, 0, marginRight + componentAttached.getWidth() / 4, 20);
                 ((LinearLayout.LayoutParams) arrowBottom.getLayoutParams()).gravity = Gravity.RIGHT;
             }
         } else {
             lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
-            lp2.setMargins(location[0] + componentAttached.getWidth() / 4, 0, 0, 0);
-            if (!tutorial.isArrowBottom())
+            if (!tutorial.isArrowBottom()) {
+                lp2.setMargins(location[0] + componentAttached.getWidth() / 4, 0, 0, 0);
                 ((LinearLayout.LayoutParams) arrow.getLayoutParams()).gravity = Gravity.LEFT;
-            else
+            } else {
+                lp2.setMargins(location[0] + componentAttached.getWidth() / 4, 0, 0, 20);
                 ((LinearLayout.LayoutParams) arrowBottom.getLayoutParams()).gravity = Gravity.LEFT;
+            }
         }
         contentView.setLayoutParams(lp2);
 
