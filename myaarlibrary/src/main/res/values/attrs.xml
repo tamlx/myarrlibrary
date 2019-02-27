@@ -134,6 +134,9 @@
         <attr name="cb_strokeDashGap" format="integer" />
     </declare-styleable>
 
-
+    <declare-styleable name="CustomTabButton">
+        <attr name="full_width" format="boolean" />
+        <attr name="tab_width" format="dimension" />
+    </declare-styleable>
 
 </resources>
