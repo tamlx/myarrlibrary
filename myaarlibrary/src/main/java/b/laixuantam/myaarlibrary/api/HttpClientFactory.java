@@ -1,5 +1,7 @@
 package b.laixuantam.myaarlibrary.api;
 
+import android.text.TextUtils;
+
 import java.io.File;
 import java.io.InputStream;
 import java.security.SecureRandom;
@@ -200,6 +202,10 @@ public class HttpClientFactory {
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             public void log(String message) {
+
+                if (!TextUtils.isEmpty(MODE) && MODE.equalsIgnoreCase("production")) {
+                    return;
+                }
                 MyLog.d("RETROFIT_LOG", message);
             }
         });
