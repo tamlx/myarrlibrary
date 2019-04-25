@@ -18,35 +18,35 @@ import b.laixuantam.myaarlibrary.helper.ScreenHelper;
 
 /**
  * ------------- set up xml ----------------------
- * <.widgets.TutorialView
- * android:id="@+id/tutorial"
- * android:layout_width="match_parent"
- * android:layout_height="match_parent"
- * android:visibility="gone" />
- * <p>
+  <.widgets.TutorialView
+  android:id="@+id/tutorial"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:visibility="gone" />
+
  * ------------- set up view ----------------------
  *
- * @UiElement(R.id.tutorial) public TutorialView tutorialView;
- * <p>
- * public void showTutorial(TutorialModel tutorial, TutorialListener listener)
- * {
- * ui.tutorialView.setListener(listener);
- * ui.tutorialView.showTutorialDelay(tutorial);
- * }
- * <p>
+  @UiElement(R.id.tutorial) public TutorialView tutorialView;
+
+  public void showTutorial(TutorialModel tutorial, TutorialListener listener)
+  {
+  ui.tutorialView.setListener(listener);
+  ui.tutorialView.showTutorialDelay(tutorial);
+  }
+
  * -------------- function call --------------------
- * <p>
- * private void showMainTutorial() {
- * TutorialModel model = new TutorialModel(R.id.button_menu, R.string.tutorial_menu, R.layout.view_tutorial_main_menu)
- * model.setArrowBottom(false);
- * view.showTutorial(model, new TutorialListener() {
- * @Override public void onClose() {
- * showBranchTutorial();
- * }
- * @Override public void onAction() {
- * }
- * });
- * }
+  private void showMainTutorial() {
+  TutorialModel model = new TutorialModel(R.id.button_menu, R.string.tutorial_menu, R.layout.view_tutorial_main_menu)
+  model.setArrowBottom(false);
+  view.showTutorial(model, new TutorialListener() {
+  @Override public void onClose() {
+  showBranchTutorial();
+  }
+  @Override public void onAction() {
+  }
+  });
+  }
+
  */
 
 
