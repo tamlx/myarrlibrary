@@ -139,4 +139,9 @@
         <attr name="tab_width" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="CurrencyEditText">
+        <attr name="TextAlignment" format="integer" />
+    </declare-styleable>
+
+
 </resources>

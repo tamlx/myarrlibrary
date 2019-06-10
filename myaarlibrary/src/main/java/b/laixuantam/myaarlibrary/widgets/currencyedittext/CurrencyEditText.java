@@ -1,6 +1,7 @@
 package b.laixuantam.myaarlibrary.widgets.currencyedittext;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputType;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -16,19 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/** ---------------used------------------------
-     <.CurrencyEditText
-     android:id="@+id/cetPayment"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"/>
+import b.laixuantam.myaarlibrary.R;
 
-     CurrencyEditText cetPayment = findViewById(R.id.cetPayment);
-
-     //        cetPayment.setLocale(new Locale("vi", "Vi"));
-     //        cetPayment.setDecimalDigits(2);
-
-     tvValueEdit.setText(cetPayment.getStringValue() + "");
-
+/**
+ * ---------------used------------------------
+ * <.CurrencyEditText
+ * android:id="@+id/cetPayment"
+ * android:layout_width="wrap_content"
+ * android:layout_height="wrap_content"/>
+ * <p>
+ * CurrencyEditText cetPayment = findViewById(R.id.cetPayment);
+ * <p>
+ * //        cetPayment.setLocale(new Locale("vi", "Vi"));
+ * //        cetPayment.setDecimalDigits(2);
+ * <p>
+ * tvValueEdit.setText(cetPayment.getStringValue() + "");
  */
 
 public class CurrencyEditText extends AppCompatEditText {
@@ -129,8 +133,30 @@ public class CurrencyEditText extends AppCompatEditText {
     public CurrencyEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        setInputType(InputType.TYPE_CLASS_PHONE);
-        setTextAlignment(TEXT_ALIGNMENT_TEXT_END);
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CurrencyEditText);
+        int textAlignment = 0;
+        if (a != null) {
+            int n = a.getIndexCount();
+            if (n > 0) {
+                for (int i = 0; i < n; i++) {
+                    int attr = a.getIndex(i);
+                    //note that you are accessing standart attributes using your attrs identifier
+                    if (attr == R.styleable.CurrencyEditText_TextAlignment) {
+                        textAlignment = a.getInt(attr, TEXT_ALIGNMENT_TEXT_START);
+
+                    }
+                }
+            }
+        }
+
+        if (textAlignment > 0) {
+            setTextAlignment(textAlignment);
+        } else {
+            setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
+
+        }
+        setInputType(InputType.TYPE_CLASS_NUMBER);
+
 
         reload();
 
