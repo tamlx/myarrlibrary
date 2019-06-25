@@ -86,20 +86,7 @@ public class ConvertDate {
         long m = (long) Math.floor(duration - h * 60);
         return (h > 0 ? h + "h " : "") + m + "p";
     }
-
-    public static double getValueHourTimeRoom(Date timeOpenTable) {
-        Date timeCurrent = ConvertDate.getTimeMoment();
-        long timeDuration = Math.max(timeCurrent.getTime() - timeOpenTable.getTime(), 0);
-
-        return NumericFormater.round2(((double) timeDuration) / 3600000);
-    }
-
-    public static double getValueHourTimeRoom(Date timePayment, Date timeOpenTable) {
-        Date timeCurrent = ConvertDate.getTimeMoment(timePayment);
-        long timeDuration = Math.max(timeCurrent.getTime() - timeOpenTable.getTime(), 0);
-
-        return NumericFormater.round2(((double) timeDuration) / 3600000);
-    }
+    
 
     public static final String FORMAT_GET_DAY = "dd";
     public static final String FORMAT_GET_MONTH = "MM";

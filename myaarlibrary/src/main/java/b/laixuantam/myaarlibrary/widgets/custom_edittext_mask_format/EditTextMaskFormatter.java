@@ -14,7 +14,6 @@ public class EditTextMaskFormatter implements TextWatcher {
     public enum MARK {
         PHONE,
         BIRTHDAY,
-        CURRENCY,
         CUSTOM,
         NONE
 
@@ -38,7 +37,6 @@ public class EditTextMaskFormatter implements TextWatcher {
     private int selectionBefore;
     private int passwordMask;
     private boolean isDefaultEditText = false;
-    private boolean isCurrencyFomat = false;
     boolean mEditing = false;
 
     public EditTextMaskFormatter(MARK mask, EditText maskedField) {
@@ -49,7 +47,6 @@ public class EditTextMaskFormatter implements TextWatcher {
 
         switch (mask) {
             case PHONE:
-                isCurrencyFomat = false;
                 if (!TextUtils.isEmpty(markFormat)) {
                     this.mask = markFormat;
                 } else {
@@ -59,7 +56,6 @@ public class EditTextMaskFormatter implements TextWatcher {
                 break;
 
             case BIRTHDAY:
-                isCurrencyFomat = false;
                 if (!TextUtils.isEmpty(markFormat)) {
                     this.mask = markFormat;
                 } else {
@@ -69,15 +65,7 @@ public class EditTextMaskFormatter implements TextWatcher {
                 this.isDefaultEditText = false;
                 break;
 
-            case CURRENCY:
-                isCurrencyFomat = true;
-
-                this.isDefaultEditText = false;
-
-                break;
-
             case CUSTOM:
-                isCurrencyFomat = false;
                 if (!TextUtils.isEmpty(markFormat)) {
                     this.mask = markFormat;
                     this.isDefaultEditText = false;
@@ -89,7 +77,6 @@ public class EditTextMaskFormatter implements TextWatcher {
                 break;
 
             default:
-                isCurrencyFomat = false;
                 this.isDefaultEditText = true;
                 break;
         }
@@ -97,7 +84,7 @@ public class EditTextMaskFormatter implements TextWatcher {
         this.maskedField = maskedField;
         this.maskCharacter = maskCharacter;
 //        this.passwordMask = getPasswordMask(maskedField);
-        if (!isDefaultEditText && !isCurrencyFomat)
+        if (!isDefaultEditText)
             setInputTypeBasedOnMask();
     }
 
@@ -117,9 +104,6 @@ public class EditTextMaskFormatter implements TextWatcher {
     @Override
     public void beforeTextChanged(CharSequence s, int index, int toBeReplacedCount, int addedCount) {
 
-        if (isCurrencyFomat) {
-            return;
-        }
         if (!isDefaultEditText) {
             textBefore = s.toString();
             selectionBefore = maskedField.getSelectionEnd();
@@ -131,29 +115,25 @@ public class EditTextMaskFormatter implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence s, int index, int replacedCount, int addedCount) {
         if (!isDefaultEditText) {
-            if (isCurrencyFomat) {
+            if (editTextChange) {
+                maskedField.setSelection(newIndex);
+                editTextChange = false;
+                return;
+            }
 
-            } else {
-                if (editTextChange) {
-                    maskedField.setSelection(newIndex);
-                    editTextChange = false;
-                    return;
-                }
+            try {
+                String appliedMaskString = applyMask(s.toString());
 
-                try {
-                    String appliedMaskString = applyMask(s.toString());
-
-                    if (!appliedMaskString.equals(s.toString())) {
-                        editTextChange = true;
-                        newIndex = countNewIndex(addedCount, appliedMaskString);
-                        maskedField.setText(appliedMaskString);
-                    }
-
-                } catch (InvalidTextException ie) {
+                if (!appliedMaskString.equals(s.toString())) {
                     editTextChange = true;
-                    newIndex = selectionBefore;
-                    maskedField.setText(textBefore);
+                    newIndex = countNewIndex(addedCount, appliedMaskString);
+                    maskedField.setText(appliedMaskString);
                 }
+
+            } catch (InvalidTextException ie) {
+                editTextChange = true;
+                newIndex = selectionBefore;
+                maskedField.setText(textBefore);
             }
         }
     }
@@ -204,29 +184,12 @@ public class EditTextMaskFormatter implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
 
-        if (isCurrencyFomat) {
-            if (!mEditing) {
-                mEditing = true;
+        if (!isDefaultEditText) {
+            if (editTextChange) {
+                maskedField.setSelection(newIndex);
 
-                String digits = s.toString().replaceAll("\\D", "");
-                try {
-                    String formatted = NumericFormater.formatMoney(Long.parseLong(digits));
-                    s.replace(0, s.length(), formatted);
-                    maskedField.setText(formatted);
-                    maskedField.setSelection(formatted.length());
-                } catch (NumberFormatException nfe) {
-                    s.clear();
-                }
-                mEditing = false;
             }
-        } else {
-            if (!isDefaultEditText) {
-                if (editTextChange) {
-                    maskedField.setSelection(newIndex);
-
-                }
-                setInputTypeBasedOnMask();
-            }
+            setInputTypeBasedOnMask();
         }
         if (maskedField.length() > 0) {
             maskedField.setError(null);

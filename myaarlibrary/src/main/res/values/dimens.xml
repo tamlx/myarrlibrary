@@ -45,4 +45,8 @@
     <dimen name="lazy_date_picker_height_focus">2.5dp</dimen>
     <dimen name="lazy_date_picker_width_margin">1dp</dimen>
     <dimen name="lazy_date_picker_width_space">6dp</dimen>
+
+    <dimen name="alert_width">290dp</dimen>
+    <dimen name="common_circle_width">3dp</dimen>
+    <dimen name="progress_circle_radius">34dp</dimen>
 </resources>

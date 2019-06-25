@@ -166,4 +166,9 @@
     <string name="project_image_resource">ImageResource</string>
     <string name="tutorial_gotit">Đã hiểu</string>
 
+    <string name="dialog_default_title">Dialog Title</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="LOADING">Loading…</string>
+
 </resources>
