@@ -25,7 +25,7 @@ import b.laixuantam.myaarlibrary.R;
 
 /**
  * private static final String DATE_FORMAT = "dd/MM/yyyy";
- * // Define min & max date for sample
+ * // Define min & max date for doc
  * //        Date minDate = LazyDatePicker.stringToDate("01-01-2016", DATE_FORMAT);
  * //        Date maxDate = LazyDatePicker.stringToDate("12-31-2018", DATE_FORMAT);
  * //
@@ -42,8 +42,6 @@ import b.laixuantam.myaarlibrary.R;
  * Toast.LENGTH_SHORT).show();
  * }
  * });
- * <p>
- * <p>
  * XML
  * <base.laixuantam.baseproject.widgets.CustomBirthdayInput
  * android:id="@+id/customBirthdayInput"
