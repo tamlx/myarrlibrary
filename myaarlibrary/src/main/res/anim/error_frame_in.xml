@@ -10,7 +10,7 @@
         android:toAlpha="1"
         android:duration="400"/>
 
-    <sweet:com.developer.kalert.Rotate3dAnimation
+    <sweet:b.laixuantam.myaarlibrary.widgets.dialog.alert.Rotate3dAnimation
         sweet:rollType="x"
         sweet:fromDeg="100"
         sweet:toDeg="0"

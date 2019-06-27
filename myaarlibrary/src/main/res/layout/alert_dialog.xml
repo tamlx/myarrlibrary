@@ -75,7 +75,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/success_circle" />
 
-        <com.developer.kalert.SuccessTickView
+        <b.laixuantam.myaarlibrary.widgets.dialog.alert.SuccessTickView
             android:id="@+id/success_tick"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
