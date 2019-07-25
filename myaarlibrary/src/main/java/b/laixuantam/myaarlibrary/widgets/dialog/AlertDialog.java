@@ -13,22 +13,18 @@ import android.text.TextUtils;
 import b.laixuantam.myaarlibrary.R;
 
 
-public class AlertDialog extends AppDialog<AlertDialog.AlertDialogListener>
-{
-    public AlertDialog()
-    {
+public class AlertDialog extends AppDialog<AlertDialog.AlertDialogListener> {
+    public AlertDialog() {
         setCancelable(true);
     }
 
     private static boolean POPUP_OPEN = false;
 
-    public static AlertDialog newInstance(String message, String title, AlertDialogListener listener)
-    {
-        return newInstance(message, title, false, R.string.dongy, listener);
+    public static AlertDialog newInstance(String message, String title, AlertDialogListener listener) {
+        return newInstance(message, title, false, R.string.ok, listener);
     }
 
-    public static AlertDialog newInstance(String message, String title, boolean cancelable, int buttonTextResId, AlertDialogListener listener)
-    {
+    public static AlertDialog newInstance(String message, String title, boolean cancelable, int buttonTextResId, AlertDialogListener listener) {
         AlertDialog dialog = new AlertDialog();
         dialog.setListener(listener);
         Bundle args = new Bundle();
@@ -41,40 +37,35 @@ public class AlertDialog extends AppDialog<AlertDialog.AlertDialogListener>
     }
 
     @Override
-    protected boolean isListenerOptional()
-    {
+    protected boolean isListenerOptional() {
         return true;
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         String message = null, title = null;
         boolean cancelable = false;
         int buttonText = R.string.dongy;
-        if (bundle != null)
-        {
+        if (bundle != null) {
             buttonText = bundle.getInt(EXTRA_BUTTON_TEXT);
             message = bundle.getString(EXTRA_MESSAGE);
             title = bundle.getString(EXTRA_TITLE);
             cancelable = bundle.getBoolean(EXTRA_CANCELABLE);
         }
         setCancelable(cancelable);
-        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity()).setMessage(message).setPositiveButton(buttonText, new OnClickListener()
-        {
+        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity()).setMessage(message).setPositiveButton(buttonText, new OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int whichButton)
-            {
-                if (getListener() != null)
-                {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dismiss();
+                if (getListener() != null) {
+
                     getListener().onOk(AlertDialog.this);
                 }
             }
         });
 
-        if (!TextUtils.isEmpty(title))
-        {
+        if (!TextUtils.isEmpty(title)) {
             builder.setTitle(title);
         }
 
@@ -82,14 +73,12 @@ public class AlertDialog extends AppDialog<AlertDialog.AlertDialogListener>
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog)
-    {
+    public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         POPUP_OPEN = false;
     }
 
-    public interface AlertDialogListener
-    {
+    public interface AlertDialogListener {
         void onOk(AppDialog<?> f);
     }
 }

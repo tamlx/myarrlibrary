@@ -30,6 +30,7 @@ import b.laixuantam.myaarlibrary.api.ErrorApiResponse;
 import b.laixuantam.myaarlibrary.dependency.AppProvider;
 import b.laixuantam.myaarlibrary.helper.BusHelper;
 import b.laixuantam.myaarlibrary.widgets.dialog.ProgressDialog;
+import b.laixuantam.myaarlibrary.widgets.dialog.alert.KAlertDialog;
 import b.laixuantam.myaarlibrary.widgets.progresswindow.ProgressWindow;
 import b.laixuantam.myaarlibrary.widgets.progresswindow.ProgressWindowConfiguration;
 import b.laixuantam.myaarlibrary.widgets.progresswindow.kprogresshud.KProgressHUD;
@@ -406,6 +407,41 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
             toast.cancel();
         }
         toast.show();
+    }
+
+    private KAlertDialog mCustomAlert;
+
+    public void showAlert(String title, String message, int type) {
+
+        if (mCustomAlert == null) {
+            mCustomAlert = new KAlertDialog(this);
+            mCustomAlert.setCancelable(false);
+            mCustomAlert.setCanceledOnTouchOutside(false);
+            mCustomAlert.changeAlertType(0);
+            mCustomAlert.showCancelButton(false);
+        }
+        if (!TextUtils.isEmpty(title))
+            mCustomAlert.setTitleText(title);
+
+        mCustomAlert
+                .setContentText(message)
+                .setConfirmText("OK")
+                .setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
+                    @Override
+                    public void onClick(KAlertDialog kAlertDialog) {
+                        if (mCustomAlert != null)
+                            mCustomAlert.dismiss();
+                    }
+                }).changeAlertType(type);
+        mCustomAlert.show();
+    }
+
+    public void showAlert(String message) {
+        showAlert("", message, 0);
+    }
+
+    public void showAlert(String message, int type) {
+        showAlert("", message, type);
     }
 
     protected String getErrorString(ApiRequest.RequestError requestError) {

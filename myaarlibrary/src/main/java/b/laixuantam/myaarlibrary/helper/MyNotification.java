@@ -2,6 +2,7 @@ package b.laixuantam.myaarlibrary.helper;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -77,29 +78,67 @@ public class MyNotification {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            String channelId = "channel-01";
+            String channelName = "Channel Name";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            builder.setChannelId(channelId);
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+
         notificationManager.notify(DEFAULT_NOTIFICATION_ID, builder.build());
 
+    }
+
+    public void showNotification(Context context, String title, String body, int smallIcon, Intent intent) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        String channelId = "channel-01";
+        String channelName = "Channel Name";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(smallIcon)
+                .setContentTitle(title)
+                .setAutoCancel(true)
+                .setContentText(body);
+
+        if (intent != null) {
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addNextIntent(intent);
+            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(
+                    0,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            );
+            mBuilder.setContentIntent(resultPendingIntent);
+        }
+
+        notificationManager.notify(DEFAULT_NOTIFICATION_ID, mBuilder.build());
     }
 
     public void showNotificationGotoActivity(Context context, int smallIcon, Class destinationClass, BaseNotificationModel model) {
         if (model == null) {
             return;
         }
-        NotificationManagerCompat.from(context).cancel(GOTO_ACTIVITY_NOTIFICATION_ID);
-        Intent intentGoNotificationActivity = new Intent(context, destinationClass);
+        NotificationManagerCompat.from(context).cancel(2);
 
-        intentGoNotificationActivity.putExtra("model_notification", model);
-
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(destinationClass);
-        stackBuilder.addNextIntent(intentGoNotificationActivity);
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(100, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
         builder.setSmallIcon(smallIcon);
         builder.setContentTitle(model.getTitle());
-        builder.setColor(context.getResources().getColor(R.color.colorPrimary));
+        builder.setColor(context.getResources().getColor(b.laixuantam.myaarlibrary.R.color.colorPrimary));
 
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(model.getMessage()));
         builder.setContentText(Html.fromHtml(model.getMessage()));
@@ -110,12 +149,32 @@ public class MyNotification {
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
         builder.setVibrate(new long[]{1000, 1000});
         builder.setPriority(Notification.PRIORITY_MAX);
-        builder.setContentIntent(pendingIntent);
+
+        if (destinationClass != null) {
+            Intent intentGoNotificationActivity = new Intent(context, destinationClass);
+            intentGoNotificationActivity.putExtra("model_notification", model);
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addParentStack(destinationClass);
+            stackBuilder.addNextIntent(intentGoNotificationActivity);
+            PendingIntent pendingIntent = stackBuilder.getPendingIntent(10001, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(pendingIntent);
+        }
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //        Random random = new Random();
         //        int m = random.nextInt(9999 - 1000) + 1000;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            String channelId = "channel-01";
+            String channelName = "Channel Name";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            builder.setChannelId(channelId);
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
 
         notificationManager.notify(GOTO_ACTIVITY_NOTIFICATION_ID, builder.build());
 
@@ -134,10 +193,6 @@ public class MyNotification {
             headerTime = ConvertDate.getDistanceTime(model.getTime());
         }
 
-        int icon = smallIcon;
-        long when = System.currentTimeMillis();
-        Notification notification = new Notification(icon, model.getTitle(), when);
-
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
@@ -149,19 +204,49 @@ public class MyNotification {
         contentView.setImageViewResource(R.id.imvIcNotify, smallIcon);
         contentView.setImageViewResource(R.id.imvLogoHeader, smallIcon);
 
-        notification.contentView = contentView;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
+            String channelId = "channel-01";
+            String channelName = "Channel Name";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
 
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.FLAG_SHOW_LIGHTS; // LED
-        notification.defaults |= Notification.DEFAULT_VIBRATE; //Vibration
-        notification.defaults |= Notification.DEFAULT_SOUND; // Sound
-        notification.ledARGB = 0xff00ff00;
-        notification.ledOnMS = 300;
-        notification.ledOffMS = 100;
-        notification.priority = Notification.PRIORITY_MAX;
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            mNotificationManager.createNotificationChannel(mChannel);
 
-        mNotificationManager.notify(DEFAULT_NOTIFICATION_ID, notification);
+            Notification notification = new NotificationCompat.Builder(context, channelId)
+                    .setSmallIcon(smallIcon)
+                    .setCustomContentView(contentView)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setAutoCancel(true)
+                    .setLights(0xff00ff00, 300, 100)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                    .setDefaults(Notification.FLAG_SHOW_LIGHTS | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND)
+
+//                .setContentIntent(pendingIntent)
+//                .addAction(0, "More", pendingIntent)
+                    .build();
+            mNotificationManager.notify(DEFAULT_NOTIFICATION_ID, notification);
+
+        } else {
+            int icon = smallIcon;
+            long when = System.currentTimeMillis();
+            Notification notification = new Notification(icon, model.getTitle(), when);
+            notification.contentView = contentView;
+
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            notification.defaults |= Notification.FLAG_SHOW_LIGHTS; // LED
+            notification.defaults |= Notification.DEFAULT_VIBRATE; //Vibration
+            notification.defaults |= Notification.DEFAULT_SOUND; // Sound
+            notification.ledARGB = 0xff00ff00;
+            notification.ledOnMS = 300;
+            notification.ledOffMS = 100;
+            notification.priority = Notification.PRIORITY_MAX;
+
+            mNotificationManager.notify(DEFAULT_NOTIFICATION_ID, notification);
+
+        }
+
     }
 
 
@@ -178,9 +263,6 @@ public class MyNotification {
             headerTime = ConvertDate.getDistanceTime(model.getTime());
         }
 
-        int icon = smallIcon;
-        long when = System.currentTimeMillis();
-        Notification notification = new Notification(icon, model.getTitle(), when);
 
         // you can do something with loaded bitmap here
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -211,29 +293,70 @@ public class MyNotification {
             contentView.setImageViewResource(R.id.imvIcNotify, smallIcon);
         }
 
-        notification.contentView = contentView;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            String channelId = "channel-01";
+            String channelName = "Channel Name";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            mNotificationManager.createNotificationChannel(mChannel);
 
 
-        Intent intentGoNotificationActivity = new Intent(context, destinationClass);
+            Notification notification = new NotificationCompat.Builder(context, channelId)
+                    .setSmallIcon(smallIcon)
+                    .setCustomContentView(contentView)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setAutoCancel(true)
+                    .setLights(0xff00ff00, 300, 100)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                    .setDefaults(Notification.FLAG_SHOW_LIGHTS | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND)
+                    .build();
 
-        intentGoNotificationActivity.putExtra("model_notification", model);
+            if (destinationClass != null) {
+                Intent intentGoNotificationActivity = new Intent(context, destinationClass);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(destinationClass);
-        stackBuilder.addNextIntent(intentGoNotificationActivity);
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(100, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.contentIntent = pendingIntent;
+                intentGoNotificationActivity.putExtra("model_notification", model);
 
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.FLAG_SHOW_LIGHTS; // LED
-        notification.defaults |= Notification.DEFAULT_VIBRATE; //Vibration
-        notification.defaults |= Notification.DEFAULT_SOUND; // Sound
-        notification.ledARGB = 0xff00ff00;
-        notification.ledOnMS = 300;
-        notification.ledOffMS = 100;
-        notification.priority = Notification.PRIORITY_MAX;
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+                stackBuilder.addParentStack(destinationClass);
+                stackBuilder.addNextIntent(intentGoNotificationActivity);
+                PendingIntent pendingIntent = stackBuilder.getPendingIntent(100, PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.contentIntent = pendingIntent;
+            }
+            mNotificationManager.notify(GOTO_ACTIVITY_NOTIFICATION_ID, notification);
 
-        mNotificationManager.notify(GOTO_ACTIVITY_NOTIFICATION_ID, notification);
+        } else {
+            int icon = smallIcon;
+            long when = System.currentTimeMillis();
+            Notification notification = new Notification(icon, model.getTitle(), when);
+            notification.contentView = contentView;
+
+            if (destinationClass != null) {
+                Intent intentGoNotificationActivity = new Intent(context, destinationClass);
+
+                intentGoNotificationActivity.putExtra("model_notification", model);
+
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+                stackBuilder.addParentStack(destinationClass);
+                stackBuilder.addNextIntent(intentGoNotificationActivity);
+                PendingIntent pendingIntent = stackBuilder.getPendingIntent(100, PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.contentIntent = pendingIntent;
+            }
+
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            notification.defaults |= Notification.FLAG_SHOW_LIGHTS; // LED
+            notification.defaults |= Notification.DEFAULT_VIBRATE; //Vibration
+            notification.defaults |= Notification.DEFAULT_SOUND; // Sound
+            notification.ledARGB = 0xff00ff00;
+            notification.ledOnMS = 300;
+            notification.ledOffMS = 100;
+            notification.priority = Notification.PRIORITY_MAX;
+
+            mNotificationManager.notify(GOTO_ACTIVITY_NOTIFICATION_ID, notification);
+
+        }
 
     }
 
@@ -256,16 +379,28 @@ public class MyNotification {
         // build the big picture notification
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
         bigPictureStyle.bigPicture(largeIconBitmap);
-        bigPictureStyle.setBigContentTitle("BigPictureTitle");
-        bigPictureStyle.setSummaryText("Big Picture Summary Text");
+        bigPictureStyle.setBigContentTitle(title);
+        bigPictureStyle.setSummaryText(message);
         Notification compatNotification = builder.setStyle(bigPictureStyle).build();
 
         //get notification manager
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         //send notification
-        Random random = new Random();
-        int m = random.nextInt(9999 - 1000) + 1000;
-        notificationManager.notify(1, compatNotification);
+//        Random random = new Random();
+//        int m = random.nextInt(9999 - 1000) + 1000;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            String channelId = "channel-01";
+            String channelName = "Channel Name";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            builder.setChannelId(channelId);
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        notificationManager.notify(DEFAULT_NOTIFICATION_ID, compatNotification);
 
 
     }
