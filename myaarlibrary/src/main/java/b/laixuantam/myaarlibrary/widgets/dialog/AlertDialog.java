@@ -46,6 +46,7 @@ public class AlertDialog extends AppDialog<AlertDialog.AlertDialogListener> {
         Bundle bundle = getArguments();
         String message = null, title = null;
         boolean cancelable = false;
+
         int buttonText = R.string.dongy;
         if (bundle != null) {
             buttonText = bundle.getInt(EXTRA_BUTTON_TEXT);

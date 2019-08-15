@@ -417,11 +417,10 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
             mCustomAlert = new KAlertDialog(this);
             mCustomAlert.setCancelable(false);
             mCustomAlert.setCanceledOnTouchOutside(false);
-            mCustomAlert.changeAlertType(0);
-            mCustomAlert.showCancelButton(false);
         }
-        if (!TextUtils.isEmpty(title))
-            mCustomAlert.setTitleText(title);
+        mCustomAlert.showCancelButton(false);
+
+        mCustomAlert.setTitleText(title);
 
         mCustomAlert
                 .setContentText(message)
@@ -443,6 +442,54 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
     public void showAlert(String message, int type) {
         showAlert("", message, type);
     }
+
+    public void showProgressAlert(String title, String mess) {
+
+        if (mCustomAlert == null) {
+            mCustomAlert = new KAlertDialog(this);
+            mCustomAlert.setCancelable(false);
+            mCustomAlert.setCanceledOnTouchOutside(false);
+        }
+        mCustomAlert.showCancelButton(false);
+
+        mCustomAlert.setTitleText(title);
+
+        mCustomAlert.setContentText(mess);
+
+        mCustomAlert.changeAlertType(KAlertDialog.PROGRESS_TYPE);
+
+        mCustomAlert.setCancelable(false);
+        mCustomAlert.setCanceledOnTouchOutside(false);
+        mCustomAlert.setConfirmClickListener(null);
+        mCustomAlert.setCancelClickListener(null);
+        mCustomAlert.show();
+    }
+
+    public void showConfirmAlert(String title, String mess, KAlertDialog.KAlertClickListener actionConfirm) {
+        if (mCustomAlert == null) {
+            mCustomAlert = new KAlertDialog(this);
+            mCustomAlert.setCanceledOnTouchOutside(false);
+            mCustomAlert.setCancelable(false);
+        }
+        mCustomAlert.showCancelButton(true);
+        mCustomAlert.setConfirmText("Đồng ý");
+        mCustomAlert.setCancelText("Hủy bỏ");
+
+        mCustomAlert.setTitleText(title);
+
+        mCustomAlert.setContentText(mess);
+
+        mCustomAlert.changeAlertType(KAlertDialog.WARNING_TYPE);
+        mCustomAlert.setCancelClickListener(new KAlertDialog.KAlertClickListener() {
+            @Override
+            public void onClick(KAlertDialog kAlertDialog) {
+                mCustomAlert.dismiss();
+            }
+        });
+        mCustomAlert.setConfirmClickListener(actionConfirm);
+        mCustomAlert.show();
+    }
+
 
     protected String getErrorString(ApiRequest.RequestError requestError) {
         switch (requestError) {

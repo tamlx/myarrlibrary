@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -211,10 +212,17 @@ public class KAlertDialog extends AlertDialog implements View.OnClickListener {
     }
 
     public KAlertDialog setTitleText(String text) {
-        mTitleText = text;
-        if (mTitleTextView != null && mTitleText != null) {
-            showTitleText();
-            mTitleTextView.setText(mTitleText);
+        if (!TextUtils.isEmpty(text)) {
+            mTitleText = text;
+            if (mTitleTextView != null && mTitleText != null) {
+                showTitleText();
+                mTitleTextView.setText(mTitleText);
+            }
+        } else {
+            mShowTitleText = false;
+            if (mTitleTextView != null) {
+                mTitleTextView.setVisibility(View.GONE);
+            }
         }
         return this;
     }
@@ -240,10 +248,17 @@ public class KAlertDialog extends AlertDialog implements View.OnClickListener {
     }
 
     public KAlertDialog setContentText(String text) {
-        mContentText = text;
-        if (mContentTextView != null && mContentText != null) {
-            showContentText();
-            mContentTextView.setText(mContentText);
+        if (!TextUtils.isEmpty(text)) {
+            mContentText = text;
+            if (mContentTextView != null && mContentText != null) {
+                showContentText();
+                mContentTextView.setText(mContentText);
+            }
+        } else {
+            mShowContent = false;
+            if (mContentTextView != null) {
+                mContentTextView.setVisibility(View.GONE);
+            }
         }
         return this;
     }

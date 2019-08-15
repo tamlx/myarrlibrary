@@ -1,41 +1,31 @@
 package b.laixuantam.myaarlibrary.helper;
 
+import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.Transformation;
 
-public class AnimationHelper
-{
-    private AnimationHelper()
-    {
+public class AnimationHelper {
+    private AnimationHelper() {
     }
 
-    public static synchronized void fade(final View view, final boolean fadeIn)
-    {
-        if (fadeIn)
-        {
+    public static synchronized void fade(final View view, final boolean fadeIn) {
+        if (fadeIn) {
             view.setAlpha(0);
-        }
-        else
-        {
+        } else {
             view.setAlpha(1);
         }
 
-        Animation animation = new Animation()
-        {
+        Animation animation = new Animation() {
             @Override
-            protected void applyTransformation(float interpolatedTime, Transformation transformation)
-            {
+            protected void applyTransformation(float interpolatedTime, Transformation transformation) {
                 super.applyTransformation(interpolatedTime, transformation);
 
-                if (fadeIn)
-                {
+                if (fadeIn) {
                     view.setAlpha(interpolatedTime);
-                }
-                else
-                {
+                } else {
                     view.setAlpha(1 - interpolatedTime);
                 }
 
@@ -43,35 +33,28 @@ public class AnimationHelper
             }
 
             @Override
-            public boolean willChangeBounds()
-            {
+            public boolean willChangeBounds() {
                 return true;
             }
         };
 
-        animation.setAnimationListener(new AnimationListener()
-        {
+        animation.setAnimationListener(new AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation)
-            {
-                if (fadeIn)
-                {
+            public void onAnimationStart(Animation animation) {
+                if (fadeIn) {
                     view.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
-            public void onAnimationEnd(Animation animation)
-            {
-                if (!fadeIn)
-                {
+            public void onAnimationEnd(Animation animation) {
+                if (!fadeIn) {
                     view.setVisibility(View.GONE);
                 }
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation)
-            {
+            public void onAnimationRepeat(Animation animation) {
             }
         });
 
@@ -80,18 +63,14 @@ public class AnimationHelper
         view.startAnimation(animation);
     }
 
-    public static synchronized void expand(final View view, final float height)
-    {
-        if (view.getVisibility() != View.VISIBLE)
-        {
+    public static synchronized void expand(final View view, final float height) {
+        if (view.getVisibility() != View.VISIBLE) {
             view.getLayoutParams().height = 0;
             view.setVisibility(View.VISIBLE);
 
-            Animation animation = new Animation()
-            {
+            Animation animation = new Animation() {
                 @Override
-                protected void applyTransformation(float interpolatedTime, Transformation transformation)
-                {
+                protected void applyTransformation(float interpolatedTime, Transformation transformation) {
                     super.applyTransformation(interpolatedTime, transformation);
 
                     view.getLayoutParams().height = (int) (height * interpolatedTime);
@@ -99,8 +78,7 @@ public class AnimationHelper
                 }
 
                 @Override
-                public boolean willChangeBounds()
-                {
+                public boolean willChangeBounds() {
                     return true;
                 }
             };
@@ -111,30 +89,24 @@ public class AnimationHelper
         }
     }
 
-    public static synchronized void collapse(final View view, final float height)
-    {
-        if (view.getVisibility() == View.VISIBLE)
-        {
-            Animation animation = new Animation()
-            {
+    public static synchronized void collapse(final View view, final float height) {
+        if (view.getVisibility() == View.VISIBLE) {
+            Animation animation = new Animation() {
                 @Override
-                protected void applyTransformation(float interpolatedTime, Transformation transformation)
-                {
+                protected void applyTransformation(float interpolatedTime, Transformation transformation) {
                     super.applyTransformation(interpolatedTime, transformation);
 
                     view.getLayoutParams().height = (int) (height - (height * interpolatedTime));
                     view.requestLayout();
 
-                    if (interpolatedTime == 1)
-                    {
+                    if (interpolatedTime == 1) {
                         view.getLayoutParams().height = 0;
                         view.setVisibility(View.GONE);
                     }
                 }
 
                 @Override
-                public boolean willChangeBounds()
-                {
+                public boolean willChangeBounds() {
                     return true;
                 }
             };
@@ -143,5 +115,11 @@ public class AnimationHelper
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
             view.startAnimation(animation);
         }
+    }
+
+    public static synchronized void translate(final View view) {
+        ObjectAnimator anim = ObjectAnimator.ofFloat(view, "translationX", 200, 0);
+        anim.setDuration(300);
+        anim.start();
     }
 }
