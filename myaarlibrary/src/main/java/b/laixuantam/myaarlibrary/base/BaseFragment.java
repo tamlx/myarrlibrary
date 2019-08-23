@@ -134,6 +134,14 @@ public abstract class BaseFragment<V extends BaseViewInterface, P extends BasePa
         }
     }
 
+    protected void replaceFragment(BaseFragment<?, ?> fragment, boolean addToBackStack) {
+        BaseFragmentActivity<?, ?, ?> baseFragmentActivity = getParent(BaseFragmentActivity.class);
+
+        if (baseFragmentActivity != null) {
+            baseFragmentActivity.replaceFragment(fragment, addToBackStack);
+        }
+    }
+
     private KProgressHUD hud;
 
     public void showProgress() {
