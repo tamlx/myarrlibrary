@@ -8,10 +8,8 @@ import android.content.DialogInterface;
  * Created by laixuantam on 1/13/18.
  */
 
-public class MyCustomSingleChoise
-{
-    public interface MyCustomSingleChoiseListener
-    {
+public class MyCustomSingleChoise {
+    public interface MyCustomSingleChoiseListener {
         void onItemSelected(int pos);
     }
 
@@ -21,8 +19,9 @@ public class MyCustomSingleChoise
     private int oldSelection;
     private MyCustomSingleChoiseListener listener;
 
-    public MyCustomSingleChoise(Context context, String title, int oldSelection, String[] arr_data, MyCustomSingleChoiseListener listener)
-    {
+    private boolean cancelable = false;
+
+    public MyCustomSingleChoise(Context context, String title, int oldSelection, String[] arr_data, MyCustomSingleChoiseListener listener) {
         this.context = context;
         this.title = title;
         this.oldSelection = oldSelection;
@@ -30,32 +29,38 @@ public class MyCustomSingleChoise
         this.listener = listener;
     }
 
-    public void show()
-    {
+    public void setCancelable(boolean cancelable) {
+        this.cancelable = cancelable;
+    }
+
+    public void show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder.setTitle(title);
-        builder.setCancelable(false);
+        builder.setCancelable(cancelable);
 
-        int selected = 0;
+        int selected = -1;
 
-        if (oldSelection >= 0)
-        {
+        if (oldSelection >= 0) {
 
             selected = oldSelection;
         }
 
-        builder.setSingleChoiceItems(arr_data, selected, new DialogInterface.OnClickListener()
-        {
+        builder.setSingleChoiceItems(arr_data, selected, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int position)
-            {
+            public void onClick(DialogInterface dialog, int position) {
                 listener.onItemSelected(position);
 
                 dialog.dismiss();
             }
         });
 
+        builder.setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
 
         AlertDialog alert = builder.create();
         alert.show();
