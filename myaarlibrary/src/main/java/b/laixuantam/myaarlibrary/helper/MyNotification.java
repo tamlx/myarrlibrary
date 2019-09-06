@@ -7,6 +7,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -23,6 +25,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.text.Html;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +37,7 @@ import java.util.Random;
 import b.laixuantam.myaarlibrary.R;
 import b.laixuantam.myaarlibrary.model.BaseNotificationModel;
 import b.laixuantam.myaarlibrary.model.TypeNotification;
+import b.laixuantam.myaarlibrary.widgets.shortcutbadger.ShortcutBadger;
 import b.laixuantam.myaarlibrary.widgets.ultils.ConvertDate;
 
 /**
@@ -62,7 +66,6 @@ public class MyNotification {
      */
 
     public void showDefaultNotification(Context context, String title, String message, int smallIcon) {
-        NotificationManagerCompat.from(context).cancel(DEFAULT_NOTIFICATION_ID);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
         builder.setSmallIcon(smallIcon);
@@ -77,11 +80,12 @@ public class MyNotification {
         builder.setPriority(Notification.PRIORITY_MAX);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(DEFAULT_NOTIFICATION_ID);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-            String channelId = "channel-01";
-            String channelName = "Channel Name";
+            String channelId = "b.laixuantam.myaarlibrary";
+            String channelName = "b.laixuantam.myaarlibrary";
             int importance = NotificationManager.IMPORTANCE_HIGH;
 
             builder.setChannelId(channelId);
@@ -97,9 +101,9 @@ public class MyNotification {
 
     public void showNotification(Context context, String title, String body, int smallIcon, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        String channelId = "channel-01";
-        String channelName = "Channel Name";
+        notificationManager.cancel(DEFAULT_NOTIFICATION_ID);
+        String channelId = "b.laixuantam.myaarlibrary";
+        String channelName = "b.laixuantam.myaarlibrary";
         int importance = NotificationManager.IMPORTANCE_HIGH;
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -127,12 +131,46 @@ public class MyNotification {
         notificationManager.notify(DEFAULT_NOTIFICATION_ID, mBuilder.build());
     }
 
+    public void showNotificationWithBadge(int badge, Context context, String title, String body, int smallIcon, Intent intent) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(DEFAULT_NOTIFICATION_ID);
+        String channelId = "b.laixuantam.myaarlibrary";
+        String channelName = "b.laixuantam.myaarlibrary";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(smallIcon)
+                .setContentTitle(title)
+                .setAutoCancel(true)
+                .setContentText(body);
+
+        if (intent != null) {
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addNextIntent(intent);
+            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(
+                    0,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            );
+            mBuilder.setContentIntent(resultPendingIntent);
+        }
+        Notification notification = mBuilder.build();
+        ShortcutBadger.applyNotification(context, notification, badge);
+
+        notificationManager.notify(DEFAULT_NOTIFICATION_ID, mBuilder.build());
+
+
+    }
+
     public void showNotificationGotoActivity(Context context, int smallIcon, Class destinationClass, BaseNotificationModel model) {
         if (model == null) {
             return;
         }
-        NotificationManagerCompat.from(context).cancel(2);
-
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
@@ -161,13 +199,13 @@ public class MyNotification {
         }
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
+        notificationManager.cancel(GOTO_ACTIVITY_NOTIFICATION_ID);
         //        Random random = new Random();
         //        int m = random.nextInt(9999 - 1000) + 1000;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-            String channelId = "channel-01";
-            String channelName = "Channel Name";
+            String channelId = "b.laixuantam.myaarlibrary";
+            String channelName = "b.laixuantam.myaarlibrary";
             int importance = NotificationManager.IMPORTANCE_HIGH;
 
             builder.setChannelId(channelId);
@@ -194,6 +232,7 @@ public class MyNotification {
         }
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(DEFAULT_NOTIFICATION_ID);
 
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
 
@@ -206,8 +245,8 @@ public class MyNotification {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-            String channelId = "channel-01";
-            String channelName = "Channel Name";
+            String channelId = "b.laixuantam.myaarlibrary";
+            String channelName = "b.laixuantam.myaarlibrary";
             int importance = NotificationManager.IMPORTANCE_HIGH;
 
             NotificationChannel mChannel = new NotificationChannel(
@@ -266,7 +305,7 @@ public class MyNotification {
 
         // you can do something with loaded bitmap here
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
+        mNotificationManager.cancel(GOTO_ACTIVITY_NOTIFICATION_ID);
         String messageContent = model.getMessage();
 
         if (!TextUtils.isEmpty(model.getTypeMess())) {
@@ -295,8 +334,8 @@ public class MyNotification {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-            String channelId = "channel-01";
-            String channelName = "Channel Name";
+            String channelId = "b.laixuantam.myaarlibrary";
+            String channelName = "b.laixuantam.myaarlibrary";
             int importance = NotificationManager.IMPORTANCE_HIGH;
 
             NotificationChannel mChannel = new NotificationChannel(
@@ -385,6 +424,7 @@ public class MyNotification {
 
         //get notification manager
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(DEFAULT_NOTIFICATION_ID);
         //send notification
 //        Random random = new Random();
 //        int m = random.nextInt(9999 - 1000) + 1000;
