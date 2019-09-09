@@ -66,8 +66,6 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
 //    }
 
 
-
-
     private void init() {
         setOrientation(HORIZONTAL);
         mList = new ArrayList<>();
@@ -258,8 +256,12 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
         return drawable;
     }
 
-    public void setSelectedPosition(int selectedPosition) {
-        this.mSelectedPosition = selectedPosition;
+    public void setSelectedPosition(int position) {
+//        this.mSelectedPosition = position;
+        getChildAt(mSelectedPosition).setSelected(false);
+        getChildAt(position).setSelected(true);
+
+        mSelectedPosition = position;
     }
 
     public int getSelectedPosition() {

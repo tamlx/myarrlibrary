@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-version = "1.5.7"
+version = "1.5.9"
 group = 'b.laixuantam.myarrlibrary'
 
 android {
@@ -65,7 +65,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:10.2.4'
 
     //download image
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+//    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     //date picker
     implementation 'com.wdullaer:materialdatetimepicker:2.3.0'

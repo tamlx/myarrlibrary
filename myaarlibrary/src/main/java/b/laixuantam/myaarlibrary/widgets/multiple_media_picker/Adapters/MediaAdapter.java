@@ -44,7 +44,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Glide.with(context).load("file://"+bitmapList.get(position)).override(153,160).crossFade().centerCrop().dontAnimate().skipMemoryCache(true).into(holder.thumbnail);
+        Glide.with(context).load("file://"+bitmapList.get(position)).override(153,160).centerCrop().dontAnimate().skipMemoryCache(true).into(holder.thumbnail);
         if(selected.get(position).equals(true)){
             holder.check.setVisibility(View.VISIBLE);
             holder.check.setAlpha(150);
