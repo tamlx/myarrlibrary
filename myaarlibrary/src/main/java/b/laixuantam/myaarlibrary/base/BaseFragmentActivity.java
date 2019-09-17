@@ -510,28 +510,44 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
         mCustomAlert.show();
     }
 
-    public void showConfirmAlert(String title, String mess, KAlertDialog.KAlertClickListener actionConfirm) {
+    public void showConfirmAlert(String title, String mess, KAlertDialog.KAlertClickListener actionConfirm, int type) {
+        showConfirmAlert(title, mess, actionConfirm, null, type);
+    }
+
+    public void showConfirmAlert(String title, String mess, KAlertDialog.KAlertClickListener actionConfirm, KAlertDialog.KAlertClickListener actionCancel, int type) {
         if (mCustomAlert == null) {
             mCustomAlert = new KAlertDialog(this);
             mCustomAlert.setCanceledOnTouchOutside(false);
             mCustomAlert.setCancelable(false);
         }
-        mCustomAlert.showCancelButton(true);
-        mCustomAlert.setConfirmText("Đồng ý");
-        mCustomAlert.setCancelText("Hủy bỏ");
+        mCustomAlert.setConfirmText(getString(R.string.KAlert_confirm_button_text));
 
         mCustomAlert.setTitleText(title);
 
         mCustomAlert.setContentText(mess);
 
-        mCustomAlert.changeAlertType(KAlertDialog.WARNING_TYPE);
-        mCustomAlert.setCancelClickListener(new KAlertDialog.KAlertClickListener() {
-            @Override
-            public void onClick(KAlertDialog kAlertDialog) {
-                mCustomAlert.dismiss();
-            }
-        });
-        mCustomAlert.setConfirmClickListener(actionConfirm);
+        if (type >= 0) {
+            mCustomAlert.changeAlertType(type);
+        } else {
+            mCustomAlert.changeAlertType(KAlertDialog.WARNING_TYPE);
+        }
+
+        if (actionCancel != null) {
+            mCustomAlert.setCancelText(getString(R.string.KAlert_cancel_button_text));
+            mCustomAlert.setCancelClickListener(actionCancel);
+        } else {
+            mCustomAlert.showCancelButton(false);
+        }
+        if (actionConfirm != null) {
+            mCustomAlert.setConfirmClickListener(actionConfirm);
+        } else {
+            mCustomAlert.setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
+                @Override
+                public void onClick(KAlertDialog kAlertDialog) {
+                    mCustomAlert.dismiss();
+                }
+            });
+        }
         mCustomAlert.show();
     }
 

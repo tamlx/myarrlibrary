@@ -11,6 +11,8 @@
     <string name="close">Đóng</string>
     <string name="dummy_text">---</string>
     <string name="dongy">Đồng ý</string>
+    <string name="KAlert_confirm_button_text">Đồng ý</string>
+    <string name="KAlert_cancel_button_text">Huỷ bỏ</string>
     <string name="updateSuccess">Cập nhật thành công.</string>
     <string name="done">Hoàn thành</string>
     <string name="huybo">Huỷ bỏ</string>
