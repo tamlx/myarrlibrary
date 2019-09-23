@@ -128,7 +128,8 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
     }
 
     private void selectItem(int index) {
-        getChildAt(mSelectedPosition).setSelected(false);
+        if (mSelectedPosition >= 0)
+            getChildAt(mSelectedPosition).setSelected(false);
         getChildAt(index).setSelected(true);
 
         for (OnSelectedListener listener : mList) {
@@ -257,11 +258,16 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
     }
 
     public void setSelectedPosition(int position) {
-//        this.mSelectedPosition = position;
-        getChildAt(mSelectedPosition).setSelected(false);
+        if (mSelectedPosition >= 0)
+            getChildAt(mSelectedPosition).setSelected(false);
         getChildAt(position).setSelected(true);
 
         mSelectedPosition = position;
+    }
+
+    public void clearSelection() {
+        getChildAt(mSelectedPosition).setSelected(false);
+        mSelectedPosition = -1;
     }
 
     public int getSelectedPosition() {
