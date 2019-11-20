@@ -9,6 +9,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.ScrollView;
@@ -59,6 +66,9 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
     private ImageView mArrowDown;
     private LayoutInflater mInflater;
     private ViewGroup mTrack;
+
+    private Animation mTrackAnim;
+
     private ScrollView mScroller;
     private OnActionItemClickListener mItemClickListener;
     private OnDismissListener mDismissListener;
@@ -66,6 +76,7 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
     private List<ActionItem> actionItems = new ArrayList<ActionItem>();
 
     private boolean mDidAction;
+    private boolean mAnimateTrack;
 
     private int mChildPos;
     private int mInsertPos;
@@ -75,8 +86,11 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
     public static final int ANIM_GROW_FROM_LEFT = 1;
     public static final int ANIM_GROW_FROM_RIGHT = 2;
     public static final int ANIM_GROW_FROM_CENTER = 3;
-    public static final int ANIM_REFLECT = 4;
-    public static final int ANIM_AUTO = 5;
+    public static final int ANIM_AUTO = 4;
+
+    public static final int ANIM_ITEM_TYPE_FLOAT = 1;
+    public static final int ANIM_ITEM_TYPE_SLIDE_IN_RIGHT = 2;
+    public static final int ANIM_ITEM_TYPE_FADE_IN = 3;
 
     /**
      * Constructor allowing orientation override
@@ -89,10 +103,44 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        setAnmItemType(ANIM_ITEM_TYPE_FADE_IN);
+
         setRootViewId(R.layout.popup_vertical);
 
         mAnimStyle = ANIM_AUTO;
+        mAnimateTrack = true;
         mChildPos = 0;
+    }
+
+    /**
+     * LayoutItemAnimation
+     */
+    public void setAnmItemType(int anmItemType) {
+        switch (anmItemType) {
+            case ANIM_ITEM_TYPE_FLOAT:
+                mTrackAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF,
+                        0f, Animation.RELATIVE_TO_SELF, 6f, Animation.RELATIVE_TO_SELF, 0);
+                mTrackAnim.setInterpolator(new DecelerateInterpolator());
+                mTrackAnim.setDuration(350);
+                mTrackAnim.setStartOffset(150);
+
+                break;
+
+            case ANIM_ITEM_TYPE_SLIDE_IN_RIGHT:
+                mTrackAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 2f, Animation.RELATIVE_TO_SELF,
+                        0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0);
+                mTrackAnim.setInterpolator(new DecelerateInterpolator());
+                mTrackAnim.setDuration(550);
+
+                break;
+            case ANIM_ITEM_TYPE_FADE_IN:
+                mTrackAnim = new AlphaAnimation(0, 1);
+                mTrackAnim.setInterpolator(new DecelerateInterpolator()); //add this
+                mTrackAnim.setDuration(700);
+                mTrackAnim.setStartOffset(350);
+                break;
+
+        }
     }
 
     /**
@@ -136,6 +184,15 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
      */
     public void setAnimStyle(int mAnimStyle) {
         this.mAnimStyle = mAnimStyle;
+    }
+
+    /**
+     * Animate track.
+     *
+     * @param mAnimateTrack flag to animate track
+     */
+    public void mAnimateTrack(boolean mAnimateTrack) {
+        this.mAnimateTrack = mAnimateTrack;
     }
 
     /**
@@ -281,62 +338,58 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
 
         showArrow(((onTop) ? R.id.arrow_down : R.id.arrow_up), arrowPos);
 
-        // setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
+        setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
 
         mWindow.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
+
+        if (mAnimateTrack)
+            mTrack.startAnimation(mTrackAnim);
+
     }
 
     /**
      * Set animation style
      *
-     * @param screenWidth
-     *            screen width
-     * @param requestedX
-     *            distance from left edge
-     * @param onTop
-     *            flag to indicate where the popup should be displayed. Set TRUE
-     *            if displayed on top of anchor view and vice versa
+     * @param screenWidth screen width
+     * @param requestedX  distance from left edge
+     * @param onTop       flag to indicate where the popup should be displayed. Set TRUE
+     *                    if displayed on top of anchor view and vice versa
      */
-    // private void setAnimationStyle(int screenWidth, int requestedX, boolean
-    // onTop) {
-    // int arrowPos = requestedX - mArrowUp.getMeasuredWidth()/2;
-    //
-    // switch (mAnimStyle) {
-    // case ANIM_GROW_FROM_LEFT:
-    // mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Left :
-    // R.style.Animations_PopDownMenu_Left);
-    // break;
-    //
-    // case ANIM_GROW_FROM_RIGHT:
-    // mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Right :
-    // R.style.Animations_PopDownMenu_Right);
-    // break;
-    //
-    // case ANIM_GROW_FROM_CENTER:
-    // mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Center :
-    // R.style.Animations_PopDownMenu_Center);
-    // break;
-    //
-    // case ANIM_REFLECT:
-    // mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Reflect
-    // : R.style.Animations_PopDownMenu_Reflect);
-    // break;
-    //
-    // case ANIM_AUTO:
-    // if (arrowPos <= screenWidth/4) {
-    // mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Left :
-    // R.style.Animations_PopDownMenu_Left);
-    // } else if (arrowPos > screenWidth/4 && arrowPos < 3 * (screenWidth/4)) {
-    // mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Center :
-    // R.style.Animations_PopDownMenu_Center);
-    // } else {
-    // mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Right :
-    // R.style.Animations_PopDownMenu_Right);
-    // }
-    //
-    // break;
-    // }
-    // }
+    private void setAnimationStyle(int screenWidth, int requestedX, boolean
+            onTop) {
+        int arrowPos = requestedX - mArrowUp.getMeasuredWidth() / 2;
+
+        switch (mAnimStyle) {
+            case ANIM_GROW_FROM_LEFT:
+                mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Left :
+                        R.style.Animations_PopDownMenu_Left);
+                break;
+
+            case ANIM_GROW_FROM_RIGHT:
+                mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Right :
+                        R.style.Animations_PopDownMenu_Right);
+                break;
+
+            case ANIM_GROW_FROM_CENTER:
+                mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Center :
+                        R.style.Animations_PopDownMenu_Center);
+                break;
+
+            case ANIM_AUTO:
+                if (arrowPos <= screenWidth / 4) {
+                    mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Left :
+                            R.style.Animations_PopDownMenu_Left);
+                } else if (arrowPos > screenWidth / 4 && arrowPos < 3 * (screenWidth / 4)) {
+                    mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Center :
+                            R.style.Animations_PopDownMenu_Center);
+                } else {
+                    mWindow.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Right :
+                            R.style.Animations_PopDownMenu_Right);
+                }
+
+                break;
+        }
+    }
 
     /**
      * Show arrow

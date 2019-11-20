@@ -16,8 +16,8 @@ public class DrawRouteMaps {
         return instance;
     }
 
-    public DrawRouteMaps draw(LatLng origin, LatLng destination, GoogleMap googleMap){
-        String url_route = FetchUrl.getUrl(origin, destination);
+    public DrawRouteMaps draw(LatLng origin, LatLng destination, GoogleMap googleMap, String api_key){
+        String url_route = FetchUrl.getUrl(origin, destination,api_key);
         DrawRoute drawRoute = new DrawRoute(googleMap);
         drawRoute.execute(url_route);
 

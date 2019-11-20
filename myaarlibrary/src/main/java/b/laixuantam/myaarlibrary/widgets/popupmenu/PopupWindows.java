@@ -1,133 +1,135 @@
 package b.laixuantam.myaarlibrary.widgets.popupmenu;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 public class PopupWindows {
-	protected Context mContext;
-	protected PopupWindow mWindow;
-	protected View mRootView;
-	protected Drawable mBackground = null;
-	protected WindowManager mWindowManager;
+    protected Context mContext;
+    protected PopupWindow mWindow;
+    protected View mRootView;
+    protected Drawable mBackground = null;
+    protected WindowManager mWindowManager;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param context
-	 *            Context
-	 */
-	public PopupWindows(Context context) {
-		mContext = context;
-		mWindow = new PopupWindow(context);
+    /**
+     * Constructor.
+     *
+     * @param context Context
+     */
+    public PopupWindows(Context context) {
 
-		mWindow.setTouchInterceptor(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-					mWindow.dismiss();
+        mContext = context;
+        mWindow = new PopupWindow(context);
 
-					return true;
-				}
+        mWindow.setTouchInterceptor(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+                    mWindow.dismiss();
 
-				return false;
-			}
-		});
+                    return true;
+                }
 
-		mWindowManager = (WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE);
-	}
+                return false;
+            }
+        });
 
-	/**
-	 * On dismiss
-	 */
-	protected void onDismiss() {
-	}
+        mWindowManager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
 
-	/**
-	 * On show
-	 */
-	protected void onShow() {
-	}
+    }
 
-	/**
-	 * On pre show
-	 */
-	protected void preShow() {
-		if (mRootView == null)
-			throw new IllegalStateException(
-					"setContentView was not called with a view to display.");
+    /**
+     * On dismiss
+     */
+    protected void onDismiss() {
+    }
 
-		onShow();
+    /**
+     * On show
+     */
+    protected void onShow() {
+    }
 
-		if (mBackground == null)
-			mWindow.setBackgroundDrawable(new BitmapDrawable());
-		else
-			mWindow.setBackgroundDrawable(mBackground);
+    /**
+     * On pre show
+     */
+    protected void preShow() {
+        if (mRootView == null)
+            throw new IllegalStateException(
+                    "setContentView was not called with a view to display.");
 
-		mWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-		mWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-		mWindow.setTouchable(true);
-		mWindow.setFocusable(true);
-		mWindow.setOutsideTouchable(true);
+        onShow();
 
-		mWindow.setContentView(mRootView);
-	}
+        if (mBackground == null)
+            mWindow.setBackgroundDrawable(new BitmapDrawable());
+        else
+            mWindow.setBackgroundDrawable(mBackground);
 
-	/**
-	 * Set background drawable.
-	 * 
-	 * @param background
-	 *            Background drawable
-	 */
-	public void setBackgroundDrawable(Drawable background) {
-		mBackground = background;
-	}
+        mWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+        mWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        mWindow.setTouchable(true);
+        mWindow.setFocusable(true);
+        mWindow.setOutsideTouchable(true);
 
-	/**
-	 * Set content view.
-	 * 
-	 * @param root
-	 *            Root view
-	 */
-	public void setContentView(View root) {
-		mRootView = root;
+        mWindow.setContentView(mRootView);
 
-		mWindow.setContentView(root);
-	}
+    }
 
-	/**
-	 * Set content view.
-	 * 
-	 * @param layoutResID
-	 *            Resource id
-	 */
-	public void setContentView(int layoutResID) {
-		LayoutInflater inflator = (LayoutInflater) mContext
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    /**
+     * Set background drawable.
+     *
+     * @param background Background drawable
+     */
+    public void setBackgroundDrawable(Drawable background) {
+        mBackground = background;
+    }
 
-		setContentView(inflator.inflate(layoutResID, null));
-	}
+    /**
+     * Set content view.
+     *
+     * @param root Root view
+     */
+    public void setContentView(View root) {
+        mRootView = root;
 
-	/**
-	 * Set listener on window dismissed.
-	 * 
-	 * @param listener
-	 */
-	public void setOnDismissListener(PopupWindow.OnDismissListener listener) {
-		mWindow.setOnDismissListener(listener);
-	}
+        mWindow.setContentView(root);
+    }
 
-	/**
-	 * Dismiss the popup window.
-	 */
-	public void dismiss() {
-		mWindow.dismiss();
-	}
+    /**
+     * Set content view.
+     *
+     * @param layoutResID Resource id
+     */
+    public void setContentView(int layoutResID) {
+        LayoutInflater inflator = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        setContentView(inflator.inflate(layoutResID, null));
+    }
+
+    /**
+     * Set listener on window dismissed.
+     *
+     * @param listener
+     */
+    public void setOnDismissListener(PopupWindow.OnDismissListener listener) {
+        mWindow.setOnDismissListener(listener);
+    }
+
+    /**
+     * Dismiss the popup window.
+     */
+    public void dismiss() {
+        mWindow.dismiss();
+    }
 }
