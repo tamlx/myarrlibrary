@@ -1,8 +1,12 @@
 package b.laixuantam.myaarlibrary.widgets.popupmenu;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,6 +116,27 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
         mChildPos = 0;
     }
 
+    private int mCustomBackground;
+    private int mCustomArrowColor;
+
+    public MyCustomPopupMenu(Context context, int background, int arrow_color) {
+        super(context);
+        this.mCustomBackground = background;
+        this.mCustomArrowColor = arrow_color;
+
+        mInflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        setAnmItemType(ANIM_ITEM_TYPE_FADE_IN);
+
+
+        setRootViewId(R.layout.popup_vertical);
+
+        mAnimStyle = ANIM_AUTO;
+        mAnimateTrack = true;
+        mChildPos = 0;
+    }
+
     /**
      * LayoutItemAnimation
      */
@@ -174,6 +199,42 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
         mRootView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT));
 
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (mCustomBackground != 0) {
+                int[][] states = new int[][]{
+                        new int[]{-android.R.attr.state_enabled},
+                        new int[]{-android.R.attr.state_pressed, -android.R.attr.state_focused},
+                        new int[]{}
+                };
+                int[] colors = new int[]{
+                        mCustomBackground,
+                        mCustomBackground,
+                        mCustomBackground
+                };
+
+                ColorStateList list = new ColorStateList(states, colors);
+                mScroller.setBackgroundTintList(list);
+
+            }
+
+            if (mCustomArrowColor != 0) {
+                int[][] states = new int[][]{
+                        new int[]{-android.R.attr.state_enabled},
+                        new int[]{-android.R.attr.state_pressed, -android.R.attr.state_focused},
+                        new int[]{}
+                };
+                int[] colors = new int[]{
+                        mCustomArrowColor,
+                        mCustomArrowColor,
+                        mCustomArrowColor
+                };
+
+                ColorStateList list = new ColorStateList(states, colors);
+                mArrowDown.setImageTintList(list);
+                mArrowUp.setImageTintList(list);
+            }
+        }
+
         setContentView(mRootView);
     }
 
@@ -218,6 +279,65 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
         View container;
 
         container = mInflater.inflate(R.layout.action_item_vertical, null);
+
+        // Button btn_lang_vi = (Button)
+        // container.findViewById(R.id.button_set_language_vi);
+        // btn_lang_vi.setBackgroundResource(R.drawable.btn_language_vi_selector);
+        ImageView img = (ImageView) container.findViewById(R.id.iv_icon);
+        TextView text = (TextView) container.findViewById(R.id.tv_title);
+
+        if (icon != null) {
+            img.setImageDrawable(icon);
+        } else {
+            img.setVisibility(View.GONE);
+        }
+
+        if (title != null) {
+            text.setText(title);
+        } else {
+            text.setVisibility(View.GONE);
+        }
+
+        final int pos = mChildPos;
+        final int actionId = action.getActionId();
+
+        container.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(MyCustomPopupMenu.this, pos,
+                            actionId);
+                }
+
+                if (!getActionItem(pos).isSticky()) {
+                    mDidAction = true;
+
+                    dismiss();
+                }
+            }
+        });
+
+        container.setFocusable(true);
+        container.setClickable(true);
+
+        mTrack.addView(container, mInsertPos);
+
+        mChildPos++;
+        mInsertPos++;
+    }
+
+    public void addActionItem(ActionItem action, @LayoutRes int layout_item_custom) {
+        actionItems.add(action);
+
+        String title = action.getTitle();
+        Drawable icon = action.getIcon();
+
+        View container;
+
+        if (layout_item_custom != 0) {
+            container = mInflater.inflate(layout_item_custom, null);
+        } else
+            container = mInflater.inflate(R.layout.action_item_vertical, null);
 
         // Button btn_lang_vi = (Button)
         // container.findViewById(R.id.button_set_language_vi);
