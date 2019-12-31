@@ -317,4 +317,11 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
     public List<Badge> getBadges() {
         return mBadges;
     }
+
+    public void setTitleItem(int index, String title){
+        BottomItem item = mBottomItems.get(index);
+        item.setText(title);
+        decorateTextView(getChildAt(index).findViewById(b.laixuantam.myaarlibrary.R.id.tv_bottom),item);
+
+    }
 }
