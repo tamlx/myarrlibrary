@@ -81,6 +81,14 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
         return this;
     }
 
+    public BottomNavigationBar removeAllItemBottom() {
+        if (mBottomItems != null && mBottomItems.size() > 0) {
+            mBottomItems.clear();
+            mSelectedPosition = -1;
+        }
+        return this;
+    }
+
     public void initialize() {
         if (mSelectedPosition > mBottomItems.size() - 1) {
             throw new IllegalArgumentException("Bottom Item Index overflow !!!");
@@ -116,7 +124,8 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
             mBadges.add(new QBadgeView(this.getContext()).bindTarget(btn).setShowShadow(false));
         }
 
-        getChildAt(mSelectedPosition).setSelected(true);
+        if (getChildAt(mSelectedPosition) != null)
+            getChildAt(mSelectedPosition).setSelected(true);
     }
 
     @Override
@@ -266,7 +275,8 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
     }
 
     public void clearSelection() {
-        getChildAt(mSelectedPosition).setSelected(false);
+        if (getChildAt(mSelectedPosition) != null)
+            getChildAt(mSelectedPosition).setSelected(false);
         mSelectedPosition = -1;
     }
 
@@ -318,10 +328,10 @@ public class BottomNavigationBar extends LinearLayout implements View.OnClickLis
         return mBadges;
     }
 
-    public void setTitleItem(int index, String title){
+    public void setTitleItem(int index, String title) {
         BottomItem item = mBottomItems.get(index);
         item.setText(title);
-        decorateTextView(getChildAt(index).findViewById(b.laixuantam.myaarlibrary.R.id.tv_bottom),item);
+        decorateTextView(getChildAt(index).findViewById(b.laixuantam.myaarlibrary.R.id.tv_bottom), item);
 
     }
 }

@@ -18,7 +18,9 @@
         android:layout_marginTop="5dp"
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:src="@drawable/error_circle"
+        tools:visibility="visible"/>
 
     <FrameLayout
         android:id="@+id/error_frame"
@@ -47,7 +49,8 @@
         android:layout_width="53dp"
         android:layout_height="53dp"
         android:layout_marginTop="5dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="gone">
 
         <View
             android:layout_width="match_parent"
@@ -87,7 +90,8 @@
         android:layout_width="53dp"
         android:layout_height="53dp"
         android:layout_marginTop="5dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="gone">
 
         <View
             android:layout_width="match_parent"
@@ -110,7 +114,7 @@
         android:layout_marginTop="9dp"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <b.laixuantam.myaarlibrary.widgets.dialog.alert.progressx.ProgressWheel
             android:id="@+id/progressWheel"
@@ -126,10 +130,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:singleLine="true"
-        android:text="@string/dialog_default_title"
+        tools:text="@string/dialog_default_title"
         android:textColor="#575757"
         android:textSize="19sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/content_text"
@@ -138,14 +143,17 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textAlignment="center"
+        tools:text="Dialog content"
         android:textColor="#797979"
         android:textSize="14sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center">
 
         <Button
@@ -154,7 +162,8 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/button_cancel_background"
             android:text="@string/dialog_cancel"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <Button
             android:id="@+id/custom_confirm_button"
