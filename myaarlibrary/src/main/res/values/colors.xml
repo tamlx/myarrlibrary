@@ -126,6 +126,30 @@
     <color name="material_deep_teal_20">#ff80cbc4</color>
     <color name="material_deep_teal_50">#ff009688</color>
 
+    <item name="gray_holo_dark" type="color">#ff464646</item>
+    <item name="gray_holo_light" type="color">#ffd0d0d0</item>
+    <color name="grey_200">#EEEEEE</color>
+
     <color name="vw_grey">#F6F6F6</color>
     <color name="vw_dark_grey">#AAAAAA</color>
+
+
+    <!-- Calendar Date -->
+    <color name="title_color">#000</color>
+    <color name="week_color">#000</color>
+    <color name="date_color">#000</color>
+    <color name="default_date_color">#3b4144</color>
+    <color name="disable_date_color">#BDBDBD</color>
+    <color name="range_date_color">@color/default_date_color</color>
+    <color name="selected_date_color">#FFF</color>
+    <color name="range_bg_color">#B7C99D</color>
+    <color name="calendar_text">#474747</color>
+
+    <color name="calendar_header">@color/colorPrimary</color>
+    <color name="calendar_header_title">#FFF</color>
+    <color name="selected_date_circle_color_app">#FF5252</color>
+    <color name="range_bg_color_app">#FFCDD2</color>
+
+    <color name="selected_date_circle_color">#54B948</color>
+
 </resources>

@@ -123,4 +123,111 @@
         <item name="android:windowExitAnimation">@anim/shrink_from_top</item>
     </style>
 
+    <declare-styleable name="DateRangeMonthView">
+        <attr name="title_color" format="color" />
+        <attr name="week_color" format="color" />
+        <attr name="range_color" format="color" />
+        <attr name="selected_date_circle_color" format="color" />
+        <attr name="selected_date_color" format="color" />
+        <attr name="default_date_color" format="color" />
+        <attr name="range_date_color" format="color" />
+        <attr name="disable_date_color" format="color" />
+        <attr name="text_size_title" format="dimension" />
+        <attr name="text_size_week" format="dimension" />
+        <attr name="text_size_date" format="dimension" />
+        <attr name="header_bg" format="integer" />
+        <attr name="calendar_tag" format="string" />
+        <attr name="week_offset" format="integer" />
+        <attr name="editable" format="boolean" />
+        <attr name="swipeable" format="boolean" />
+        <attr name="show_header" format="boolean" />
+    </declare-styleable>
+
+    <style name="WeekDayTitleStyle">
+        <item name="android:layout_width">@dimen/dayOfMonthBoxSize</item>
+        <item name="android:layout_height">@dimen/dayOfMonthBoxSize</item>
+        <item name="android:textSize">@dimen/text_size_week</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/date_color</item>
+        <item name="android:paddingBottom">@dimen/dayOfMonthPaddingBottom</item>
+    </style>
+
+    <style name="DayOfMonthStyle">
+        <item name="android:layout_width">@dimen/dayOfMonthSize</item>
+        <item name="android:layout_height">@dimen/dayOfMonthSize</item>
+        <item name="android:textSize">@dimen/text_size_date</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">@dimen/dayOfMonthMinHeight</item>
+        <item name="android:minWidth">@dimen/dayOfMonthMinWidth</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:paddingBottom">@dimen/dayOfMonthPaddingBottom</item>
+        <item name="android:textColor">@color/default_date_color</item>
+    </style>
+
+    <style name="ContainerDayOfWeek">
+        <item name="android:layout_width">@dimen/dayOfMonthBoxSize</item>
+        <item name="android:layout_height">@dimen/dayOfMonthBoxSize</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="StripRange">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/strip_height</item>
+        <item name="android:background">@color/range_bg_color</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!-- MyCustomPicker -->
+    <attr name="customPickerStyle" format="reference" />
+
+    <declare-styleable name="MyCustomPicker">
+        <attr name="cp_width" format="dimension" />
+        <attr name="cp_height" format="dimension" />
+        <attr name="cp_accessibilityDescriptionEnabled" format="boolean" />
+        <attr name="cp_divider" format="reference" />
+        <attr name="cp_dividerColor" format="color" />
+        <attr name="cp_dividerDistance" format="dimension" />
+        <attr name="cp_dividerThickness" format="dimension" />
+        <attr name="cp_fadingEdgeEnabled" format="boolean" />
+        <attr name="cp_fadingEdgeStrength" format="float" />
+        <attr name="cp_formatter" format="string" />
+        <attr name="cp_hideWheelUntilFocused" format="boolean" />
+        <attr name="cp_lineSpacingMultiplier" format="float" />
+        <attr name="cp_max" format="integer" />
+        <attr name="cp_maxFlingVelocityCoefficient" format="integer" />
+        <attr name="cp_min" format="integer" />
+        <attr name="cp_order" format="enum">
+            <enum name="ascending" value="0" />
+            <enum name="descending" value="1" />
+        </attr>
+        <attr name="cp_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="cp_scrollerEnabled" format="boolean" />
+        <attr name="cp_selectedTextAlign" format="enum">
+            <enum name="selectedTextAlignRight" value="0" />
+            <enum name="selectedTextAlignCenter" value="1" />
+            <enum name="selectedTextAlignLeft" value="2" />
+        </attr>
+        <attr name="cp_selectedTextColor" format="color" />
+        <attr name="cp_selectedTextSize" format="dimension" />
+        <attr name="cp_selectedTextStrikeThru" format="boolean" />
+        <attr name="cp_selectedTextUnderline" format="boolean" />
+        <attr name="cp_selectedTypeface" format="string" />
+        <attr name="cp_textAlign" format="enum">
+            <enum name="textAlignRight" value="0" />
+            <enum name="textAlignCenter" value="1" />
+            <enum name="textAlignLeft" value="2" />
+        </attr>
+        <attr name="cp_textColor" format="color" />
+        <attr name="cp_textSize" format="dimension" />
+        <attr name="cp_textStrikeThru" format="boolean" />
+        <attr name="cp_textUnderline" format="boolean" />
+        <attr name="cp_typeface" format="string" />
+        <attr name="cp_value" format="integer" />
+        <attr name="cp_wheelItemCount" format="integer" />
+        <attr name="cp_wrapSelectorWheel" format="boolean" />
+    </declare-styleable>
+
 </resources>

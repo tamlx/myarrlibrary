@@ -1,0 +1,108 @@
+                    <LinearLayout
+                                        android:id="@+id/layoutPickerMonth"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_horizontal"
+                                            android:layout_marginLeft="5dp"
+                                            android:text="Chọn tháng:"
+                                            android:textColor="@color/color_text_default"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <MyCustomPicker
+                                            android:id="@+id/custom_picker_month"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            app:np_dividerColor="@color/transparent"
+                                            app:np_orientation="horizontal"
+                                            app:np_selectedTextSize="14sp"
+                                            app:np_textSize="11sp"
+                                            app:np_wheelItemCount="5" />
+
+                                    </LinearLayout>
+
+
+                        private static String TAG = "MyCustomPicker";
+                        private Timer timer = new Timer();
+                            private final long DELAY = 500; // in ms
+                            private int positionItemMonthSelected = 1;
+
+                            private void configPickerMonth() {
+
+                                ui.custom_picker_month.setDividerColor(ContextCompat.getColor(getContext(), R.color.transparent));
+                                ui.custom_picker_month.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                                ui.custom_picker_month.setTextColor(ContextCompat.getColor(getContext(), R.color.gray));
+
+                                String[] data = {"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"};
+                                ui.custom_picker_month.setMinValue(1);
+                                ui.custom_picker_month.setMaxValue(data.length);
+                                ui.custom_picker_month.setDisplayedValues(data);
+
+                                final Calendar now = Calendar.getInstance();
+                                int currentMonth = now.get(Calendar.MONTH);
+                                positionItemMonthSelected = currentMonth + 1;
+                                ui.custom_picker_month.setValue(positionItemMonthSelected);
+
+                                // Set fading edge enabled
+                                ui.custom_picker_month.setFadingEdgeEnabled(true);
+
+                                // Set scroller enabled
+                                ui.custom_picker_month.setScrollerEnabled(true);
+
+                                // Set wrap selector wheel
+                                ui.custom_picker_month.setWrapSelectorWheel(false);
+
+                                // Set accessibility description enabled
+                                ui.custom_picker_month.setAccessibilityDescriptionEnabled(true);
+
+                                // OnClickListener
+                                ui.custom_picker_month.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        MyLog.e(TAG, "Click on current value");
+                                    }
+                                });
+
+                                // OnValueChangeListener
+                                ui.custom_picker_month.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                                    @Override
+                                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                                        MyLog.e(TAG, String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
+                                        positionItemMonthSelected = newVal;
+
+                                        if (ui.layoutPickerCalendar.getVisibility() != View.VISIBLE)
+                                            return;
+                                        if (timer != null)
+                                            timer.cancel();
+
+                                        timer = new Timer();
+                                        timer.schedule(new TimerTask() {
+                                            @Override
+                                            public void run() {
+                                                handler.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        reloadCalendarView();
+                                                    }
+                                                });
+                                            }
+
+                                        }, DELAY);
+                                    }
+                                });
+
+                                // OnScrollListener
+                                ui.custom_picker_month.setOnScrollListener(new NumberPicker.OnScrollListener() {
+                                    @Override
+                                    public void onScrollStateChange(NumberPicker picker, int scrollState) {
+                                        if (scrollState == SCROLL_STATE_IDLE) {
+                                            MyLog.e(TAG, String.format(Locale.US, "newVal: %d", picker.getValue()));
+                                        }
+                                    }
+                                });
+                            }

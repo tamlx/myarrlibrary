@@ -1,0 +1,117 @@
+<LinearLayout
+                    android:id="@+id/layoutPickerCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="5dp"
+                            android:text="Chọn ngày:"
+                            android:textColor="@color/color_text_default"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btnClearCalendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:drawableRight="@drawable/ic_delete_item"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="Xóa"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
+                            android:textStyle="normal"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+                    </RelativeLayout>
+
+                    <DateRangeCalendarView
+                        android:id="@+id/calendar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        custom:calendar_tag="Test"
+                        custom:disable_date_color="#ABABAB"
+                        custom:editable="true"
+                        custom:header_bg="@drawable/calendar_header"
+                        custom:range_color="@color/colorPrimary"
+                        custom:selected_date_circle_color="@color/colorPrimary"
+                        custom:show_header="false"
+                        custom:swipeable="false"
+                        custom:title_color="@color/colorPrimary"
+                        custom:week_offset="0">
+
+                    </DateRangeCalendarView>
+
+                </LinearLayout>
+
+====================================== CODE ===============================
+
+private void configCalendar() {
+//        final Calendar startMonth = Calendar.getInstance();
+//        startMonth.add(Calendar.MONTH, -2);
+//        final Calendar endMonth = (Calendar) startMonth.clone();
+//        endMonth.add(Calendar.MONTH, 5);
+//        MyLog.e(TAG, "Start month: " + startMonth.getTime().toString() + " :: End month: " + endMonth.getTime().toString());
+//        ui.calendar.setVisibleMonthRange(startMonth, endMonth);
+
+//        final Calendar startDateSelectable = (Calendar) startMonth.clone();
+//        startDateSelectable.add(Calendar.DATE,20);
+//        final Calendar endDateSelectable = (Calendar) endMonth.clone();
+//        endDateSelectable.add(Calendar.DATE, -20);
+//        MyLog.e(TAG, "startDateSelectable: " + startDateSelectable.getTime().toString() + " :: endDateSelectable: " + endDateSelectable.getTime().toString());
+//        ui.calendar.setSelectableDateRange(startDateSelectable, endDateSelectable);
+
+//        final Calendar startSelectedDate = (Calendar) startDateSelectable.clone();
+//        startSelectedDate.add(Calendar.DATE, 10);
+//        final Calendar endSelectedDate = (Calendar) endDateSelectable.clone();
+//        endSelectedDate.add(Calendar.DATE, -10);
+//        MyLog.e(TAG, "startSelectedDate: " + startSelectedDate.getTime().toString() + " :: endSelectedDate: " + endSelectedDate.getTime().toString());
+//        ui.calendar.setSelectedDateRange(startSelectedDate, endSelectedDate);
+
+        Calendar current = Calendar.getInstance();
+
+        ui.calendar.setCurrentMonth(current);
+
+        ui.calendar.setCalendarListener(calendarListener);
+
+        ui.calendar.resetAllSelectedViews();
+    }
+
+    private String dateStartSelected, dateEndSelected;
+
+        private final CalendarListener calendarListener = new CalendarListener() {
+            @Override
+            public void onFirstDateSelected(@NonNull final Calendar startDate) {
+    //            Toast.makeText(getContext(), "Start Date: " + startDate.getTime().toString(), Toast.LENGTH_SHORT).show();
+                setVisible(ui.btnClearCalendar);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                dateStartSelected = sdf.format(startDate.getTime());
+                dateEndSelected = dateStartSelected;
+                old_value_date_end = "";
+            }
+
+            @Override
+            public void onDateRangeSelected(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
+
+                setVisible(ui.btnClearCalendar);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                dateStartSelected = sdf.format(startDate.getTime());
+                dateEndSelected = sdf.format(endDate.getTime());
+
+    //            Toast.makeText(getContext(), "Start Date: " + dateStartSelected + " End date: " + dateEndSelected, Toast.LENGTH_LONG).show();
+            }
+        };
