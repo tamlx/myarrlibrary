@@ -115,3 +115,298 @@ private void configCalendar() {
     //            Toast.makeText(getContext(), "Start Date: " + dateStartSelected + " End date: " + dateEndSelected, Toast.LENGTH_LONG).show();
             }
         };
+private void reloadCalendarView() {
+        if (typeViewFilter != TYPE_VIEW_FILTER.DATE)
+            return;
+
+        String valueYearSelected = arr_year[positionItemYearSelected];
+        String valueMonthSelected = String.valueOf(positionItemMonthSelected);
+
+        StringBuilder valueDate = new StringBuilder();
+        String dateSelected = valueDate.append(valueYearSelected).append("-").append(valueMonthSelected).append("-01").toString();
+        Calendar calendarFromDate = convertDateToCalendar(ConvertDate.getDateFromString(dateSelected, "yyyy-MM-dd"));
+        ui.calendar.setCurrentMonth(calendarFromDate);
+    }
+
+    public Calendar convertDateToCalendar(Date date) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            return cal;
+        }
+
+=========================================================
+private String[] arr_schedule_filter = new String[4];
+    private String[] arr_month = new String[12];
+    private String[] arr_year = new String[10];
+    private String[] arr_quy = new String[4];
+private void initScheduleFilter() {
+//        arr_schedule_filter[0] = "Hôm nay";
+//        arr_schedule_filter[1] = "Hôm qua";
+        arr_schedule_filter[0] = "7 ngày vừa qua";
+        arr_schedule_filter[1] = "Theo tháng";
+        arr_schedule_filter[2] = "Theo quý";
+        arr_schedule_filter[3] = "Theo năm";
+
+        for (int i = 1; i < 13; i++) {
+            arr_month[i - 1] = "Tháng " + i;
+        }
+
+        for (int i = 1; i < 5; i++) {
+            arr_quy[i - 1] = "Quý " + i;
+        }
+
+        final Calendar now = Calendar.getInstance();
+        int currentYear = now.get(Calendar.YEAR);
+        int nextYear = currentYear + 1;
+
+        int pass1Year = currentYear - 1;
+        int pass2Year = currentYear - 2;
+        int pass3Year = currentYear - 3;
+        int pass4Year = currentYear - 4;
+        int pass5Year = currentYear - 5;
+        int pass6Year = currentYear - 6;
+        int pass7Year = currentYear - 7;
+        int pass8Year = currentYear - 8;
+        int pass9Year = currentYear - 9;
+
+        arr_year[0] = "" + (nextYear);
+        arr_year[1] = "" + (currentYear);
+        arr_year[2] = "" + (pass1Year);
+        arr_year[3] = "" + (pass2Year);
+        arr_year[4] = "" + (pass3Year);
+        arr_year[5] = "" + (pass4Year);
+        arr_year[6] = "" + (pass5Year);
+        arr_year[7] = "" + (pass6Year);
+        arr_year[8] = "" + (pass7Year);
+        arr_year[9] = "" + (pass8Year);
+        positionItemYearSelected = 1;
+        positionOldYearSelected = 1;
+    }
+
+    ===========================================================================
+    private Timer timer = new Timer();
+        private final long DELAY = 500; // in ms
+
+        private static String TAG = "NumberPicker";
+
+        private int positionItemMonthSelected = 1;
+
+        private void configPickerMonth() {
+
+            ui.number_picker_month.setDividerColor(ContextCompat.getColor(getContext(), R.color.transparent));
+            ui.number_picker_month.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            ui.number_picker_month.setTextColor(ContextCompat.getColor(getContext(), R.color.gray));
+
+            String[] data = {"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"};
+            ui.number_picker_month.setMinValue(1);
+            ui.number_picker_month.setMaxValue(data.length);
+            ui.number_picker_month.setDisplayedValues(data);
+
+            final Calendar now = Calendar.getInstance();
+            int currentMonth = now.get(Calendar.MONTH);
+            positionItemMonthSelected = currentMonth + 1;
+            ui.number_picker_month.setValue(positionItemMonthSelected);
+
+            // Set fading edge enabled
+            ui.number_picker_month.setFadingEdgeEnabled(true);
+
+            // Set scroller enabled
+            ui.number_picker_month.setScrollerEnabled(true);
+
+            // Set wrap selector wheel
+            ui.number_picker_month.setWrapSelectorWheel(false);
+
+            // Set accessibility description enabled
+            ui.number_picker_month.setAccessibilityDescriptionEnabled(true);
+
+            // OnClickListener
+            ui.number_picker_month.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MyLog.e(TAG, "Click on current value");
+                }
+            });
+
+            // OnValueChangeListener
+            ui.number_picker_month.setOnValueChangedListener(new MyCustomPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(MyCustomPicker picker, int oldVal, int newVal) {
+                    MyLog.e(TAG, String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
+                    positionItemMonthSelected = newVal;
+
+                    if (ui.layoutPickerCalendar.getVisibility() != View.VISIBLE)
+                        return;
+                    if (timer != null)
+                        timer.cancel();
+
+                    timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reloadCalendarView();
+                                }
+                            });
+                        }
+
+                    }, DELAY);
+                }
+            });
+
+            // OnScrollListener
+            ui.number_picker_month.setOnScrollListener(new MyCustomPicker.OnScrollListener() {
+                @Override
+                public void onScrollStateChange(MyCustomPicker picker, int scrollState) {
+                    if (scrollState == SCROLL_STATE_IDLE) {
+                        MyLog.e(TAG, String.format(Locale.US, "newVal: %d", picker.getValue()));
+                    }
+                }
+            });
+        }
+
+        ======================================================================================
+        private int positionItemYearSelected = 1;
+
+            private void configPickerYear() {
+
+                ui.number_picker_year.setDividerColor(ContextCompat.getColor(getContext(), R.color.transparent));
+                ui.number_picker_year.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                ui.number_picker_year.setTextColor(ContextCompat.getColor(getContext(), R.color.gray));
+
+                ui.number_picker_year.setMinValue(1);
+                ui.number_picker_year.setMaxValue(arr_year.length);
+                ui.number_picker_year.setDisplayedValues(arr_year);
+                ui.number_picker_year.setValue(positionOldYearSelected + 1);
+
+                // Set fading edge enabled
+                ui.number_picker_year.setFadingEdgeEnabled(true);
+
+                // Set scroller enabled
+                ui.number_picker_year.setScrollerEnabled(true);
+
+                // Set wrap selector wheel
+                ui.number_picker_year.setWrapSelectorWheel(false);
+
+                // Set accessibility description enabled
+                ui.number_picker_year.setAccessibilityDescriptionEnabled(true);
+
+                // OnClickListener
+                ui.number_picker_year.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MyLog.e(TAG, "Click on current value");
+                    }
+                });
+
+                // OnValueChangeListener
+                ui.number_picker_year.setOnValueChangedListener(new MyCustomPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(MyCustomPicker picker, int oldVal, int newVal) {
+                        MyLog.e(TAG, String.format(Locale.US, "oldVal: %d, newVal: %d", oldVal, newVal));
+                        positionItemYearSelected = newVal - 1;
+
+                        if (ui.layoutPickerCalendar.getVisibility() != View.VISIBLE)
+                            return;
+
+                        if (timer != null)
+                            timer.cancel();
+
+                        timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        reloadCalendarView();
+                                    }
+                                });
+                            }
+
+                        }, DELAY);
+                    }
+                });
+
+                // OnScrollListener
+                ui.number_picker_year.setOnScrollListener(new MyCustomPicker.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChange(MyCustomPicker picker, int scrollState) {
+                        if (scrollState == SCROLL_STATE_IDLE) {
+                            MyLog.e(TAG, String.format(Locale.US, "newVal: %d", picker.getValue()));
+                        }
+                    }
+                });
+            }
+
+            ======================================================================================
+
+            private int positionItemQuySelected = -1;
+
+                private void configPickerQuy() {
+
+                    ui.number_picker_quy.setDividerColor(ContextCompat.getColor(getContext(), R.color.transparent));
+                    ui.number_picker_quy.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                    ui.number_picker_quy.setTextColor(ContextCompat.getColor(getContext(), R.color.gray));
+
+                    ui.number_picker_quy.setMinValue(1);
+                    ui.number_picker_quy.setMaxValue(arr_quy.length);
+                    ui.number_picker_quy.setDisplayedValues(arr_quy);
+
+                    final Calendar now = Calendar.getInstance();
+                    int currentMonth = now.get(Calendar.MONTH) + 1;
+                    if (currentMonth <= 3) {
+                        ui.number_picker_quy.setValue(1);
+                        positionItemQuySelected = 1;
+                    } else if (4 <= currentMonth && currentMonth <= 6) {
+                        ui.number_picker_quy.setValue(2);
+                        positionItemQuySelected = 2;
+                    } else if (7 <= currentMonth && currentMonth <= 9) {
+                        ui.number_picker_quy.setValue(3);
+                        positionItemQuySelected = 3;
+                    } else if (10 <= currentMonth) {
+                        ui.number_picker_quy.setValue(4);
+                        positionItemQuySelected = 4;
+                    }
+            //        ui.number_picker_quy.setValue(positionOldQuySelected + 1);
+
+                    // Set fading edge enabled
+                    ui.number_picker_quy.setFadingEdgeEnabled(true);
+
+                    // Set scroller enabled
+                    ui.number_picker_quy.setScrollerEnabled(true);
+
+                    // Set wrap selector wheel
+                    ui.number_picker_quy.setWrapSelectorWheel(false);
+
+                    // Set accessibility description enabled
+                    ui.number_picker_quy.setAccessibilityDescriptionEnabled(true);
+
+                    // OnClickListener
+                    ui.number_picker_quy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            MyLog.e(TAG, "Click on current value");
+                        }
+                    });
+
+                    // OnValueChangeListener
+                    ui.number_picker_quy.setOnValueChangedListener(new MyCustomPicker.OnValueChangeListener() {
+                        @Override
+                        public void onValueChange(MyCustomPicker picker, int oldVal, int newVal) {
+                            MyLog.e(TAG, String.format(Locale.US, "onValueChange| oldVal: %d, newVal: %d", oldVal, newVal));
+                            positionItemQuySelected = newVal;
+                        }
+                    });
+
+                    // OnScrollListener
+                    ui.number_picker_quy.setOnScrollListener(new MyCustomPicker.OnScrollListener() {
+                        @Override
+                        public void onScrollStateChange(MyCustomPicker picker, int scrollState) {
+                            if (scrollState == SCROLL_STATE_IDLE) {
+                                MyLog.e(TAG, String.format(Locale.US, "onScrollStateChange|newVal: %d", picker.getValue()));
+                            }
+                        }
+                    });
+                }

@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -97,6 +98,34 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
 
         setCalendarYearTitle(TOTAL_ALLOWED_MONTHS);
         setListeners();
+    }
+
+    @Override
+    public void setShowHeader(boolean isShowHeader) {
+        if (isShowHeader) {
+            if (layout_calendar_header != null)
+                layout_calendar_header.setVisibility(View.VISIBLE);
+        } else {
+            if (layout_calendar_header != null)
+                layout_calendar_header.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void setSwipeable(boolean isSwipeable) {
+        if (isSwipeable) {
+            if (imgVNavLeft != null)
+                imgVNavLeft.setVisibility(View.VISIBLE);
+            if (imgVNavRight != null)
+                imgVNavRight.setVisibility(View.VISIBLE);
+        } else {
+            if (imgVNavLeft != null)
+                imgVNavLeft.setVisibility(View.GONE);
+            if (imgVNavRight != null)
+                imgVNavRight.setVisibility(View.GONE);
+        }
+        if (vpCalendar != null)
+            vpCalendar.setPagingEnabled(isSwipeable);
     }
 
     private void setListeners() {

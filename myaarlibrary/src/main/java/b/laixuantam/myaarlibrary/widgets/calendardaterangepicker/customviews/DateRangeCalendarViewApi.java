@@ -104,4 +104,8 @@ interface DateRangeCalendarViewApi {
      * @param endDate   End date
      */
     void setSelectableDateRange(@NonNull Calendar startDate, @NonNull Calendar endDate);
+
+    void setShowHeader(boolean isShowHeader);
+
+    void setSwipeable(boolean isSwipeable);
 }
