@@ -2,6 +2,9 @@ package b.laixuantam.myaarlibrary.widgets.progresswindow.kprogresshud;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.ColorRes;
+import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -14,9 +17,16 @@ class SpinView extends ImageView implements Indeterminate {
     private int mFrameTime;
     private boolean mNeedToUpdateView;
     private Runnable mUpdateViewRunnable;
+    private int id_color = -1;
 
     public SpinView(Context context) {
         super(context);
+        init();
+    }
+
+    public SpinView(Context context, @ColorRes int id_color) {
+        super(context);
+        this.id_color = id_color;
         init();
     }
 
@@ -27,6 +37,9 @@ class SpinView extends ImageView implements Indeterminate {
 
     private void init() {
         setImageResource(R.drawable.kprogresshud_spinner);
+        if (id_color != -1) {
+            setColorFilter(ContextCompat.getColor(getContext(), id_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
         mFrameTime = 1000 / 12;
         mUpdateViewRunnable = new Runnable() {
             @Override

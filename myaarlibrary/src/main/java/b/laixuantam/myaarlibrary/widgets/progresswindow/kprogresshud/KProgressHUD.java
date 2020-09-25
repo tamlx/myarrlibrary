@@ -210,6 +210,16 @@ public class KProgressHUD {
         return this;
     }
 
+    public KProgressHUD setProgressWithOutBg() {
+        if (progressLayout == null) {
+            setWindowColor(Color.parseColor("#00000000"));
+            View view = new SpinView(mContext, R.color.progressColor);
+            mProgressDialog.setView(view);
+        }
+
+        return this;
+    }
+
     public KProgressHUD setCustomView() {
         if (progressLayout == null) {
             progressLayout = LayoutInflater.from(mContext).inflate(R.layout.view_progress_window, null);
@@ -231,9 +241,9 @@ public class KProgressHUD {
             mainLayout.setBackgroundColor(Color.TRANSPARENT);
 
             mainProgress.setVisibility(View.GONE);
-            mkLoaderClassicSpinner.setVisibility(View.VISIBLE);
+            mkLoaderClassicSpinner.setVisibility(View.GONE);
             mkLoaderLineSpinner.setVisibility(View.GONE);
-            mkLoaderFishSpinner.setVisibility(View.GONE);
+            mkLoaderFishSpinner.setVisibility(View.VISIBLE);
 
             tvProgressTitle.setText("");
             ll_loading_bound.setBackgroundColor(Color.TRANSPARENT);

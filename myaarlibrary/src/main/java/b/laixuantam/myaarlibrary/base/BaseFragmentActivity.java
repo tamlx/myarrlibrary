@@ -342,6 +342,74 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
         }
     }
 
+    public void showProgressWithOutBg() {
+        showProgressWithOutBg("", true);
+    }
+
+    public synchronized void showProgressWithOutBg(String message, boolean timeout) {
+        if (hud != null && hud.isShowing()) {
+
+            hud.dismiss();
+            hud = null;
+        }
+
+        hud = KProgressHUD.create(this)
+                .setProgressWithOutBg();
+        if (!TextUtils.isEmpty(message)) {
+            hud.setLabel(message);
+            hud.setCancellable(false);
+        }
+
+        hud.show();
+
+        if (timeout) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (hud != null && hud.isShowing()) {
+
+                        hud.dismiss();
+                        hud = null;
+                    }
+                }
+            }, 10000);
+        }
+    }
+
+    public void showFishSpinnerProgress() {
+        showFishSpinnerProgress("", true);
+    }
+    public synchronized void showFishSpinnerProgress(String message, boolean timeout) {
+        if (hud != null && hud.isShowing()) {
+
+            hud.dismiss();
+            hud = null;
+        }
+
+        hud = KProgressHUD.create(this)
+                .setWindowColor(Color.parseColor("#00000000"))
+                .setCustomView();
+        if (!TextUtils.isEmpty(message)) {
+            hud.setLabel(message);
+            hud.setCancellable(false);
+        }
+
+        hud.show();
+
+        if (timeout) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (hud != null && hud.isShowing()) {
+
+                        hud.dismiss();
+                        hud = null;
+                    }
+                }
+            }, 10000);
+        }
+    }
+
     public synchronized void dismissProgress() {
         handler.post(new Runnable() {
             @Override
