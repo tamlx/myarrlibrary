@@ -36,28 +36,28 @@ import b.laixuantam.myaarlibrary.widgets.imagecrop.util.BitmapLoadUtils;
 import b.laixuantam.myaarlibrary.widgets.imagecrop.view.ImageCropView;
 
 /**
- * private void startCrop(Uri imageUri) {
- * Intent intent = new Intent(MainActivity.this, ImageCropActivity.class);
- * intent.setData(imageUri);
- * if (imageUri != null) {
- * startActivity(intent);
- * } else {
- * startActivityForResult(intent, ACTION_REQUEST_IMAGE_CROP);
- * }
- * }
- *
- * @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
- * if (resultCode == RESULT_OK) {
- * switch (requestCode) {
- * <p>
- * case ACTION_REQUEST_IMAGE_CROP:
- * String filePath2 = data.getStringExtra("result");
- * Uri filePathUri2 = Uri.parse(filePath2);
- * loadAsync(filePathUri2);
- * break;
- * }
- * }
- * }
+  private void startCrop(Uri imageUri) {
+  Intent intent = new Intent(MainActivity.this, ImageCropActivity.class);
+  intent.setData(imageUri);
+  if (imageUri != null) {
+  startActivity(intent);
+  } else {
+  startActivityForResult(intent, ACTION_REQUEST_IMAGE_CROP);
+  }
+  }
+
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  if (resultCode == RESULT_OK) {
+  switch (requestCode) {
+  <p>
+  case ACTION_REQUEST_IMAGE_CROP:
+  String filePath2 = data.getStringExtra("result");
+   * Uri filePathUri2 = Uri.parse(filePath2);
+  loadAsync(filePathUri2);
+  break;
+  }
+  }
+  }
  */
 
 

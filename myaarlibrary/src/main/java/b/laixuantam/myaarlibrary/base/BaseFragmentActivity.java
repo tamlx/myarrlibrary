@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -533,10 +534,11 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
         }
         mCustomAlert.showCancelButton(false);
 
-        mCustomAlert.setTitleText(title);
+        mCustomAlert.setTitleText(Html.fromHtml(title).toString());
+
+        mCustomAlert.setContentText(Html.fromHtml(message).toString());
 
         mCustomAlert
-                .setContentText(message)
                 .setConfirmText("OK")
                 .setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
                     @Override
@@ -565,9 +567,9 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
         }
         mCustomAlert.showCancelButton(false);
 
-        mCustomAlert.setTitleText(title);
+        mCustomAlert.setTitleText(Html.fromHtml(title).toString());
 
-        mCustomAlert.setContentText(mess);
+        mCustomAlert.setContentText(Html.fromHtml(mess).toString());
 
         mCustomAlert.changeAlertType(KAlertDialog.PROGRESS_TYPE);
 
@@ -590,9 +592,9 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
         }
         mCustomAlert.setConfirmText(getString(R.string.KAlert_confirm_button_text));
 
-        mCustomAlert.setTitleText(title);
+        mCustomAlert.setTitleText(Html.fromHtml(title).toString());
 
-        mCustomAlert.setContentText(mess);
+        mCustomAlert.setContentText(Html.fromHtml(mess).toString());
 
         if (type >= 0) {
             mCustomAlert.changeAlertType(type);
@@ -603,6 +605,156 @@ public abstract class BaseFragmentActivity<V extends BaseViewInterface, A extend
         if (actionCancel != null) {
             mCustomAlert.setCancelText(getString(R.string.KAlert_cancel_button_text));
             mCustomAlert.setCancelClickListener(actionCancel);
+        } else {
+            mCustomAlert.showCancelButton(false);
+        }
+        if (actionConfirm != null) {
+            mCustomAlert.setConfirmClickListener(actionConfirm);
+        } else {
+            mCustomAlert.setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
+                @Override
+                public void onClick(KAlertDialog kAlertDialog) {
+                    mCustomAlert.dismiss();
+                }
+            });
+        }
+        mCustomAlert.show();
+    }
+
+    public void showCustomerImageConfirmAlert(String title, String mess, String titleButtonConfirm, String titleButtonCancel, KAlertDialog.KAlertClickListener actionConfirm, KAlertDialog.KAlertClickListener actionCancel, int resourceId) {
+        if (mCustomAlert == null) {
+            mCustomAlert = new KAlertDialog(this);
+            mCustomAlert.setCancelable(false);
+            mCustomAlert.setCanceledOnTouchOutside(false);
+        }
+        mCustomAlert.setConfirmText(getString(R.string.KAlert_confirm_button_text));
+
+        mCustomAlert.setTitleText(Html.fromHtml(title).toString());
+
+        mCustomAlert.setContentText(Html.fromHtml(mess).toString());
+
+        if (!TextUtils.isEmpty(titleButtonConfirm)) {
+            mCustomAlert.setConfirmText(titleButtonConfirm);
+        } else {
+            mCustomAlert.setConfirmText(getString(R.string.KAlert_confirm_button_text));
+        }
+
+        mCustomAlert.setCustomImage(resourceId);
+
+        mCustomAlert.changeAlertType(KAlertDialog.CUSTOM_IMAGE_TYPE);
+
+        if (actionCancel != null) {
+            mCustomAlert.setCancelClickListener(actionCancel);
+
+            if (!TextUtils.isEmpty(titleButtonCancel)) {
+                mCustomAlert.setCancelText(titleButtonCancel);
+            } else {
+                mCustomAlert.setCancelText(getString(R.string.KAlert_cancel_button_text));
+            }
+        } else {
+            mCustomAlert.showCancelButton(false);
+        }
+        if (actionConfirm != null) {
+            mCustomAlert.setConfirmClickListener(actionConfirm);
+        } else {
+            mCustomAlert.setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
+                @Override
+                public void onClick(KAlertDialog kAlertDialog) {
+                    mCustomAlert.dismiss();
+                }
+            });
+        }
+        mCustomAlert.show();
+    }
+
+    public void showCustomerImageAndBgButtonConfirmAlert(String title, String mess, String titleButtonConfirm, int bg_button_confirm, String titleButtonCancel, int bg_button_cancel, KAlertDialog.KAlertClickListener actionConfirm, KAlertDialog.KAlertClickListener actionCancel, int resource_img) {
+        if (mCustomAlert == null) {
+            mCustomAlert = new KAlertDialog(this);
+            mCustomAlert.setCancelable(false);
+            mCustomAlert.setCanceledOnTouchOutside(false);
+        }
+        mCustomAlert.setConfirmText(getString(R.string.KAlert_confirm_button_text));
+
+        mCustomAlert.setTitleText(Html.fromHtml(title).toString());
+
+        mCustomAlert.setContentText(Html.fromHtml(mess).toString());
+
+        if (!TextUtils.isEmpty(titleButtonConfirm)) {
+            mCustomAlert.setConfirmText(titleButtonConfirm);
+        } else {
+            mCustomAlert.setConfirmText(getString(R.string.KAlert_confirm_button_text));
+        }
+        if (bg_button_confirm != 0)
+            mCustomAlert.setConfirmButtonBgColor(bg_button_confirm);
+
+        mCustomAlert.setCustomImage(resource_img);
+
+        mCustomAlert.changeAlertType(KAlertDialog.CUSTOM_IMAGE_TYPE);
+
+        if (actionCancel != null) {
+            mCustomAlert.setCancelClickListener(actionCancel);
+
+            if (!TextUtils.isEmpty(titleButtonCancel)) {
+                mCustomAlert.setCancelText(titleButtonCancel);
+            } else {
+                mCustomAlert.setCancelText(getString(R.string.KAlert_cancel_button_text));
+            }
+
+            if (bg_button_cancel != 0)
+                mCustomAlert.setCancelButtonBgColor(bg_button_cancel);
+        } else {
+            mCustomAlert.showCancelButton(false);
+        }
+        if (actionConfirm != null) {
+            mCustomAlert.setConfirmClickListener(actionConfirm);
+        } else {
+            mCustomAlert.setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
+                @Override
+                public void onClick(KAlertDialog kAlertDialog) {
+                    mCustomAlert.dismiss();
+                }
+            });
+        }
+        mCustomAlert.show();
+    }
+
+    public void showCustomerBgButtonConfirmAlert(String title, String mess, String titleButtonConfirm, int bg_button_confirm, String titleButtonCancel, int bg_button_cancel, KAlertDialog.KAlertClickListener actionConfirm, KAlertDialog.KAlertClickListener actionCancel, int type) {
+        if (mCustomAlert == null) {
+            mCustomAlert = new KAlertDialog(this);
+            mCustomAlert.setCancelable(false);
+            mCustomAlert.setCanceledOnTouchOutside(false);
+        }
+        mCustomAlert.setConfirmText(getString(R.string.KAlert_confirm_button_text));
+
+        mCustomAlert.setTitleText(Html.fromHtml(title).toString());
+
+        mCustomAlert.setContentText(Html.fromHtml(mess).toString());
+
+        if (!TextUtils.isEmpty(titleButtonConfirm)) {
+            mCustomAlert.setConfirmText(titleButtonConfirm);
+        } else {
+            mCustomAlert.setConfirmText(getString(R.string.KAlert_confirm_button_text));
+        }
+        if (bg_button_confirm != 0)
+            mCustomAlert.setConfirmButtonBgColor(bg_button_confirm);
+
+        if (type >= 0) {
+            mCustomAlert.changeAlertType(type);
+        } else {
+            mCustomAlert.changeAlertType(KAlertDialog.WARNING_TYPE);
+        }
+
+        if (actionCancel != null) {
+            mCustomAlert.setCancelClickListener(actionCancel);
+
+            if (!TextUtils.isEmpty(titleButtonCancel)) {
+                mCustomAlert.setCancelText(titleButtonCancel);
+            } else {
+                mCustomAlert.setCancelText(getString(R.string.KAlert_cancel_button_text));
+            }
+
+            if (bg_button_cancel != 0)
+                mCustomAlert.setCancelButtonBgColor(bg_button_cancel);
         } else {
             mCustomAlert.showCancelButton(false);
         }

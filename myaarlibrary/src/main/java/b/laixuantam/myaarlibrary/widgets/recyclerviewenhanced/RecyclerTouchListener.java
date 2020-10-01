@@ -948,3 +948,299 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener, 
         void onSwipeOptionsOpened();
     }
 }
+
+/**
+
+ =========================== XML ==============================
+ <?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+ android:orientation="vertical">
+
+ <LinearLayout
+ android:id="@+id/rowBG"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_alignParentRight="true"
+ android:gravity="right"
+ android:orientation="horizontal">
+
+
+ <RelativeLayout
+ android:id="@+id/add"
+ android:layout_width="85dp"
+ android:layout_height="match_parent"
+ android:background="@color/blue"
+ android:clickable="true"
+ android:focusable="true"
+ android:orientation="vertical">
+
+ <LinearLayout
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:layout_centerInParent="true"
+ android:background="?android:selectableItemBackground"
+ android:gravity="center"
+ android:orientation="vertical">
+
+ <ImageView
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center"
+ android:src="@mipmap/ic_launcher"
+ android:tint="@android:color/white"/>
+
+ <TextView
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center"
+ android:layout_marginLeft="8dp"
+ android:layout_marginRight="8dp"
+ android:layout_marginTop="4dp"
+ android:ellipsize="end"
+ android:gravity="center"
+ android:maxLines="1"
+ android:text="Add"
+ android:textColor="@android:color/white"
+ android:textSize="12sp"/>
+ </LinearLayout>
+ </RelativeLayout>
+
+ <RelativeLayout
+ android:id="@+id/edit"
+ android:layout_width="85dp"
+ android:layout_height="match_parent"
+ android:background="@color/pdlg_color_green"
+ android:clickable="true"
+ android:focusable="true"
+ android:orientation="vertical">
+
+ <LinearLayout
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:layout_centerInParent="true"
+ android:background="?android:selectableItemBackground"
+ android:gravity="center"
+ android:orientation="vertical">
+
+ <ImageView
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center_horizontal"
+ android:src="@mipmap/ic_launcher"
+ android:tint="@android:color/white"/>
+
+ <TextView
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center_horizontal"
+ android:layout_marginLeft="8dp"
+ android:layout_marginRight="8dp"
+ android:layout_marginTop="4dp"
+ android:ellipsize="end"
+ android:gravity="center"
+ android:maxLines="1"
+ android:text="Edit"
+ android:textColor="@android:color/white"
+ android:textSize="12sp"/>
+ </LinearLayout>
+ </RelativeLayout>
+
+ <RelativeLayout
+ android:id="@+id/change"
+ android:layout_width="85dp"
+ android:layout_height="match_parent"
+ android:background="@color/red"
+ android:clickable="true"
+ android:focusable="true"
+ android:orientation="vertical">
+
+ <LinearLayout
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:layout_centerInParent="true"
+ android:background="?android:selectableItemBackground"
+ android:gravity="center_vertical|left"
+ android:orientation="vertical">
+
+ <ImageView
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center_horizontal"
+ android:tint="@android:color/white"
+ app:srcCompat="@mipmap/ic_launcher"/>
+
+ <TextView
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center_horizontal"
+ android:layout_marginLeft="8dp"
+ android:layout_marginRight="8dp"
+ android:layout_marginTop="4dp"
+ android:ellipsize="end"
+ android:gravity="center"
+ android:maxLines="1"
+ android:text="Change"
+ android:textColor="@android:color/white"
+ android:textSize="12sp"/>
+ </LinearLayout>
+ </RelativeLayout>
+
+ </LinearLayout>
+
+ <LinearLayout
+ android:id="@+id/rowFG"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:background="@android:color/white"
+ android:clickable="true"
+ android:elevation="4dp"
+ android:focusable="true"
+ android:orientation="horizontal"
+ android:visibility="visible">
+
+ <LinearLayout
+ android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+ android:background="?attr/selectableItemBackground"
+ android:orientation="horizontal"
+ android:paddingBottom="16dp"
+ android:paddingLeft="16dp"
+ android:paddingTop="16dp">
+
+ <LinearLayout
+ android:layout_width="0dp"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center_vertical"
+ android:layout_weight="6"
+ android:orientation="vertical">
+
+ <TextView
+ android:id="@+id/mainText"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:maxLines="1"
+ android:textSize="16sp"
+ android:textStyle="bold"
+ tools:text="Row 1"/>
+
+ <TextView
+ android:id="@+id/subText"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_marginTop="2dp"
+ android:maxLines="1"
+ tools:text="Some text ..."/>
+ </LinearLayout>
+
+ <Button
+ android:id="@+id/rowButton"
+ style="?attr/buttonBarButtonStyle"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_gravity="right|center_vertical"
+ android:gravity="right|center_vertical"
+ android:text="Button"/>
+ </LinearLayout>
+
+ </LinearLayout>
+
+ <View
+ android:layout_width="match_parent"
+ android:layout_height="1dp"
+ android:layout_alignParentBottom="true"
+ android:background="#67676767"
+ android:elevation="5dp"/>
+ </RelativeLayout>
+
+
+ =========================== MAIN FUNCTION ==============================
+ private RecyclerTouchListener onTouchListener;
+
+ onTouchListener = new RecyclerTouchListener(this, mRecyclerView);
+ onTouchListener
+ .setIndependentViews(R.id.rowButton)
+ .setViewsToFade(R.id.rowButton)
+ .setClickable(new RecyclerTouchListener.OnRowClickListener() {
+@Override
+public void onRowClicked(int position) {
+if (position < mData.size())
+Toast.makeText(getApplicationContext(), "Row " + (position + 1) + " clicked!", Toast.LENGTH_SHORT).show();
+}
+
+@Override
+public void onIndependentViewClicked(int independentViewID, int position) {
+
+switch (independentViewID) {
+case R.id.rowButton:
+Toast.makeText(getApplicationContext(), "Button in row " + (position + 1) + " clicked!", Toast.LENGTH_SHORT).show();
+break;
+
+}
+
+}
+})
+ .setLongClickable(true, new RecyclerTouchListener.OnRowLongClickListener() {
+@Override
+public void onRowLongClicked(int position) {
+if (position < mData.size())
+Toast.makeText(getApplicationContext(), "Row " + (position + 1) + " long clicked!", Toast.LENGTH_SHORT).show();
+}
+})
+ .setSwipeOptionViews(R.id.add, R.id.edit, R.id.change, R.id.addItemType2, R.id.editItemType2, R.id.changeItemType1)
+ .setSwipeable(R.id.rowFG, R.id.rowBG, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
+@Override
+public void onSwipeOptionClicked(int viewID, int position) {
+String message = "";
+if (viewID == R.id.add) {
+message += "Add";
+} else if (viewID == R.id.edit) {
+message += "Edit";
+} else if (viewID == R.id.change) {
+message += "Change";
+} else if (viewID == R.id.addItemType2) {
+message += "addItemType2";
+} else if (viewID == R.id.editItemType2) {
+message += "editItemType2";
+} else if (viewID == R.id.changeItemType1) {
+
+mData.remove(position);
+multipleAdapter.notifyItemRemoved(position);
+message += "changeItemType1";
+}
+message += " clicked for row " + (position + 1);
+Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+}
+});
+
+
+ @Override
+ protected void onResume() {
+ super.onResume();
+ if (onTouchListener != null)
+ mRecyclerView.addOnItemTouchListener(onTouchListener);
+ }
+
+ @Override
+ protected void onPause() {
+ super.onPause();
+ if (onTouchListener != null)
+ mRecyclerView.removeOnItemTouchListener(onTouchListener);
+ }
+
+ @Override
+ public boolean dispatchTouchEvent(MotionEvent ev) {
+ if (touchListener != null) touchListener.getTouchCoordinates(ev);
+ return super.dispatchTouchEvent(ev);
+ }
+
+ @Override
+ public void setOnActivityTouchListener(OnActivityTouchListener listener) {
+
+ this.touchListener = listener;
+ }
+
+ */

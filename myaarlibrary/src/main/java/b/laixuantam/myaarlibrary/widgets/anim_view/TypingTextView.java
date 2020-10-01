@@ -138,3 +138,13 @@ public class TypingTextView extends TextView {
         public void onTypingAnimationEnd();
     }
 }
+
+//        testText.runTypingAnimation("this is text for test run animate typing...");
+////        testText.setSpeed(50);
+//        testText.setShowDelayBlinkDash(false);
+//        testText.setTypingAnimationListener(new TypingTextView.TypingAnimationListener() {
+//            @Override
+//            public void onTypingAnimationEnd() {
+//                Toast.makeText(getApplicationContext(), "onTypingAnimationEnd", Toast.LENGTH_SHORT).show();
+//            }
+//        });

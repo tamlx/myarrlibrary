@@ -252,4 +252,49 @@
         <attr name="rv_isRippleEnable"/>
     </declare-styleable>
 
+    <declare-styleable name="Pinview">
+        <attr name="pinBackground" format="reference"/>
+        <attr name="pinLength" format="integer"/>
+        <attr name="pinWidth" format="dimension"/>
+        <attr name="pinHeight" format="dimension"/>
+        <attr name="splitWidth" format="dimension"/>
+        <attr name="cursorVisible" format="boolean"/>
+        <attr name="password" format="boolean"/>
+        <attr name="forceKeyboard" format ="boolean"/>
+        <attr name="hint" format="string"/>
+        <attr name="inputType"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
+    <attr name="inputType" format="enum">
+        <enum name="text" value="0"/>
+        <enum name="number" value="1"/>
+    </attr>
+
+    <declare-styleable name="ExpansionHeader">
+        <attr name="expansion_layout" format="reference"/>
+        <attr name="expansion_toggleOnClick" format="boolean"/>
+        <attr name="expansion_headerIndicator" format="reference"/>
+        <attr name="expansion_headerIndicatorRotationExpanded" format="integer"/>
+        <attr name="expansion_headerIndicatorRotationCollapsed" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="ExpansionLayout">
+        <attr name="expansion_expanded" format="boolean"/>
+    </declare-styleable>
+
+    <attr name="expansion_openOnlyOne" format="boolean"/>
+
+    <declare-styleable name="ExpansionsViewGroupFrameLayout">
+        <attr name="expansion_openOnlyOne"/>
+    </declare-styleable>
+    <declare-styleable name="ExpansionsViewGroupLinearLayout">
+        <attr name="expansion_openOnlyOne"/>
+    </declare-styleable>
+    <declare-styleable name="ExpansionsViewGroupRelativeLayout">
+        <attr name="expansion_openOnlyOne"/>
+    </declare-styleable>
+    <declare-styleable name="ExpansionsViewGroupConstraintLayout">
+        <attr name="expansion_openOnlyOne"/>
+    </declare-styleable>
+
 </resources>

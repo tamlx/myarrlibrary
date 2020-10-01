@@ -52,12 +52,12 @@ public class CustomProgressBar extends ProgressBar
                 }
                 else
                 {
-                    getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context, R.color.color_primary), PorterDuff.Mode.MULTIPLY);
+                    getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context, R.color.color_primary_CustomProgressBar), PorterDuff.Mode.MULTIPLY);
                 }
             }
             else
             {
-                getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context, R.color.color_primary), PorterDuff.Mode.MULTIPLY);
+                getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context, R.color.color_primary_CustomProgressBar), PorterDuff.Mode.MULTIPLY);
             }
         }
     }

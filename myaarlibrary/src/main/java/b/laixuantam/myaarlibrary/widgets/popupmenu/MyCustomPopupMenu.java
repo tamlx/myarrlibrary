@@ -30,40 +30,6 @@ import java.util.List;
 
 import b.laixuantam.myaarlibrary.R;
 
-/*
-    //intit
-    ActionItem menu_setting = new ActionItem(0, getString(R.string.menu_setting), getContext().getDrawable(R.drawable.ic_setting_light));
-        ActionItem menu_rate = new ActionItem(1, getString(R.string.menu_rate), null);
-        ActionItem menu_share_fb = new ActionItem(2, getString(R.string.menu_share_fb), null);
-
-        ActionItem menu_share_google = new ActionItem(3, getString(R.string.menu_share_google), null);
-
-        ActionItem menu_remove_ads = new ActionItem(4, getString(R.string.menu_remove_ads), null);
-
-        MyCustomPopupMenu quickAction = new MyCustomPopupMenu(getActivity());
-
-        quickAction.addActionItem(menu_setting);
-        quickAction.addActionItem(menu_rate);
-        quickAction.addActionItem(menu_share_fb);
-        quickAction.addActionItem(menu_share_google);
-        quickAction.addActionItem(menu_remove_ads);
-
-        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
-            @Override
-            public void onItemClick(QuickAction source, int pos, int actionId) {
-            switch (actionId) {
-            case 0:
-            break;
-            }
-            }
-       });
-
-       //call
-        quickAction.show(v);
-
-*/
-
-
 public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener {
     private View mRootView;
     private ImageView mArrowUp;
@@ -568,3 +534,36 @@ public class MyCustomPopupMenu extends PopupWindows implements OnDismissListener
         public abstract void onDismiss();
     }
 }
+
+/*
+    //intit
+    ActionItem menu_setting = new ActionItem(0, getString(R.string.menu_setting), getContext().getDrawable(R.drawable.ic_setting_light));
+        ActionItem menu_rate = new ActionItem(1, getString(R.string.menu_rate), null);
+        ActionItem menu_share_fb = new ActionItem(2, getString(R.string.menu_share_fb), null);
+
+        ActionItem menu_share_google = new ActionItem(3, getString(R.string.menu_share_google), null);
+
+        ActionItem menu_remove_ads = new ActionItem(4, getString(R.string.menu_remove_ads), null);
+
+        MyCustomPopupMenu quickAction = new MyCustomPopupMenu(getActivity());
+
+        quickAction.addActionItem(menu_setting);
+        quickAction.addActionItem(menu_rate);
+        quickAction.addActionItem(menu_share_fb);
+        quickAction.addActionItem(menu_share_google);
+        quickAction.addActionItem(menu_remove_ads);
+
+        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+            @Override
+            public void onItemClick(QuickAction source, int pos, int actionId) {
+            switch (actionId) {
+            case 0:
+            break;
+            }
+            }
+       });
+
+       //call
+        quickAction.show(v);
+
+*/

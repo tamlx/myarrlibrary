@@ -16,34 +16,6 @@ import java.util.List;
 import b.laixuantam.myaarlibrary.R;
 import b.laixuantam.myaarlibrary.helper.PixelHelper;
 
-/**
- ---------------- XML -------------------------
-    <CustomTabButton
-         android:id="@+id/status_tabs"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_centerInParent="true"
-         app:tab_width="80dp" />
-
- ---------------- View -------------------------
-     @UiElement(R.id.status_tabs)
-     public CustomTabButton tabs;
-
- ---------------- init --------------------------
-     String[] tabs = new String[2];
-     tabs[0] = getString(R.string.order_product_status_waiting);
-     tabs[1] = getString(R.string.order_product_status_done);
-
-     ui.tabs.build(tabs, 0, new OnButtonSelected() {
-         @Override
-         public void onButtonSelected(int position) {
-
-         }
-     });
-
- */
-
-
 public class CustomTabButton extends RelativeLayout
 {
     private LinearLayout indicator;
@@ -272,3 +244,30 @@ public class CustomTabButton extends RelativeLayout
         void onButtonSelected(int position);
     }
 }
+
+/**
+ ---------------- XML -------------------------
+ <CustomTabButton
+ android:id="@+id/status_tabs"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_centerInParent="true"
+ app:tab_width="80dp" />
+
+ ---------------- View -------------------------
+ @UiElement(R.id.status_tabs)
+ public CustomTabButton tabs;
+
+ ---------------- init --------------------------
+ String[] tabs = new String[2];
+ tabs[0] = getString(R.string.order_product_status_waiting);
+ tabs[1] = getString(R.string.order_product_status_done);
+
+ ui.tabs.build(tabs, 0, new OnButtonSelected() {
+ @Override
+ public void onButtonSelected(int position) {
+
+ }
+ });
+
+ */

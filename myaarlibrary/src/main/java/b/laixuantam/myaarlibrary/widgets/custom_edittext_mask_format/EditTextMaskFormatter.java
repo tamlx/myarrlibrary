@@ -7,8 +7,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import b.laixuantam.myaarlibrary.helper.NumericFormater;
-
 public class EditTextMaskFormatter implements TextWatcher {
 
     public enum MARK {
@@ -245,6 +243,23 @@ public class EditTextMaskFormatter implements TextWatcher {
 
         return maskedField.getText().toString().replaceAll(String.valueOf(maskCharacter), "");
     }
-
-
 }
+
+/**
+
+ EditText edtCurrency = (EditText) findViewById(R.id.edtCurrency);
+
+ Button btnGetText = (Button) findViewById(R.id.btnGetDataCurrency);
+
+ EditTextMaskFormatter currencyFormat = new EditTextMaskFormatter(EditTextMaskFormatter.MARK.BIRTHDAY, edtCurrency, '-', "99-99-9999");
+
+ edtCurrency.addTextChangedListener(currencyFormat);
+
+ btnGetText.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+Toast.makeText(getApplicationContext(), "ValueEditText: " + currencyFormat.getRawTextValue(), Toast.LENGTH_SHORT).show();
+}
+});
+
+ */

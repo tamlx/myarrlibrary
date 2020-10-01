@@ -6,7 +6,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-public class NumericFormater {
+public class CurrencyFormater {
     private static DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.UK);
     private static DecimalFormat currency = new DecimalFormat("#,###.###", symbols);
     private static NumberFormat numbers = NumberFormat.getNumberInstance(Locale.UK);
@@ -164,10 +164,6 @@ public class NumericFormater {
         }
         return chuoi;
     }
-
-    /**
-     * CurrencyUltils
-     */
 
     public static String LONG_NEGOTIATE = "Thương lượng";
     public static String SHORT_NEGOTIATE = "TL";

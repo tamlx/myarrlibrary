@@ -152,7 +152,7 @@ public class KAlertDialog extends AlertDialog implements View.OnClickListener {
         mProgressFrame.setVisibility(View.GONE);
         mConfirmButton.setVisibility(View.VISIBLE);
 
-        mConfirmButton.setBackgroundResource(R.drawable.button_confirm_alert_dialog);
+        mConfirmButton.setBackgroundResource(R.drawable.alert_dialog_button_confirm_bg);
         mErrorFrame.clearAnimation();
         mErrorX.clearAnimation();
         mSuccessTick.clearAnimation();
@@ -373,12 +373,12 @@ public class KAlertDialog extends AlertDialog implements View.OnClickListener {
         return mConfirmText;
     }
 
-    public KAlertDialog confirmButtonColor(int color) {
-        return setConfirmButtonColor(getContext().getResources().getDrawable(color));
+    public KAlertDialog setConfirmButtonBgColor(int resourceId) {
+        return setConfirmButtonColor(getContext().getResources().getDrawable(resourceId));
     }
 
-    public KAlertDialog cancelButtonColor(int color) {
-        return setCancelButtonColor(getContext().getResources().getDrawable(color));
+    public KAlertDialog setCancelButtonBgColor(int resourceId) {
+        return setCancelButtonColor(getContext().getResources().getDrawable(resourceId));
     }
 
     @Override

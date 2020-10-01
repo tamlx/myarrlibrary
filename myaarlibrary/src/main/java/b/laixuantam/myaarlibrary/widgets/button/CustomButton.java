@@ -11,35 +11,6 @@ import android.util.AttributeSet;
 
 import b.laixuantam.myaarlibrary.R;
 
-/**
-
- -----------------XML-------------------
-     <laixuantam.myaarlibrary.widgets.button.CustomButton
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:layout_margin="10dp"
-     android:text="Hello World!"
-     android:textColor="@android:color/white"
-     app:qb_backgroundColor="@color/btnGreen"
-     app:qb_radius="100"
-     app:qb_strokeColor="@color/colorPrimary"
-     app:qb_strokeDashWidth="90"
-     app:qb_strokeWidth="5" />
-
- -----------------CODE------------------------
-     CustomButton cButton = (CustomButton) findViewById(R.id.btn);
-
-     cButton.setCornerRadious(5);
-     cButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-     cButton.setStrokeWidth(5);
-     cButton.setStrokeDashGap(5);
-     cButton.setCornerRadious(40);
-     cButton.setStrokeDashWidth(90);
-     cButton.setStrokeColor(getResources().getColor(R.color.colorPrimaryDark));
-
- */
-
-
 public class CustomButton extends AppCompatButton {
     private int mRadius;
     private int mStrokeDashWidth, mStrokeDashGap;
@@ -139,3 +110,31 @@ public class CustomButton extends AppCompatButton {
     }
 
 }
+
+/**
+
+ -----------------XML-------------------
+ <laixuantam.myaarlibrary.widgets.button.CustomButton
+ android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+ android:layout_margin="10dp"
+ android:text="Hello World!"
+ android:textColor="@android:color/white"
+ app:qb_backgroundColor="@color/btnGreen"
+ app:qb_radius="100"
+ app:qb_strokeColor="@color/colorPrimary"
+ app:qb_strokeDashWidth="90"
+ app:qb_strokeWidth="5" />
+
+ -----------------CODE------------------------
+ CustomButton cButton = (CustomButton) findViewById(R.id.btn);
+
+ cButton.setCornerRadious(5);
+ cButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+ cButton.setStrokeWidth(5);
+ cButton.setStrokeDashGap(5);
+ cButton.setCornerRadious(40);
+ cButton.setStrokeDashWidth(90);
+ cButton.setStrokeColor(getResources().getColor(R.color.colorPrimaryDark));
+
+ */

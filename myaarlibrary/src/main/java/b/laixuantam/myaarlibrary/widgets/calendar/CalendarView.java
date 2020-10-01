@@ -36,6 +36,7 @@ import b.laixuantam.myaarlibrary.widgets.calendar.recyclerview.PageRecyclerView;
 import b.laixuantam.myaarlibrary.widgets.calendar.recyclerview.SpeedScrollLinearLayoutManager;
 import b.laixuantam.myaarlibrary.widgets.calendar.util.DateUtil;
 
+//app demo booking vé máy bay
 public class CalendarView extends LinearLayout
 {
 

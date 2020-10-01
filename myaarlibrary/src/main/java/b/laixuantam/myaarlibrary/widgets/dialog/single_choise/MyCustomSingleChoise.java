@@ -67,3 +67,29 @@ public class MyCustomSingleChoise {
     }
 }
 
+/**
+
+ private String[] arr_gender = new String[2];
+
+ private void initDataGender() {
+ arr_gender[0] = "Nam";
+ arr_gender[1] = "Nữ";
+ }
+
+ private int positionGenderSelected = -1;
+
+ private void showDialogSelectCustomerGender() {
+ MyCustomSingleChoise option = new MyCustomSingleChoise(getContext(), "Chọn giới tính", positionGenderSelected, arr_gender, new MyCustomSingleChoise.MyCustomSingleChoiseListener() {
+@Override
+public void onItemSelected(int pos) {
+positionGenderSelected = pos;
+ui.tvCustomerGender.setText(arr_gender[pos]);
+}
+
+});
+ option.setCancelable(true);
+ option.show();
+ }
+
+
+ */
