@@ -1,4 +1,4 @@
-package b.laixuantam.myaarlibrary.widgets.scaletouchlistener;
+package b.laixuantam.myaarlibrary.widgets.touch_view_anim.scaletouchlistener;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

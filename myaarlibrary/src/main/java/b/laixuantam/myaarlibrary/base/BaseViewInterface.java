@@ -8,8 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public interface BaseViewInterface<C extends BaseUiContainer>
-{
+public interface BaseViewInterface<C extends BaseUiContainer> {
     View inflate(LayoutInflater inflater, ViewGroup container);
 
     C getUiContainer();
