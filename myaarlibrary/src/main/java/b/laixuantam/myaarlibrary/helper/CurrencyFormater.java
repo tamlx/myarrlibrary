@@ -21,6 +21,11 @@ public class CurrencyFormater {
         return currency.format(value);
     }
 
+    public static synchronized String formatCurrency(String value) {
+        double dValue = parseCurrency(value);
+        return currency.format(dValue);
+    }
+
     public static synchronized double parseCurrency(String value) {
         try {
             return currency.parse(value).doubleValue();

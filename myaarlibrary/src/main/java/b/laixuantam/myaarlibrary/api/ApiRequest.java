@@ -101,7 +101,7 @@ public abstract class ApiRequest<S, T, P> {
                         try {
                             errorMessage = mGson.fromJson(response.errorBody().string(), ErrorApiResponse.class);
                             callback.onError(errorMessage);
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                             if (callback != null) {
                                 processFailure(e, callback);
@@ -144,6 +144,8 @@ public abstract class ApiRequest<S, T, P> {
 
         if (throwable instanceof IOException) {
             return RequestError.ERROR_NETWORK_CANCELLED;
+        } else if (throwable instanceof IllegalStateException) {
+            return RequestError.ERROR_PARSER_JSON;
         } else if (cause.contains("SocketTimeoutException") || message.contains("timeout") || message.contains("failed to connect")) {
             return RequestError.ERROR_NETWORK_TIMEOUT;
         } else if (!connectivityHelper.hasInternetConnection()) {
@@ -159,6 +161,7 @@ public abstract class ApiRequest<S, T, P> {
         ERROR_NETWORK_CANCELLED,                        // network call cancelled
         ERROR_NETWORK_TIMEOUT,                          // network timeout
         ERROR_NETWORK_NO_CONNECTION,                    // no Internet connection
+        ERROR_PARSER_JSON,
         ERROR_NETWORK_OTHER                            // other network error
     }
 
