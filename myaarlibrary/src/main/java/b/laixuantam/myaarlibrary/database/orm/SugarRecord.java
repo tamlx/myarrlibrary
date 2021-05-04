@@ -289,7 +289,7 @@ public class SugarRecord {
     }
 
     public static <T> long sum(Class<T> type, String field) {
-        return sum(type, field, null, null);
+        return sum(type, field, null, (String[]) null);
     }
 
     public static <T> long sum(Class<T> type, String field, String whereClause, String... whereArgs) {
